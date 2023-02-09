@@ -2,11 +2,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-@router.get("/api/auth/login")
-def login():
-    """ todo auth check, and redirect if not logged in """
-    pass
-
+# todo validation
 @router.post("/api/auth/login")
 def login():
     """ todo auth check 
@@ -14,16 +10,13 @@ def login():
     """
     pass
 
-@router.get("/api/auth/register")
-def register():
-    """ todo auth check, and redirect if not logged in """
-    pass
-
+# todo validation
 @router.post("/api/auth/register")
 def register():
     pass
 
-
 @router.get("/api/auth/logout")
 def logout():
+    # todo delete session
     pass
+
