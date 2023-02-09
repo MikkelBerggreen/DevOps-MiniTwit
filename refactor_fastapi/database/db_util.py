@@ -4,6 +4,7 @@ from contextlib import closing
 
 def connect_db(DATABASE_URL):
     """Returns a new connection to the database."""
+    print(DATABASE_URL)
     return sqlite3.connect(DATABASE_URL)
 
 

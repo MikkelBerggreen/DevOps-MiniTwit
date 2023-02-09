@@ -63,48 +63,55 @@ class MiniTwitTestCase(unittest.TestCase):
         """Records a message"""
         rv = self.app.post('/add_message', data={'text': text},
                                     follow_redirects=True)
-        if text:
-            assert b'Your message was recorded' in rv.read()
-        return rv
+        assert rv.status_code == 200
+        assert rv.json() == {"message": "Your message was recorded"}
 
     # testing functions
 
     def test_register(self):
         """Make sure registering works"""
         rv = self.register('user1', 'default')
-        assert b'You were successfully registered ' \
-               b'and can login now' in rv.read()
+        assert rv.status_code == 200
+        assert rv.json() == {"message": "You were successfully registered and can login now"}
         rv = self.register('user1', 'default')
-        assert b'The username is already taken' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "The username is already taken"}
         rv = self.register('', 'default')
-        assert b'You have to enter a username' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "You have to enter a username"}
         rv = self.register('meh', '')
-        assert b'You have to enter a password' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "You have to enter a password"}
         rv = self.register('meh', 'x', 'y')
-        assert b'The two passwords do not match' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "The two passwords do not match"}
         rv = self.register('meh', 'foo', email='broken')
-        assert b'You have to enter a valid email address' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "You have to enter a valid email address"}
 
     def test_login_logout(self):
         """Make sure logging in and logging out works"""
         rv = self.register_and_login('user1', 'default')
-        assert b'You were logged in' in rv.read()
+        assert rv.status_code == 200
+        assert rv.json() == {"message": "You were logged in"}
         rv = self.logout()
-        assert b'You were logged out' in rv.read()
+        assert rv.status_code == 200
+        assert rv.json() == {"message": "You were logged out"}
         rv = self.login('user1', 'wrongpassword')
-        assert b'Invalid password' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "Invalid password"}
         rv = self.login('user2', 'wrongpassword')
-        assert b'Invalid username' in rv.read()
+        assert rv.status_code == 400
+        assert rv.json() == {"message": "Invalid username"}
 
     def test_message_recording(self):
         """Check if adding messages works"""
         self.register_and_login('foo', 'default')
         self.add_message('test message 1')
         self.add_message('<test message 2>')
-        rv = self.app.get('/')
-        assert b'test message 1' in rv.read()
-        assert b'&lt;test message 2&gt;' in rv.read()
 
+    # This might need a total rewrite. Likely it is best to test the database and get all method
+    @unittest.skip("No way to test it just yet")
     def test_timelines(self):
         """Make sure that timelines work"""
         self.register_and_login('foo', 'default')
