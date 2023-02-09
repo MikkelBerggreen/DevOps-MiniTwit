@@ -1,13 +1,17 @@
 from fastapi import FastAPI
+import database
 
 # configuration
-DATABASE = './minitwit.db'
+DATABASE_URL = './minitwit.db'
 PER_PAGE = 30
 DEBUG = True
 
 app = FastAPI()
 
-# Import routers
+# database
+
+
+# import routers
 import routers
 
 app.include_router(routers.pages_router)
@@ -15,13 +19,5 @@ app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 
-
-
-# todo delete this.. i have it as an example
-import database
-
-db = database.connect_db(DATABASE)
-cursor = db.cursor()
-cursor.execute('SELECT * FROM user LIMIT 4')
 
 

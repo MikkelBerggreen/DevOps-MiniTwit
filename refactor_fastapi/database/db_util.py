@@ -1,11 +1,12 @@
 import sqlite3
 from contextlib import closing
 
+# todo - refactor to avoid duplicate
+DATABASE_URL = './minitwit.db'
 
 def connect_db(DATABASE_URL):
     """Returns a new connection to the database."""
     return sqlite3.connect(DATABASE_URL)
-
 
 def init_db():
     """Creates the database tables."""
@@ -15,3 +16,17 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit() """
     
+def query_db(query, args=(), one=False):
+    """Queries the database and returns a list of dictionaries."""
+    db = connect_db(DATABASE_URL)
+    cur = db.execute(query, args)
+    rv = [dict((cur.description[idx][0], value)
+               for idx, value in enumerate(row)) for row in cur.fetchall()]
+    return (rv[0] if rv else None) if one else rv
+
+def get_user_id(username):
+    """Convenience method to look up the id for a username."""
+    # rv = g.db.execute('select user_id from user where username = ?',
+    #                    [username]).fetchone()
+    # return rv[0] if rv else None
+    pass
