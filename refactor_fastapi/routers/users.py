@@ -16,3 +16,4 @@ def follow_user(username: str):
 def post_message():
     # todo should redirect if we use Jinja
     pass
+

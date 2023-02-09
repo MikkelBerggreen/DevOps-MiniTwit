@@ -18,8 +18,9 @@ app.include_router(routers.auth_router)
 
 
 # todo delete this.. i have it as an example
-import database.connection as db
+import database
 
+db = database.connect_db(DATABASE)
 cursor = db.cursor()
 cursor.execute('SELECT * FROM user LIMIT 4')
 
