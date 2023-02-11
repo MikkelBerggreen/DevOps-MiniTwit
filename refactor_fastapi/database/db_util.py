@@ -26,7 +26,12 @@ def query_db(query, args=(), one=False):
 
 def get_user_id(username):
     """Convenience method to look up the id for a username."""
-    # rv = g.db.execute('select user_id from user where username = ?',
-    #                    [username]).fetchone()
-    # return rv[0] if rv else None
-    pass
+    db = connect_db(DATABASE_URL)
+    rv = db.execute('select user_id from user where username = ?',
+                       [username]).fetchone()
+    return rv[0] if rv else None
+
+def execute_db(query, args=()):
+    db = connect_db(DATABASE_URL)
+    db.execute(query, args)
+    db.commit()
