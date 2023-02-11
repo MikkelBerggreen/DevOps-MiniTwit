@@ -10,6 +10,8 @@ packages = [{include = "refactor_fastapi"}]
 python = "^3.11"
 fastapi = "^0.90.0"
 uvicorn = "^0.20.0"
+python-multipart = "^0.0.5"
+itsdangerous = "^2.1.2"
 
 
 [build-system]

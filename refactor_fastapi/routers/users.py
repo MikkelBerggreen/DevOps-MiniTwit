@@ -49,6 +49,6 @@ def post_message(text: str):
         raise HTTPException(status_code=401, detail="Not authorized")
     if text:
         execute_db('''insert into message (author_id, text, pub_date, flagged)
-            values (?, ?, ?, 0)''', (user_id, text, int(time.time())))
+            values (?, ?, ?, 0)''', [user_id, text, int(time.time())])
     return 'Your message "%s" was recorded' % text
 
