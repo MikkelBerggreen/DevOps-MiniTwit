@@ -20,5 +20,3 @@ app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 
-
-
