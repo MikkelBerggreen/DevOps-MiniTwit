@@ -1,27 +1,22 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from starlette.middleware.sessions import SessionMiddleware
+import routers
+import util
 
 # configuration
-DATABASE = './minitwit.db'
+DATABASE_URL = './minitwit.db'
+SECRET_KEY = '!secret'
 PER_PAGE = 30
 DEBUG = True
 
 app = FastAPI()
 
-# Import routers
-import routers
+# middleware
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
+# import routers
 app.include_router(routers.pages_router)
 app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
-
-
-
-# todo delete this.. i have it as an example
-import database
-
-db = database.connect_db(DATABASE)
-cursor = db.cursor()
-cursor.execute('SELECT * FROM user LIMIT 4')
-
 
