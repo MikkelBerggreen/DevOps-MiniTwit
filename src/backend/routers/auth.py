@@ -4,7 +4,7 @@ from database import query_db, insert_in_db
 router = APIRouter()
 
 @router.post("/api/auth/login")
-def login(request: Request, username: str = Form(), password: str = Form()):
+def login(request: Request, username: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from user where username = ?''',
                     [username], one=True)
@@ -18,7 +18,7 @@ def login(request: Request, username: str = Form(), password: str = Form()):
 
 
 @router.post("/api/auth/register")
-def register(username: str = Form(), email: str = Form(), password: str = Form()):
+def register(username: str = Form(""), email: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from user where username = ?''',
                     [username], one=True)
