@@ -1,6 +1,9 @@
 # Docker Dev Environments File
 compose-dev.yaml
 
+# The database should not be pushed
+minitwit.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
