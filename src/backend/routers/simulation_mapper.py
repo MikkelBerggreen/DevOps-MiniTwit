@@ -37,7 +37,7 @@ class Registration(BaseModel):
     email: str
     pwd: str
 
-@router.post("/register", status_code=203)
+@router.post("/register", status_code=204)
 def _(response: Response, body: Registration):
     user = query_db('''
         select * from user where username = ?''',
