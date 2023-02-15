@@ -18,6 +18,7 @@ app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 # import routers
+app.include_router(routers.simulation_mapper_router)
 app.include_router(routers.pages_router)
 app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
