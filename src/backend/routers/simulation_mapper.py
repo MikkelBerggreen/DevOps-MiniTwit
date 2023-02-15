@@ -1,8 +1,8 @@
 import time
 from typing import Union
-from fastapi import APIRouter, Response, Form, Query
+from fastapi import APIRouter, Request, Response, Form, Query
 from fastapi.responses import RedirectResponse
-from database import query_db, insert_in_db, get_user_id
+from database import query_db, insert_in_db, get_user_id, execute_db
 
 router = APIRouter()
 
@@ -11,35 +11,24 @@ def _():
     return RedirectResponse("/api/timelines/", status_code=307)
 
 # This is a route that bypasses authorization and our session so it is implemented here
-@router.get("/msgs/{username}")
-def _(response: Response, username: str, no: Union[str, None] = Query(default=100)):
-    user_id = get_user_id(username)
-    if not user_id:
-        response.status_code = 403
-        return
-
-    number_of_messages = no
-    query = """SELECT message.*, user.* FROM message, user 
-                WHERE message.flagged = 0 AND
-                user.user_id = message.author_id AND user.user_id = ?
-                ORDER BY message.pub_date DESC LIMIT ?"""
-    messages = query_db(query, [user_id, number_of_messages])
-
-    return messages
+@router.get("/msgs/{username}", status_code=204)
+def _(username: str, latest: Union[str, None] = Query(default=100)):
+    print("*"*100)
+    return RedirectResponse(f"/api/timelines/{username}?PER_PAGE={latest}", status_code=307)
 
 # This is a route that bypasses authorization and our session so it is implemented here
 @router.post("/msgs/{username}", status_code=204)
-def _(response: Response, username: str, content: str = Form("")):
+def _(request: Request, username: str, content: str = Form(default="")):
     user_id = get_user_id(username)
-    if not user_id:
-        response.status_code = 403
-        return
-    insert_in_db("""INSERT INTO message (author_id, text, pub_date, flagged)
-                   VALUES (?, ?, ?, 0)""",
-                   [user_id, content, int(time.time())]
-    )
-    return 
-    
+    if user_id is None:
+        return Response(status_code=403)
+
+    # passing a body when redirecting is not supported
+    # https://github.com/tiangolo/fastapi/issues/3963
+    # thus, I must implement the route here
+    execute_db('''insert into message (author_id, text, pub_date, flagged)
+            values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
+    return 'Your message "%s" was recorded' % content
 
 @router.post("/register")
 def _():
@@ -48,5 +37,3 @@ def _():
 
 # @router.post("/fllws/{username}")
 # def _(username: str):
-#     pass
-#     # return RedirectResponse("/api/auth/register", status_code=307)

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response, Form
 from database import execute_db, get_user_id
 import time
 
@@ -37,14 +37,15 @@ def unfollow_user(request: Request, username: str):
     # todo add flash message
     return 'You are no longer following "%s"' % username
 
-@router.get("/api/users/messages")
-def post_message(request: Request, text: str):
+@router.post("/api/users/messages")
+def post_message(request: Request, response: Response, content: str = Form(..., min_length=1)):
     """Registers a new message for the user."""
     user_id = request.session['user_id']
 
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
-    if text:
-        execute_db('''insert into message (author_id, text, pub_date, flagged)
-            values (?, ?, ?, 0)''', [user_id, text, int(time.time())])
-    return 'Your message "%s" was recorded' % text
+
+    execute_db('''insert into message (author_id, text, pub_date, flagged)
+            values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
+    response.status_code = 204
+    return 'Your message "%s" was recorded' % content
