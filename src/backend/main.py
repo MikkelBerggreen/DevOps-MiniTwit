@@ -4,7 +4,6 @@ import routers
 import util
 
 # configuration
-DATABASE_URL = './minitwit.db'
 SECRET_KEY = '!secret'
 PER_PAGE = 30
 DEBUG = True
