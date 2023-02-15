@@ -1,0 +1,21 @@
+======================
+31/01/23 
+======================
+- Inherited the project. 
+- Refactored the project from Python v. 2 -> 3
+
+
+======================
+07/02/23 
+======================
+- Discussed refactoring strategy (new/known language) (arguments kept in google docs document)
+  - Choice: Python with FastAPI framework instead of Flask
+- Discussed collaboration using Git (branching model, pull-request approvals, github issues for kanban board)
+- Setup session for thursday (09/02/23) on starting the refactoring (starting a server, writing routes).
+
+
+======================
+09/02/23 
+======================
+- Session on starting the refactoring (starting a server, writing routes).
+- Created new issues and delegated work for the release of the week (refactoring Flask to FastAPI)

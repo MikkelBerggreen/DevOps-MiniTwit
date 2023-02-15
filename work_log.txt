@@ -1,6 +1,0 @@
-======================
-1/31 
-======================
-- Inherited the project. 
-- Refactored the project from Python v. 2 -> 3
-
