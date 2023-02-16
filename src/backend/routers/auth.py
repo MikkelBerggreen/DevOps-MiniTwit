@@ -3,7 +3,7 @@ from database import query_db, insert_in_db
 
 router = APIRouter()
 
-@router.post("/api/auth/login")
+@router.post("/login")
 def login(request: Request, username: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from user where username = ?''',
@@ -17,7 +17,7 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
 # TODO validation
 
 
-@router.post("/api/auth/register")
+@router.post("/register")
 def register(username: str = Form(""), email: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from user where username = ?''',
@@ -32,7 +32,7 @@ def register(username: str = Form(""), email: str = Form(""), password: str = Fo
         return {"success": "register success"}
 
 
-@router.get("/api/auth/logout")
+@router.get("/logout")
 def logout(request: Request):
     request.session.pop('user_id', None)
     return {"success": "logout success"}
