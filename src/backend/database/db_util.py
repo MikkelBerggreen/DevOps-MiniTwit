@@ -1,12 +1,10 @@
 import sqlite3
 from contextlib import closing
 
-# todo - refactor to avoid duplicate
-DATABASE_URL = './tmp/minitwit.db'
+DATABASE_URL = '/tmp/minitwit.db'
 
 def connect_db(DATABASE_URL):
     """Returns a new connection to the database."""
-    print(DATABASE_URL)
     return sqlite3.connect(DATABASE_URL)
 
 def init_db():

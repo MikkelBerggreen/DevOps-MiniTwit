@@ -4,7 +4,7 @@ from database import query_db
 
 router = APIRouter()
 
-@router.get("/api/timelines/")
+@router.get("/api/timelines/", status_code=204)
 def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     # todo auth check
 
@@ -29,12 +29,12 @@ def public_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
         order by message.pub_date desc limit ?;''', [PER_PAGE])
     return messages
 
-@router.get("/api/timelines/{username}")
+@router.get("/api/timelines/{username}", status_code=204)
 def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30)):
     profile_user = query_db('select * from user where username = ?',
                             [username], one=True)
     if profile_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=403, detail="User not found")
     else:
         messages = query_db('''
             select message.*, user.* from message, user

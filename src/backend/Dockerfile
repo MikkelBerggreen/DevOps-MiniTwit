@@ -9,6 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+# Install pip
+RUN apt update -y
+RUN apt install python3-pip -y
+RUN alias python="python3"
+
 # Install pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
