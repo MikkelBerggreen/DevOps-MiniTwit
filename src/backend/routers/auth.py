@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, Request, Response
 from database import query_db, insert_in_db
 
 router = APIRouter()
@@ -23,8 +23,10 @@ def register(username: str = Form(""), email: str = Form(""), password: str = Fo
         select * from user where username = ?''',
                     [username], one=True)
     if user is not None:
+        response.status_code = 403
         return {"error": "username already exists"}
     else:
+        response.status_code = 204
         insert_in_db('''
             insert into user (username, email, pw_hash)
             values (?, ?, ?)''',
