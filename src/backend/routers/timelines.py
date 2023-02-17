@@ -12,21 +12,21 @@ def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     user_id = 1
 
     messages = query_db('''
-        select message.*, user.* from message, user
-        where message.flagged = 0 and message.author_id = user.user_id and (
-            user.user_id = ? or
-            user.user_id in (select whom_id from follower
+        select messages.*, users.* from messages, users
+        where messages.flagged = 0 and messages.author_id = users.user_id and (
+            users.user_id = ? or
+            users.user_id in (select whom_id from followers
                                     where who_id = ?))
-        order by message.pub_date desc limit ?''',
+        order by messages.pub_date desc limit ?''',
         [user_id, user_id, PER_PAGE])
     return messages
 
 @router.get("/api/timelines/public")
 def public_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     messages = query_db('''
-        select message.*, user.* from message, user
-        where message.flagged = 0 and message.author_id = user.user_id
-        order by message.pub_date desc limit ?;''', [PER_PAGE])
+        select messages.*, users.* from messages, users
+        where messages.flagged = 0 and messages.author_id = users.user_id
+        order by messages.pub_date desc limit ?;''', [PER_PAGE])
     return messages
 
 @router.get("/api/timelines/{username}", status_code=204)
@@ -37,9 +37,9 @@ def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30))
         raise HTTPException(status_code=403, detail="User not found")
     else:
         messages = query_db('''
-            select message.*, user.* from message, user
-            where message.author_id = user.user_id and user.user_id = ?
-            order by message.pub_date desc limit ?;''', [profile_user['user_id'], PER_PAGE])
+            select messages.*, users.* from messages, users
+            where messages.author_id = users.user_id and users.user_id = ?
+            order by messages.pub_date desc limit ?;''', [profile_user['user_id'], PER_PAGE])
         return messages
 
 
