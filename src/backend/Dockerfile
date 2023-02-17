@@ -18,6 +18,10 @@ RUN alias python="python3"
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
+# Create the database
+RUN apt get install sqlite3
+RUN python ./util/initialize_db.py
+
 WORKDIR /app
 COPY . /app
 

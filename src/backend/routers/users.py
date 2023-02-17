@@ -15,7 +15,7 @@ def follow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('insert into follower (who_id, whom_id) values (?, ?)',
+    execute_db('insert into followers (who_id, whom_id) values (?, ?)',
                 [user_id, whom_id])
     
     # todo add flash message
@@ -31,7 +31,7 @@ def unfollow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('delete from follower where who_id=? and whom_id=?',
+    execute_db('delete from followers where who_id=? and whom_id=?',
                 [user_id, whom_id])
     
     # todo add flash message
@@ -45,7 +45,7 @@ def post_message(request: Request, response: Response, content: str = Form(..., 
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
 
-    execute_db('''insert into message (author_id, text, pub_date, flagged)
+    execute_db('''insert into messages (author_id, text, pub_date, flagged)
             values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
     response.status_code = 204
     return 'Your message "%s" was recorded' % content
