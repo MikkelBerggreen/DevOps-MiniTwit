@@ -26,7 +26,7 @@ def insert_in_db(query, args=()):
 def get_user_id(username):
     """Convenience method to look up the id for a username."""
     db = connect_db()
-    rv = db.execute('select user_id from user where username = ?',
+    rv = db.execute('select user_id from users where username = ?',
                        [username]).fetchone()
     return rv[0] if rv else None
 
