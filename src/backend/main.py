@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from starlette.middleware.sessions import SessionMiddleware
+from fastapi.staticfiles import StaticFiles
 import routers
 import util
 from dotenv import dotenv_values
@@ -24,3 +25,5 @@ app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 
+# style reference
+app.mount("/static", StaticFiles(directory="styles"), name="styles")

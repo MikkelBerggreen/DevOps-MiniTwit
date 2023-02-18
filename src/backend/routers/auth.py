@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Form, Request, Response
 from database import query_db, insert_in_db
+from fastapi.responses import RedirectResponse
+import hashlib
 
 router = APIRouter()
 
@@ -8,11 +10,15 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from users where username = ?''',
                     [username], one=True)
-    if user is None or not hash(password) == user['pw_hash']:
-        return {"error": "username not found"}
+    
+    hashed_pw = hashlib.md5(password.encode())
+    if user is None or not hashed_pw.hexdigest() == user['pw_hash']:
+        request.session['error'] = "username not found"
+        return RedirectResponse("/login", status_code=302)
     else:
-        request.session['user_id'] = user['id']
-        return {"success": "login success"}
+        request.session.pop('error', None)
+        request.session['user_id'] = user['user_id']
+        return RedirectResponse("/", status_code=302)
 
 # TODO validation
 
@@ -24,17 +30,20 @@ def register(response: Response, username: str = Form(""), email: str = Form("")
                     [username], one=True)
     if user is not None:
         response.status_code = 403
-        return {"error": "username already exists"}
+        request.session['error'] = "username already exists"
+        return RedirectResponse("/register", status_code=302)
     else:
+        request.session.pop('error', None)
         response.status_code = 204
+        hashed_pw = hashlib.md5(password.encode())
         insert_in_db('''
             insert into users (username, email, pw_hash)
             values (?, ?, ?)''',
-                     [username, email, hash(password)])
-        return {"success": "register success"}
+                     [username, email, hashed_pw.hexdigest()])
+        return RedirectResponse("/login", status_code=302)
 
 
-@router.get("/api/auth/logout")
+@router.get("/logout")
 def logout(request: Request):
     request.session.pop('user_id', None)
-    return {"success": "logout success"}
+    return RedirectResponse("/public", status_code=302)

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request, Response, Form, Query
+from fastapi.responses import RedirectResponse
 from database import execute_db, get_user_id, query_db
 from typing import Union
 import time
@@ -34,7 +35,7 @@ def follow_user(request: Request, username: str):
                [user_id, whom_id])
 
     # todo add flash message
-    return 'You are now following "%s"' % username
+    return RedirectResponse("/timeline/"  + username, status_code=302)
 
 
 @router.get("/api/users/{username}/unfollow")
@@ -50,18 +51,17 @@ def unfollow_user(request: Request, username: str):
                [user_id, whom_id])
 
     # todo add flash message
-    return 'You are no longer following "%s"' % username
+    return RedirectResponse("/timeline/" + username, status_code=302)
 
 
 @router.post("/api/users/messages")
-def post_message(request: Request, response: Response, content: str = Form(..., min_length=1)):
+def post_message(request: Request, response: Response, text: str = Form(..., min_length=1)):
     """Registers a new message for the user."""
     user_id = request.session['user_id']
 
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
 
-    execute_db('''insert into messages (author_id, text, pub_date, flagged)
-            values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
-    response.status_code = 204
-    return 'Your message "%s" was recorded' % content
+    execute_db('''insert into message (author_id, text, pub_date, flagged)
+            values (?, ?, ?, 0)''', [user_id, text, int(time.time())])
+    return RedirectResponse("/", status_code=302)
