@@ -87,3 +87,7 @@ def _(username: str, response: Response, body: FollowMessage):
             [user_id, unfollows_user_id])
         response.status_code = 204
         return ""
+
+    return {"error": "invalid request: missing the value of 'follow' or 'unfollow' in the body"}
+
+    
