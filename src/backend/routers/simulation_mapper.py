@@ -21,8 +21,6 @@ def _(username: str, latest: Union[str, None] = Query(default=100)):
 def _(request: Request, username: str, content: str = Form(default="")):
     user_id = get_user_id(username)
     if user_id is None:
-        print("*"*100)
-        print(user_id, username, "|")
         return Response(status_code=403)
 
     # passing a body when redirecting is not supported
@@ -52,6 +50,40 @@ def _(response: Response, body: Registration):
                      [body.username, body.email, hash(body.pwd)])
     return {"success": "register success"}
 
+class FollowMessage(BaseModel):
+    follow: Union[str, None]
+    unfollow: Union[str, None]
 
-# @router.post("/fllws/{username}")
-# def _(username: str):
+@router.get("/fllws/{username}")
+def _(username: str, no: Union[str, None] = Query(default=100)):
+    return RedirectResponse(f"/api/users/{username}/followers?no={no}", status_code=307)
+
+@router.post("/fllws/{username}")
+def _(username: str, response: Response, body: FollowMessage):
+    user_id = get_user_id(username)
+    if user_id is None:
+        return Response(status_code=403)
+
+    if body.follow is not None:
+        follows_username = body.follow
+        follows_user_id = get_user_id(follows_username)
+        if not follows_user_id:
+            response.status_code = 404
+            return {"error": "user doesn't exist"}
+        insert_in_db('''
+            INSERT INTO followers (who_id, whom_id) VALUES (?, ?)''',
+            [user_id, follows_user_id])
+        response.status_code = 204
+        return ""
+
+    elif body.unfollow is not None:
+        unfollows_username = body.unfollow
+        unfollows_user_id = get_user_id(unfollows_username)
+        if not unfollows_user_id:
+            response.status_code = 404
+            return {"error": "user doesn't exist"}
+        insert_in_db('''
+            DELETE FROM followers WHERE who_id=? and WHOM_ID=?''',
+            [user_id, unfollows_user_id])
+        response.status_code = 204
+        return ""
