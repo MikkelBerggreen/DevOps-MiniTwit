@@ -25,4 +25,5 @@ app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# style reference
+app.mount("/static", StaticFiles(directory="styles"), name="styles")
