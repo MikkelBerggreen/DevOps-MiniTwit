@@ -4,7 +4,7 @@ from database import query_db
 
 router = APIRouter()
 
-@router.get("/api/timelines/", status_code=204)
+@router.get("/api/timelines/", status_code=200)
 def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     # todo auth check
 
@@ -41,5 +41,3 @@ def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30))
             where messages.author_id = users.user_id and users.user_id = ?
             order by messages.pub_date desc limit ?;''', [profile_user['user_id'], PER_PAGE])
         return messages
-
-
