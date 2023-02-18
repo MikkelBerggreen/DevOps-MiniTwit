@@ -8,7 +8,7 @@ router = APIRouter()
 @router.post("/api/auth/login")
 def login(request: Request, username: str = Form(""), password: str = Form("")):
     user = query_db('''
-        select * from user where username = ?''',
+        select * from users where username = ?''',
                     [username], one=True)
     
     hashed_pw = hashlib.md5(password.encode())
@@ -26,7 +26,7 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
 @router.post("/api/auth/register")
 def register(response: Response, username: str = Form(""), email: str = Form(""), password: str = Form("")):
     user = query_db('''
-        select * from user where username = ?''',
+        select * from users where username = ?''',
                     [username], one=True)
     if user is not None:
         response.status_code = 403
@@ -37,7 +37,7 @@ def register(response: Response, username: str = Form(""), email: str = Form("")
         response.status_code = 204
         hashed_pw = hashlib.md5(password.encode())
         insert_in_db('''
-            insert into user (username, email, pw_hash)
+            insert into users (username, email, pw_hash)
             values (?, ?, ?)''',
                      [username, email, hashed_pw.hexdigest()])
         return RedirectResponse("/login", status_code=302)

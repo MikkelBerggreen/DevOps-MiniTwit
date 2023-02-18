@@ -28,7 +28,7 @@ def _(request: Request, username: str, content: str = Form(default="")):
     # passing a body when redirecting is not supported
     # https://github.com/tiangolo/fastapi/issues/3963
     # thus, I must implement the route here
-    execute_db('''insert into message (author_id, text, pub_date, flagged)
+    execute_db('''insert into messages (author_id, text, pub_date, flagged)
             values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
     return 'Your message "%s" was recorded' % content
 
@@ -40,14 +40,14 @@ class Registration(BaseModel):
 @router.post("/register", status_code=204)
 def _(response: Response, body: Registration):
     user = query_db('''
-        select * from user where username = ?''',
+        select * from users where username = ?''',
                     [body.username], one=True)
     if user is not None:
         response.status_code = 403
         return {"error": "username already exists"}
     else:
         insert_in_db('''
-            insert into user (username, email, pw_hash)
+            insert into users (username, email, pw_hash)
             values (?, ?, ?)''',
                      [body.username, body.email, hash(body.pwd)])
     return {"success": "register success"}

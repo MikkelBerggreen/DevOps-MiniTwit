@@ -16,7 +16,7 @@ def follow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('insert into follower (who_id, whom_id) values (?, ?)',
+    execute_db('insert into followers (who_id, whom_id) values (?, ?)',
                 [user_id, whom_id])
     
     # todo add flash message
@@ -32,7 +32,7 @@ def unfollow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('delete from follower where who_id=? and whom_id=?',
+    execute_db('delete from followers where who_id=? and whom_id=?',
                 [user_id, whom_id])
     
     # todo add flash message
