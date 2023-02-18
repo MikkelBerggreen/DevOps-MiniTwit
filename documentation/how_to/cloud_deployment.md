@@ -1,17 +1,23 @@
 # Deployment of application to cloud server
 
-## Setting up Vagrant
+## Setting up Vagrant and VirtualBox
 
-An installation of Vagrant is needed to intitialize and start the VM which runs our application and is hosted on DigitalOcean's cloud servers.
+An installation of Vagrant and VirtualBox is needed to intitialize and start the VM which runs our application and is hosted on DigitalOcean's cloud servers.
 
-For Windows users, follow this guide: https://www.itu.dk/people/ropf/blog/vagrant_install.html
+For Windows users, follow this guide for both installations: https://www.itu.dk/people/ropf/blog/vagrant_install.html
 
-For Linxus users, the following commands will install it:
+For Linxus users, the following commands will install Vagrant:
 
 ```bash
 wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update && sudo apt install vagrant
+```
+
+And VirtualBox:
+
+```bash
+sudo apt install virtualbox virtualbox-ext-pack
 ```
 
 Vagrant plugins (can be run in Git Bash for Windows users):
