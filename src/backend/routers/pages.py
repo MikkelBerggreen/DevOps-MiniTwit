@@ -60,7 +60,7 @@ def user_timeline(request: Request, username: str, PER_PAGE: Union[int, None] = 
         raise HTTPException(status_code=404, detail="User not found")
     followed = False
     endpoint = str(request.__getitem__('endpoint')).split(" ")[1]
-    if request.session['user_id']:
+    if get_session(request, 'user_id'):
         followed = query_db('''select 1 from followers where
             followers.who_id = ? and followers.whom_id = ?''',
             [get_session(request, 'user_id'), profile_user['user_id']], one=True) is not None
