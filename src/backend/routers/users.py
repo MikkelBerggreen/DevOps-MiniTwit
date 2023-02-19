@@ -62,6 +62,6 @@ def post_message(request: Request, response: Response, text: str = Form(..., min
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
 
-    execute_db('''insert into message (author_id, text, pub_date, flagged)
+    execute_db('''insert into messages (author_id, text, pub_date, flagged)
             values (?, ?, ?, 0)''', [user_id, text, int(time.time())])
     return RedirectResponse("/", status_code=302)
