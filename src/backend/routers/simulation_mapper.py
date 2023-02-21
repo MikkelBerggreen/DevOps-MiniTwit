@@ -16,9 +16,11 @@ def _():
 def _(username: str, latest: Union[str, None] = Query(default=100)):
     return RedirectResponse(f"/api/timelines/{username}?PER_PAGE={latest}", status_code=307)
 
+class MessageBody(BaseModel):
+    content: Union[str, None]
 # This is a route that bypasses authorization and our session so it is implemented here
 @router.post("/msgs/{username}", status_code=204)
-def _(request: Request, username: str, content: str = Form(default="")):
+def _(request: Request, username: str, body: MessageBody):
     user_id = get_user_id(username)
     if user_id is None:
         return Response(status_code=403)
@@ -27,8 +29,8 @@ def _(request: Request, username: str, content: str = Form(default="")):
     # https://github.com/tiangolo/fastapi/issues/3963
     # thus, I must implement the route here
     execute_db('''insert into messages (author_id, text, pub_date, flagged)
-            values (?, ?, ?, 0)''', [user_id, content, int(time.time())])
-    return 'Your message "%s" was recorded' % content
+            values (?, ?, ?, 0)''', [user_id, body.content, int(time.time())])
+    return 'Your message "%s" was recorded' % body.content
 
 class Registration(BaseModel):
     username: str
