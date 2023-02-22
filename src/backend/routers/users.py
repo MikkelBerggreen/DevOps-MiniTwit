@@ -14,8 +14,8 @@ def _(request: Request, username: str, no: Union[str, None] = Query(default=100)
         raise HTTPException(status_code=401, detail="Not authorized")
 
     query = """SELECT user.username FROM user
-                WHERE follower.who_id=%s
-                LIMIT %s"""
+                WHERE follower.who_id=?
+                LIMIT ?"""
     followers = query_db(query, [user_id, no])
     follower_names = [f["username"] for f in followers]
     return {"follows": follower_names}
@@ -31,7 +31,7 @@ def follow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('insert into followers (who_id, whom_id) values (%s, %s)',
+    execute_db('insert into followers (who_id, whom_id) values (?, ?)',
                [user_id, whom_id])
 
     # todo add flash message
@@ -47,7 +47,7 @@ def unfollow_user(request: Request, username: str):
     whom_id = get_user_id(username)
     if whom_id is None:
         raise HTTPException(status_code=404, detail="User not found")
-    execute_db('delete from followers where who_id=%s and whom_id=%s',
+    execute_db('delete from followers where who_id=? and whom_id=?',
                [user_id, whom_id])
 
     # todo add flash message
@@ -63,5 +63,5 @@ def post_message(request: Request, response: Response, text: str = Form(..., min
         raise HTTPException(status_code=401, detail="Not authorized")
 
     execute_db('''insert into messages (author_id, text, pub_date, flagged)
-            values (%s, %s, %s, 0)''', [user_id, text, int(time.time())])
+            values (?, ?, ?, 0)''', [user_id, text, int(time.time())])
     return RedirectResponse("/", status_code=302)

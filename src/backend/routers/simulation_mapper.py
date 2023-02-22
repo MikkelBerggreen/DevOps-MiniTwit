@@ -29,7 +29,7 @@ def _(request: Request, username: str, body: MessageBody):
     # https://github.com/tiangolo/fastapi/issues/3963
     # thus, I must implement the route here
     execute_db('''insert into messages (author_id, text, pub_date, flagged)
-            values (%s, %s, %s, 0)''', [user_id, body.content, int(time.time())])
+            values (?, ?, ?, 0)''', [user_id, body.content, int(time.time())])
     return 'Your message "%s" was recorded' % body.content
 
 class Registration(BaseModel):
@@ -40,7 +40,7 @@ class Registration(BaseModel):
 @router.post("/register", status_code=204)
 def _(response: Response, body: Registration):
     user = query_db('''
-        select * from users where username = %s''',
+        select * from users where username = ?''',
                     [body.username], one=True)
     if user is not None:
         response.status_code = 403
@@ -48,7 +48,7 @@ def _(response: Response, body: Registration):
     else:
         insert_in_db('''
             insert into users (username, email, pw_hash)
-            values (%s, %s, %s)''',
+            values (?, ?, ?)''',
                      [body.username, body.email, hash(body.pwd)])
     return {"success": "register success"}
 
@@ -73,7 +73,7 @@ def _(username: str, response: Response, body: FollowMessage):
             response.status_code = 404
             return {"error": "user doesn't exist"}
         insert_in_db('''
-            INSERT INTO followers (who_id, whom_id) VALUES (%s, %s)''',
+            INSERT INTO followers (who_id, whom_id) VALUES (?, ?)''',
             [user_id, follows_user_id])
         response.status_code = 204
         return ""
@@ -85,7 +85,7 @@ def _(username: str, response: Response, body: FollowMessage):
             response.status_code = 404
             return {"error": "user doesn't exist"}
         insert_in_db('''
-            DELETE FROM followers WHERE who_id=%s and WHOM_ID=%s''',
+            DELETE FROM followers WHERE who_id=? and WHOM_ID=?''',
             [user_id, unfollows_user_id])
         response.status_code = 204
         return ""
