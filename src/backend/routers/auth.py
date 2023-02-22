@@ -24,7 +24,7 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
 
 
 @router.post("/api/auth/register")
-def register(response: Response, username: str = Form(""), email: str = Form(""), password: str = Form("")):
+def register(request: Request, response: Response, username: str = Form(""), email: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from users where username = ?''',
                     [username], one=True)
