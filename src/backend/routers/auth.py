@@ -24,17 +24,17 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
 
 
 @router.post("/api/auth/register")
-def register(request: Request, username: str = Form(""), email: str = Form(""), password: str = Form("")):
+def register(request: Request, response: Response, username: str = Form(""), email: str = Form(""), password: str = Form("")):
     user = query_db('''
         select * from users where username = ?''',
                     [username], one=True)
     if user is not None:
-        request.status_code = 403
+        response.status_code = 403
         request.session['error'] = "username already exists"
         return RedirectResponse("/register", status_code=302)
     else:
         request.session.pop('error', None)
-        request.status_code = 204
+        response.status_code = 204
         hashed_pw = hashlib.md5(password.encode())
         insert_in_db('''
             insert into users (username, email, pw_hash)
