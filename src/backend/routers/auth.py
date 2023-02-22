@@ -1,8 +1,6 @@
 from services.implementions.auth_service import Auth_Service
 from fastapi import APIRouter, Form, Request, Response
-from database import query_db, insert_in_db
 from fastapi.responses import RedirectResponse
-import hashlib
 
 router = APIRouter()
 

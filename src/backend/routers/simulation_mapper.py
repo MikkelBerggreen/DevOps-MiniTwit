@@ -4,8 +4,11 @@ from pydantic import BaseModel
 from fastapi import APIRouter, Request, Response, Form, Query
 from fastapi.responses import RedirectResponse
 from database import query_db, insert_in_db, get_user_id, execute_db
+from services.implementions.auth_service import Auth_Service
 
 router = APIRouter()
+
+auth_service = Auth_Service()
 
 @router.get("/msgs")
 def _():
@@ -39,18 +42,13 @@ class Registration(BaseModel):
 
 @router.post("/register", status_code=204)
 def _(response: Response, body: Registration):
-    user = query_db('''
-        select * from users where username = ?''',
-                    [body.username], one=True)
-    if user is not None:
+    if auth_service.check_if_user_exists(body.username):
         response.status_code = 403
         return {"error": "username already exists"}
     else:
-        insert_in_db('''
-            insert into users (username, email, pw_hash)
-            values (?, ?, ?)''',
-                     [body.username, body.email, hash(body.pwd)])
-    return {"success": "register success"}
+        response.status_code = 204
+        auth_service.register_user(body.username, body.email, body.pwd)
+        return {"success": "register success"}
 
 class FollowMessage(BaseModel):
     follow: Union[str, None]

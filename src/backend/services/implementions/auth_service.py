@@ -1,7 +1,5 @@
 from services.interfaces.auth_service_interface import Auth_Service_Interface
 from repos.implementations.auth_repo import Auth_Repo
-from database import query_db, insert_in_db
-import hashlib
 
 class Auth_Service(Auth_Service_Interface):
 
