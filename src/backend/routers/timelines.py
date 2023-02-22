@@ -14,10 +14,10 @@ def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     messages = query_db('''
         select messages.*, users.* from messages, users
         where messages.flagged = 0 and messages.author_id = users.user_id and (
-            users.user_id = ? or
+            users.user_id = %s or
             users.user_id in (select whom_id from followers
-                                    where who_id = ?))
-        order by messages.pub_date desc limit ?''',
+                                    where who_id = %s))
+        order by messages.pub_date desc limit %s''',
         [user_id, user_id, PER_PAGE])
     return messages
 
@@ -26,18 +26,18 @@ def public_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     messages = query_db('''
         select messages.*, users.* from messages, users
         where messages.flagged = 0 and messages.author_id = users.user_id
-        order by messages.pub_date desc limit ?;''', [PER_PAGE])
+        order by messages.pub_date desc limit %s;''', [PER_PAGE])
     return messages
 
 @router.get("/api/timelines/{username}", status_code=204)
 def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30)):
-    profile_user = query_db('select * from user where username = ?',
+    profile_user = query_db('select * from user where username = %s',
                             [username], one=True)
     if profile_user is None:
         raise HTTPException(status_code=403, detail="User not found")
     else:
         messages = query_db('''
             select messages.*, users.* from messages, users
-            where messages.author_id = users.user_id and users.user_id = ?
-            order by messages.pub_date desc limit ?;''', [profile_user['user_id'], PER_PAGE])
+            where messages.author_id = users.user_id and users.user_id = %s
+            order by messages.pub_date desc limit %s;''', [profile_user['user_id'], PER_PAGE])
         return messages

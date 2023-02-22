@@ -33,10 +33,10 @@ def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     return templates.TemplateResponse("timeline.html", {"request": request, "g": user, "endpoint": endpoint, "messages": query_db('''
         select messages.*, users.* from messages, users
         where messages.flagged = 0 and messages.author_id = users.user_id and (
-            users.user_id = ? or
+            users.user_id = %s or
             users.user_id in (select whom_id from followers
-                                    where who_id = ?))
-        order by messages.pub_date desc limit ?''',
+                                    where who_id = %s))
+        order by messages.pub_date desc limit %s''',
         [user, user, PER_PAGE])})
 
 @router.get("/public", response_class=HTMLResponse)
@@ -46,15 +46,15 @@ def public_timeline(request: Request, PER_PAGE: Union[int, None] = Query(default
     print(query_db('''
         select messages.*, users.* from messages, users
         where messages.flagged = 0 and messages.author_id = users.user_id
-        order by messages.pub_date desc limit ?''', [PER_PAGE]))
+        order by messages.pub_date desc limit %s''', [PER_PAGE]))
     return templates.TemplateResponse("timeline.html", {"request": request, "g": user, "endpoint": endpoint, "messages": query_db('''
         select messages.*, users.* from messages, users
         where messages.flagged = 0 and messages.author_id = users.user_id
-        order by messages.pub_date desc limit ?''', [PER_PAGE])})
+        order by messages.pub_date desc limit %s''', [PER_PAGE])})
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(request: Request, username: str, PER_PAGE: Union[int, None] = Query(default=30)):
-    profile_user = query_db('select * from users where username = ?',
+    profile_user = query_db('select * from users where username = %s',
                         [username], one=True)
     if profile_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -62,12 +62,12 @@ def user_timeline(request: Request, username: str, PER_PAGE: Union[int, None] = 
     endpoint = str(request.__getitem__('endpoint')).split(" ")[1]
     if get_session(request, 'user_id'):
         followed = query_db('''select 1 from followers where
-            followers.who_id = ? and followers.whom_id = ?''',
+            followers.who_id = %s and followers.whom_id = %s''',
             [get_session(request, 'user_id'), profile_user['user_id']], one=True) is not None
     return templates.TemplateResponse('timeline.html', {"request": request, "messages": query_db('''
             select messages.*, users.* from messages, users where
-            users.user_id = messages.author_id and users.user_id = ?
-            order by messages.pub_date desc limit ?''',
+            users.user_id = messages.author_id and users.user_id = %s
+            order by messages.pub_date desc limit %s''',
             [profile_user['user_id'], PER_PAGE]), "followed": followed, "profile_user": profile_user, "endpoint": endpoint, "g":  get_session(request, 'user_id')}) 
 
 @router.get("/login", response_class=HTMLResponse)

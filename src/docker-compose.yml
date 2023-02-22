@@ -6,7 +6,29 @@ services:
     build:
       context: backend
       dockerfile: ./Dockerfile
+    links:
+      - database
+    environment:
+      DB_HOST: database
+      DB_NAME: minitwitdb
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_PORT: 5432
     ports:
       - 8000:8000
     expose:
       - 8000
+
+  database:
+    image: postgres
+    build:
+      context: db
+      dockerfile: ./Dockerfile
+    environment:
+      POSTGRES_DB: minitwitdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
