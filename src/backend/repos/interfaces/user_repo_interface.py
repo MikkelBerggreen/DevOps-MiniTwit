@@ -22,3 +22,7 @@ class User_Repo_Interface:
     @abstractmethod
     def get_all_followers(self, user_id, limit):
         raise NotImplementedError
+    
+    @abstractmethod
+    def get_user_id_from_username(self, username):
+        raise NotImplementedError

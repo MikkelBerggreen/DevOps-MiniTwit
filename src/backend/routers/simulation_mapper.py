@@ -3,12 +3,14 @@ from typing import Union
 from pydantic import BaseModel
 from fastapi import APIRouter, Request, Response, Form, Query
 from fastapi.responses import RedirectResponse
-from database import query_db, insert_in_db, get_user_id, execute_db
+
 from services.implementions.auth_service import Auth_Service
+from services.implementions.user_service import User_Service
 
 router = APIRouter()
 
 auth_service = Auth_Service()
+user_service = User_Service()
 
 @router.get("/msgs")
 def _():
@@ -24,15 +26,16 @@ class MessageBody(BaseModel):
 # This is a route that bypasses authorization and our session so it is implemented here
 @router.post("/msgs/{username}", status_code=204)
 def _(request: Request, username: str, body: MessageBody):
-    user_id = get_user_id(username)
+    
+    user_id = user_service.get_user_id_from_username(username)
     if user_id is None:
         return Response(status_code=403)
-
+    
+    user_service.post_message(user_id, body.content)
     # passing a body when redirecting is not supported
     # https://github.com/tiangolo/fastapi/issues/3963
     # thus, I must implement the route here
-    execute_db('''insert into messages (author_id, text, pub_date, flagged)
-            values (?, ?, ?, 0)''', [user_id, body.content, int(time.time())])
+
     return 'Your message "%s" was recorded' % body.content
 
 class Registration(BaseModel):
@@ -50,6 +53,7 @@ def _(response: Response, body: Registration):
         auth_service.register_user(body.username, body.email, body.pwd)
         return {"success": "register success"}
 
+
 class FollowMessage(BaseModel):
     follow: Union[str, None]
     unfollow: Union[str, None]
@@ -60,31 +64,23 @@ def _(username: str, no: Union[str, None] = Query(default=100)):
 
 @router.post("/fllws/{username}")
 def _(username: str, response: Response, body: FollowMessage):
-    user_id = get_user_id(username)
+    user_id = user_service.get_user_id_from_username(username)
     if user_id is None:
         return Response(status_code=403)
 
     if body.follow is not None:
-        follows_username = body.follow
-        follows_user_id = get_user_id(follows_username)
-        if not follows_user_id:
+    
+        if not user_service.add_follower(user_id, body.follow):
             response.status_code = 404
             return {"error": "user doesn't exist"}
-        insert_in_db('''
-            INSERT INTO followers (who_id, whom_id) VALUES (?, ?)''',
-            [user_id, follows_user_id])
         response.status_code = 204
         return ""
 
     elif body.unfollow is not None:
-        unfollows_username = body.unfollow
-        unfollows_user_id = get_user_id(unfollows_username)
-        if not unfollows_user_id:
+        if not user_service.remove_follower(user_id, body.unfollow):
             response.status_code = 404
             return {"error": "user doesn't exist"}
-        insert_in_db('''
-            DELETE FROM followers WHERE who_id=? and WHOM_ID=?''',
-            [user_id, unfollows_user_id])
+
         response.status_code = 204
         return ""
 

@@ -34,3 +34,6 @@ class User_Repo(User_Repo_Interface):
                         WHERE follower.who_id=?
                         LIMIT ?"""
         return query_db(query, [user_id, limit])
+    
+    def get_user_id_from_username(self, username):
+        return get_user_id(username)

@@ -17,3 +17,6 @@ class User_Service(User_Service_Interface):
     
     def get_all_followers(self, user_id, limit):
         return self.user_repo.get_all_followers(user_id,limit)
+    
+    def get_user_id_from_username(self, username):
+        return self.user_repo.get_user_id_from_username(username)
