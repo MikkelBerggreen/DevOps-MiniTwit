@@ -1,3 +1,4 @@
+from services.implementions.auth_service import Auth_Service
 from fastapi import APIRouter, Form, Request, Response
 from database import query_db, insert_in_db
 from fastapi.responses import RedirectResponse
@@ -5,14 +6,12 @@ import hashlib
 
 router = APIRouter()
 
+auth_service = Auth_Service()
+
 @router.post("/api/auth/login")
 def login(request: Request, username: str = Form(""), password: str = Form("")):
-    user = query_db('''
-        select * from users where username = ?''',
-                    [username], one=True)
-    
-    hashed_pw = hashlib.md5(password.encode())
-    if user is None or not hashed_pw.hexdigest() == user['pw_hash']:
+    user = auth_service.validate_user(username, password)
+    if user is None:
         request.session['error'] = "username not found"
         return RedirectResponse("/login", status_code=302)
     else:
@@ -20,26 +19,17 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
         request.session['user_id'] = user['user_id']
         return RedirectResponse("/", status_code=302)
 
-# TODO validation
-
 
 @router.post("/api/auth/register")
 def register(request: Request, response: Response, username: str = Form(""), email: str = Form(""), password: str = Form("")):
-    user = query_db('''
-        select * from users where username = ?''',
-                    [username], one=True)
-    if user is not None:
+    if auth_service.check_if_user_exists(username):
         response.status_code = 403
         request.session['error'] = "username already exists"
         return RedirectResponse("/register", status_code=302)
     else:
         request.session.pop('error', None)
         response.status_code = 204
-        hashed_pw = hashlib.md5(password.encode())
-        insert_in_db('''
-            insert into users (username, email, pw_hash)
-            values (?, ?, ?)''',
-                     [username, email, hashed_pw.hexdigest()])
+        auth_service.register_user(username,email,password)
         return RedirectResponse("/login", status_code=302)
 
 
