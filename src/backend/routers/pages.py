@@ -3,11 +3,17 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Union
 import typing
-from database import query_db
+
+from services.implementions.timeline_service import Timeline_Service
+from services.implementions.auth_service import Auth_Service
+from services.implementions.user_service import User_Service
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
+timeline_service = Timeline_Service()
+user_service = User_Service()
+auth_service = Auth_Service()
 
 def flash(request: Request, message: typing.Any, category: str = "") -> None:
     if "_messages" not in request.session:
@@ -29,62 +35,48 @@ def get_session(request, key):
 @router.get("/", response_class=HTMLResponse)
 def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     user = get_session(request, 'user_id')
+    username = get_session(request, 'username')
     endpoint = str(request.__getitem__('endpoint')).split(" ")[1]
-    return templates.TemplateResponse("timeline.html", {"request": request, "g": user, "endpoint": endpoint, "messages": query_db('''
-        select messages.*, users.* from messages, users
-        where messages.flagged = 0 and messages.author_id = users.user_id and (
-            users.user_id = ? or
-            users.user_id in (select whom_id from followers
-                                    where who_id = ?))
-        order by messages.pub_date desc limit ?''',
-        [user, user, PER_PAGE])})
+    return templates.TemplateResponse("timeline.html", {"request": request, "g": username, "endpoint": endpoint, "messages": timeline_service.get_user_timeline(user, PER_PAGE)})
 
 @router.get("/public", response_class=HTMLResponse)
 def public_timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
-    user = get_session(request, 'user_id')
+    username = get_session(request, 'username')
     endpoint = str(request.__getitem__('endpoint')).split(" ")[1]
-    print(query_db('''
-        select messages.*, users.* from messages, users
-        where messages.flagged = 0 and messages.author_id = users.user_id
-        order by messages.pub_date desc limit ?''', [PER_PAGE]))
-    return templates.TemplateResponse("timeline.html", {"request": request, "g": user, "endpoint": endpoint, "messages": query_db('''
-        select messages.*, users.* from messages, users
-        where messages.flagged = 0 and messages.author_id = users.user_id
-        order by messages.pub_date desc limit ?''', [PER_PAGE])})
+
+    return templates.TemplateResponse("timeline.html", {"request": request, "g": username, "endpoint": endpoint, "messages": timeline_service.get_public_timeline(PER_PAGE)})
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(request: Request, username: str, PER_PAGE: Union[int, None] = Query(default=30)):
-    profile_user = query_db('select * from users where username = ?',
-                        [username], one=True)
-    if profile_user is None:
+
+    if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
     followed = False
     endpoint = str(request.__getitem__('endpoint')).split(" ")[1]
     if get_session(request, 'user_id'):
-        followed = query_db('''select 1 from followers where
-            followers.who_id = ? and followers.whom_id = ?''',
-            [get_session(request, 'user_id'), profile_user['user_id']], one=True) is not None
-    return templates.TemplateResponse('timeline.html', {"request": request, "messages": query_db('''
-            select messages.*, users.* from messages, users where
-            users.user_id = messages.author_id and users.user_id = ?
-            order by messages.pub_date desc limit ?''',
-            [profile_user['user_id'], PER_PAGE]), "followed": followed, "profile_user": profile_user, "endpoint": endpoint, "g":  get_session(request, 'user_id')}) 
+        followed =user_service.check_if_following(get_session(request, 'user_id'), username)
+
+    profile_user = {"user_id": user_service.get_user_id_from_username(username), "username": username}
+    return templates.TemplateResponse('timeline.html', {"request": request, "messages": timeline_service.get_follower_timeline(username ,PER_PAGE), "followed": followed, "profile_user": profile_user, "endpoint": endpoint, "g":  get_session(request, 'username'),  "f":  get_session(request, 'user_id')}) 
 
 @router.get("/login", response_class=HTMLResponse)
 def login(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     """ todo auth check, and redirect if not logged in """
     user = get_session(request, 'user_id')
+    username = get_session(request, 'username')
     if user:
         return RedirectResponse("/", status_code=307)
-    error = None
-    return templates.TemplateResponse('login.html', {"request": request, "error": get_session(request, 'error'), "g":user})
+    
+    return templates.TemplateResponse('login.html', {"request": request, "error": get_session(request, 'error'), "g":username})
 
 @router.get("/register", response_class=HTMLResponse)
 def register(request: Request):
     """ todo auth check, and redirect if not logged in """
     user = get_session(request, 'user_id')
+    username = get_session(request, 'username')
+    
     if user:
         return RedirectResponse("/", status_code=307)
-    error = None
-    return templates.TemplateResponse('register.html', {"request": request, "error": get_session(request, 'error'), "g": user})
+    
+    return templates.TemplateResponse('register.html', {"request": request, "error": get_session(request, 'error'), "g": username})
 

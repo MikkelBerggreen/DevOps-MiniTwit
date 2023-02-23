@@ -15,6 +15,7 @@ def login(request: Request, username: str = Form(""), password: str = Form("")):
     else:
         request.session.pop('error', None)
         request.session['user_id'] = user['user_id']
+        request.session['username'] = username
         return RedirectResponse("/", status_code=302)
 
 
@@ -34,4 +35,5 @@ def register(request: Request, response: Response, username: str = Form(""), ema
 @router.get("/logout")
 def logout(request: Request):
     request.session.pop('user_id', None)
+    request.session.pop('username', None)
     return RedirectResponse("/public", status_code=302)

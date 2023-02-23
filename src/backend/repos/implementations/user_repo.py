@@ -37,3 +37,13 @@ class User_Repo(User_Repo_Interface):
     
     def get_user_id_from_username(self, username):
         return get_user_id(username)
+    
+    def check_if_following( self, user_id, follower_username):
+        follower_id = get_user_id(follower_username)
+
+        if follower_id is None:
+            return False
+        
+        return  query_db('''select 1 from followers where
+            followers.who_id = ? and followers.whom_id = ?''',
+            [user_id, follower_id], one=True) is not None

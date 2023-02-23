@@ -13,7 +13,7 @@
   {% if g %}
     {% if endpoint == 'user_timeline' %}
       <div class=followstatus>
-      {% if g == profile_user.user_id %}
+      {% if f == profile_user.user_id %}
         This is you!
       {% elif followed %}
         You are currently following this user.

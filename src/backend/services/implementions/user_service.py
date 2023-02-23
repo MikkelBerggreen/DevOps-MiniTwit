@@ -20,3 +20,6 @@ class User_Service(User_Service_Interface):
     
     def get_user_id_from_username(self, username):
         return self.user_repo.get_user_id_from_username(username)
+
+    def check_if_following( self, user_id, follower_username):
+        return self.user_repo.check_if_following(user_id, follower_username)

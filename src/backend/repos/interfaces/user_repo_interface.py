@@ -26,3 +26,7 @@ class User_Repo_Interface:
     @abstractmethod
     def get_user_id_from_username(self, username):
         raise NotImplementedError
+    
+    @abstractmethod
+    def check_if_following( self, user_id, follower_username):
+        raise NotImplementedError
