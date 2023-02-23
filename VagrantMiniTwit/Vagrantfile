@@ -45,6 +45,11 @@ Vagrant.configure("2") do |config|
 
       echo "SESSION_SECRET_KEY=uiuiui" > .env
       echo "DATABASE_URL=/tmp/minitwit.db" >> .env
+      echo "POSTGRES_USER=postgres" >> .env
+      echo "POSTGRES_PASSWORD=postgres" >> .env
+      echo "POSTGRES_SERVER=db" >> .env
+      echo "POSTGRES_PORT=5432" >> .env
+      echo "POSTGRES_DB=minitwit" >> .env
 
       echo "Start application with Docker Compose"
       cd ~/MiniTwit/src/
