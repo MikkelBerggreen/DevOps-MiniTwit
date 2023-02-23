@@ -5,13 +5,13 @@ import hashlib
 class Auth_Repo(Auth_Repo_Interface):
 
     def check_if_user_exists(self, username):
-        user = query_db('''select * from users where username = ?''', [username], one=True)
+        user = query_db('''SELECT * FROM users WHERE username = %s''', [username], one=True)
         if user is None:
             return False
         return True
 
     def validate_user(self, username, password):
-        user = query_db('''select * from users where username = ?''', [username], one=True)
+        user = query_db('''SELECT * FROM users WHERE username = %s''', [username], one=True)
         hashed_pw = hashlib.md5(password.encode())
         if user is None or not hashed_pw.hexdigest() == user['pw_hash']:
             return None
@@ -19,7 +19,5 @@ class Auth_Repo(Auth_Repo_Interface):
 
     def register_user(self, username, email, password):
         hashed_pw = hashlib.md5(password.encode())
-        insert_in_db('''
-            insert into users (username, email, pw_hash)
-            values (?, ?, ?)''',
+        insert_in_db('''INSERT INTO users(username, email, pw_hash) VALUES(%s, %s, %s); ''',
                      [username, email, hashed_pw.hexdigest()])

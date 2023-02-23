@@ -1,9 +1,10 @@
+
 drop table if exists users;
 create table users (
-  user_id integer primary key autoincrement,
-  username string not null,
-  email string not null,
-  pw_hash string not null
+  user_id integer primary key GENERATED ALWAYS AS IDENTITY,
+  username VARCHAR not null,
+  email VARCHAR not null,
+  pw_hash VARCHAR not null
 );
 
 drop table if exists followers;
@@ -14,9 +15,9 @@ create table followers (
 
 drop table if exists messages;
 create table messages (
-  message_id integer primary key autoincrement,
+  message_id integer primary key GENERATED ALWAYS AS IDENTITY,
   author_id integer not null,
-  text string not null,
+  text VARCHAR not null,
   pub_date integer,
   flagged integer
 );

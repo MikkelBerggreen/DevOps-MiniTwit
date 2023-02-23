@@ -5,7 +5,7 @@ import time
 class User_Repo(User_Repo_Interface):
     def post_message(self, user_id, message):
         execute_db('''insert into messages (author_id, text, pub_date, flagged)
-                values (?, ?, ?, 0)''', [user_id, message, int(time.time())])
+                values (%s, %s, %s, 0)''', [user_id, message, int(time.time())])
         
     def remove_follower(self, user_id, follower_username):
         follower_id = get_user_id(follower_username)
@@ -13,7 +13,7 @@ class User_Repo(User_Repo_Interface):
         if follower_id is None:
             return False
         
-        execute_db('delete from followers where who_id=? and whom_id=?',
+        execute_db('delete from followers where who_id=%s and whom_id=%s',
                [user_id, follower_id])
         
         return True
@@ -24,15 +24,15 @@ class User_Repo(User_Repo_Interface):
         if follower_id is None:
             return False
         
-        execute_db('insert into followers (who_id, whom_id) values (?, ?)',
+        execute_db('insert into followers (who_id, whom_id) values (%s, %s)',
                 [user_id, follower_id])
         
         return True
     
     def get_all_followers(self, user_id, limit):
         query = """SELECT user.username FROM user
-                        WHERE follower.who_id=?
-                        LIMIT ?"""
+                        WHERE follower.who_id= %s
+                        LIMIT %s"""
         return query_db(query, [user_id, limit])
     
     def get_user_id_from_username(self, username):
@@ -45,5 +45,5 @@ class User_Repo(User_Repo_Interface):
             return False
         
         return  query_db('''select 1 from followers where
-            followers.who_id = ? and followers.whom_id = ?''',
+            followers.who_id = %s and followers.whom_id = %s''',
             [user_id, follower_id], one=True) is not None
