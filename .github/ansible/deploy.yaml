@@ -5,6 +5,6 @@
   tasks:
   - name: pull an image
     docker_image:
-      name: hello-world
+      name: hjacobs/tiny-docker-http-test
       source: pull
     become: true
