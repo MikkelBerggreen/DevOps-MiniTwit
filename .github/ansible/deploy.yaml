@@ -7,3 +7,4 @@
     docker_image:
       name: hello-world
       source: pull
+    become: true
