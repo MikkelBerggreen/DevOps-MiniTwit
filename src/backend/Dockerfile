@@ -14,6 +14,9 @@ RUN apt update -y
 RUN apt install python3-pip -y
 RUN alias python="python3"
 
+# Install psycopg2 dependencies
+RUN apt install libpq-dev -y
+
 # Install pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
