@@ -1,0 +1,9 @@
+- hosts: all
+  remote_user: ghivr
+  gather_facts: false
+
+  tasks:
+  - name: pull an image
+    docker_image:
+      name: hello-world
+      source: pull

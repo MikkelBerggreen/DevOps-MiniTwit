@@ -1,0 +1,36 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - cd-poc
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Ansible
+      run: pip install ansible
+
+    - name: Run playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        # Required, playbook filepath
+        playbook: deploy.yaml
+        # Optional, directory where playbooks live
+        directory: ./.github/ansible
+        # Optional, SSH private key
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        # Optional, literal inventory file contents
+        inventory: |
+          [all]
+          40.68.8.102
