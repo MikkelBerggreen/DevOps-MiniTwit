@@ -7,9 +7,13 @@ import typing
 from services.implementions.timeline_service import Timeline_Service
 from services.implementions.auth_service import Auth_Service
 from services.implementions.user_service import User_Service
+import os
 
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
+script_dir = os.path.dirname(os.path.dirname((__file__)))
+
+st_abs_file_path = os.path.join(script_dir, "templates")
+templates = Jinja2Templates(directory=st_abs_file_path)
 
 timeline_service = Timeline_Service()
 user_service = User_Service()

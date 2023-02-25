@@ -4,12 +4,17 @@ from fastapi.staticfiles import StaticFiles
 import routers
 import util
 from dotenv import dotenv_values
+# style reference
+import os
 
 dotenv = dotenv_values('.env')
 
-
 # configuration
-SECRET_KEY = dotenv['SESSION_SECRET_KEY']
+if 'SESSION_SECRET_KEY' in dotenv:
+    SECRET_KEY = dotenv['SESSION_SECRET_KEY']
+    print("SECRET")
+else:
+    SECRET_KEY = "Test"
 PER_PAGE = 30
 DEBUG = True
 
@@ -25,5 +30,7 @@ app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 
-# style reference
-app.mount("/static", StaticFiles(directory="styles"), name="styles")
+
+script_dir = os.path.dirname(__file__)
+st_abs_file_path = os.path.join(script_dir, "styles/")
+app.mount("/static", StaticFiles(directory=st_abs_file_path), name="styles")
