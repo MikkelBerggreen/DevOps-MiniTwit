@@ -78,7 +78,7 @@ class MiniTwitTestCase(unittest.TestCase):
             data={"username": "Test", "password": "Test"},
           allow_redirects = True
         )
-        assert response.status_code == 201
+        assert response.status_code == 200
         assert b'sign out [Test]' in response.read()
 
     # testing functions
