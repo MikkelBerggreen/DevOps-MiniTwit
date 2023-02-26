@@ -36,4 +36,4 @@ jobs:
         # Optional, literal inventory file contents
         inventory: |
           [all]
-          ${{secrets.SSH_HOST}}
+          134.122.87.182
