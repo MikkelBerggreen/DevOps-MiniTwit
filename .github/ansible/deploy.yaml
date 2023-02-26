@@ -31,6 +31,8 @@
     community.docker.docker_compose:
       project_src: /tmp/
       state: absent
+    become: true
+
 
   - name: run the copied compose file
     community.docker.docker_compose:
