@@ -1,5 +1,5 @@
 - hosts: all
-  remote_user: mikke
+  remote_user: root
   gather_facts: false
 
   tasks:
