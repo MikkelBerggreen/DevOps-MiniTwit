@@ -1,5 +1,5 @@
 - hosts: all
-  remote_user: ${{secrets.SSH_USER}}
+  remote_user: mikke
   gather_facts: false
 
   tasks:
