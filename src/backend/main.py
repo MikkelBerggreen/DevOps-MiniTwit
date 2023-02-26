@@ -12,7 +12,6 @@ dotenv = dotenv_values('.env')
 # configuration
 if 'SESSION_SECRET_KEY' in dotenv:
     SECRET_KEY = dotenv['SESSION_SECRET_KEY']
-    print("SECRET")
 else:
     SECRET_KEY = "Test"
 PER_PAGE = 30
