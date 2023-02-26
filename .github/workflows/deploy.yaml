@@ -23,9 +23,6 @@ jobs:
     - name: Install Ansible
       run: pip install ansible
     
-    - name: Install python docker SDK
-      run: pip install docker
-
     - name: Install community.docker
       run: ansible-galaxy collection install community.docker
 
