@@ -20,7 +20,7 @@ services:
       - postgres
 
   fastapi:
-    image: hello-world
+    image: hjacobs/tiny-docker-http-test
     depends_on:
       - db
     networks:
