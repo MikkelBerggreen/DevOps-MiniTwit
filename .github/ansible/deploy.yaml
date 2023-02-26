@@ -9,6 +9,12 @@
       state: present
     become: true 
   
+  - name: install docker compose
+    apt:
+      name: docker-compose
+      state: present
+    become: true 
+  
   - name: install docker python sdk
     pip:
       name: docker
