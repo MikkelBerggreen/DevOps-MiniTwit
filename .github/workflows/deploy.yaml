@@ -10,30 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/minitwit.key
+          chmod 600 ~/.ssh/minitwit.key
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    - name: Install Ansible
-      run: pip install ansible
-    
-    - name: Install community.docker
-      run: ansible-galaxy collection install community.docker
-
-    - name: Run playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        # Required, playbook filepath
-        playbook: deploy.yaml
-        # Optional, directory where playbooks live
-        directory: ./.github/ansible
-        # Optional, SSH private key
-        key: ${{secrets.SSH_KEY}}
-        # Optional, literal inventory file contents
-        inventory: |
-          [all]
-          134.122.87.182 ansible_user=root
+      - name: Deploy to server
+        # Configure the ~./bash_profile and deploy.sh file on the Vagrantfile
+        run: >
+          ssh $SSH_USER@$SSH_HOST
+          -i ~/.ssh/minitwit.key -o StrictHostKeyChecking=no
+          '/.github/workflows/lala.sh.'
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
