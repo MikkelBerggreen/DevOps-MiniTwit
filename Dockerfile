@@ -15,8 +15,8 @@ RUN apt install python3-pip -y
 RUN alias python="python3"
 
 # Install pip requirements
-COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 
 WORKDIR /app
 COPY . /app
