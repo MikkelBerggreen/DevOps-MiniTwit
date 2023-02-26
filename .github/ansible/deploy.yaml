@@ -1,5 +1,5 @@
 - hosts: all
-  remote_user: ghivr
+  remote_user: ${{secrets.SSH_USER}}
   gather_facts: false
 
   tasks:
@@ -23,19 +23,19 @@
   
   - name: copy the compose file
     copy:
-      src: ../../src/docker-compose.yml
+      src: docker-compose.yml
       dest: /tmp/docker-compose.yml
     become: true
   
-  - name: Tear down existing services
-    community.docker.docker_compose:
-      project_src: /tmp/
-      state: absent
-    become: true
+  # - name: Tear down existing services
+  #   community.docker.docker_compose:
+  #     project_src: /tmp/
+  #     state: absent
+  #   become: true
 
 
-  - name: run the copied compose file
-    community.docker.docker_compose:
-      project_src: /tmp/
-      state: present
-    become: true
+  # - name: run the copied compose file
+  #   community.docker.docker_compose:
+  #     project_src: /tmp/
+  #     state: present
+  #   become: true

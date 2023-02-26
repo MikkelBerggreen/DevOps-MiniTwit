@@ -3,35 +3,35 @@ version: '3.4'
 services:
 
   db:
-    image: hjacobs/tiny-docker-http-test
+    image: postgres:latest
     restart: always
-    # build:
-    #   context: db
-    #   dockerfile: ./Dockerfile
-    # environment:
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_PASSWORD=postgres
-    #   - POSTGRES_DB=minitwit
-    # ports:
-    #   - 5432:5432
+    build:
+      context: db
+      dockerfile: ./Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=minitwit
+    ports:
+      - 5432:5432
     volumes: 
       - database:/var/lib/postgresql/data
     networks:
       - postgres
 
   fastapi:
-    image: yeasy/simple-web
+    image: fastapi
     depends_on:
       - db
     networks:
       - postgres
-    # build:
-    #   context: backend
-    #   dockerfile: ./Dockerfile
-    # ports:
-    #   - 8000:8000
-    # expose:
-    #   - 8000
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
 
 
 networks:

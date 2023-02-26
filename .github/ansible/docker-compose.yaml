@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=minitwit
+    ports:
+      - 5432:5432
+    volumes: 
+      - database:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  fastapi:
+    image: fastapi
+    depends_on:
+      - db
+    networks:
+      - postgres
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+
+
+networks:
+  postgres:
+
+volumes:
+  database:

@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: prod
 
     steps:
     - name: Checkout code
@@ -34,8 +32,8 @@ jobs:
         # Optional, directory where playbooks live
         directory: ./.github/ansible
         # Optional, SSH private key
-        key: ${{secrets.SSH_PRIVATE_KEY}}
+        key: ${{secrets.SSH_KEY}}
         # Optional, literal inventory file contents
         inventory: |
           [all]
-          40.68.8.102
+          ${{secrets.SSH_HOST}}
