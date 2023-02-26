@@ -26,9 +26,6 @@ jobs:
     - name: Install python docker SDK
       run: pip install docker
 
-    - name: Install pyYAML
-      run: pip install pyyaml
-
     - name: Install community.docker
       run: ansible-galaxy collection install community.docker
 
