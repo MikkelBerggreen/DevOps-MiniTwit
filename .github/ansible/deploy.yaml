@@ -3,8 +3,20 @@
   gather_facts: false
 
   tasks:
-  - name: pull an image
-    docker_image:
-      name: hjacobs/tiny-docker-http-test
-      source: pull
+  - name: copy the compose file
+    copy:
+      src: ./src/docker-compose.yml
+      dest: /tmp/docker-compose.yml
     become: true
+  
+  - name: run the copied compose file
+    community.docker.docker_compose:
+      project_src: /tmp/docker-compose.yml
+      state: present
+    become: true
+
+  # - name: pull an image
+  #   docker_image:
+  #     name: hjacobs/tiny-docker-http-test
+  #     source: pull
+  #   become: true
