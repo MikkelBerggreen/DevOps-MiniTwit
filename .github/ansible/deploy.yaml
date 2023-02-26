@@ -39,9 +39,3 @@
       project_src: /tmp/
       state: present
     become: true
-
-  # - name: pull an image
-  #   docker_image:
-  #     name: hjacobs/tiny-docker-http-test
-  #     source: pull
-  #   become: true
