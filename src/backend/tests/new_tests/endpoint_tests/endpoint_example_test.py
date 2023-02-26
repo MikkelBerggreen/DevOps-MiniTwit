@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-    MiniTwit Tests
-    ~~~~~~~~~~~~~~
-
-    Tests the MiniTwit application.
-
-    :copyright: (c) 2010 by Armin Ronacher.
-    :license: BSD, see LICENSE for more details.
-"""
 import unittest
 import tempfile
+from datetime import datetime, timedelta
 from unittest.mock import patch
 
+import pytest
 from fastapi.testclient import TestClient
 
 from main import app
@@ -22,11 +14,15 @@ from services.implementions.auth_service import Auth_Service
 client = TestClient(app)
 
 
-#There is a weird interaction. main_test.py must exist in order to import all necessary app functions.
+# Example of param testing testing
+@pytest.mark.parametrize("count,expected",
+                         [(0, 0), (1, 1), (25, 25), (0, 0)]
+                         )
+def test_param_example(count, expected):
+    assert count == expected
 
-class EndpointTest_Example(unittest.TestCase):
 
-    # Example of service testing
-    @patch.object(Database, 'query_db')
-    def test_proof(self):
+class Second_Test(unittest.TestCase):
+
+    def test_example(self):
         assert True == True

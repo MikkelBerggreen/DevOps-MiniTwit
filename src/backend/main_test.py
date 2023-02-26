@@ -42,7 +42,7 @@ class MiniTwitTestCase(unittest.TestCase):
         response = client.post(
             "/api/auth/login/",
             data={"username": "Test", "password": "Test"},
-            follow_redirects=True
+            allow_redirects = True
         )
         assert response.status_code == 200
         assert 'sign out [Test]' in response.text
