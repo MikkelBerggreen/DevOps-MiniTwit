@@ -29,7 +29,7 @@
   
   - name: run the copied compose file
     community.docker.docker_compose:
-      project_src: /tmp/docker-compose.yml
+      project_src: /tmp/
       state: present
     become: true
 
