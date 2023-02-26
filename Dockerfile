@@ -16,7 +16,7 @@ RUN alias python="python3"
 
 # Install pip requirements
 COPY requirements.txt /app/
-RUN python -m pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 WORKDIR /app
 COPY . /app
