@@ -5,7 +5,7 @@
   tasks:
   - name: copy the compose file
     copy:
-      src: ./src/docker-compose.yml
+      src: ../../src/docker-compose.yml
       dest: /tmp/docker-compose.yml
     become: true
   
