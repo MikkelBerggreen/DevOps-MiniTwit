@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - CI
+      - main
   workflow_dispatch:
     manual: true
 
@@ -44,11 +44,10 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache,mode=max
     
-
+jobs:
   deploy:
+    dependsOn: build
     runs-on: ubuntu-latest
-    environment:
-      name: prod
 
     steps:
     - name: Checkout code
@@ -61,6 +60,9 @@ jobs:
 
     - name: Install Ansible
       run: pip install ansible
+    
+    - name: Install community.docker
+      run: ansible-galaxy collection install community.docker
 
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
@@ -70,8 +72,8 @@ jobs:
         # Optional, directory where playbooks live
         directory: ./.github/ansible
         # Optional, SSH private key
-        key: ${{secrets.SSH_PRIVATE_KEY}}
+        key: ${{secrets.SSH_KEY}}
         # Optional, literal inventory file contents
         inventory: |
           [all]
-          40.68.8.102
+          ${{secrets.SSH_HOST}} ansible_user=${{secrets.SSH_USER}}

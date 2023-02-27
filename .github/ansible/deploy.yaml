@@ -1,10 +1,39 @@
 - hosts: all
-  remote_user: ghivr
   gather_facts: false
 
   tasks:
-  - name: pull an image
-    docker_image:
-      name: hjacobs/tiny-docker-http-test
-      source: pull
+  - name: install pip
+    apt:
+      name: python3-pip
+      state: present
+    become: true 
+  
+  - name: install docker compose
+    apt:
+      name: docker-compose
+      state: present
+    become: true 
+  
+  - name: install docker python sdk
+    pip:
+      name: docker
+      state: present
+    become: true
+  
+  - name: copy the compose file
+    copy:
+      src: docker-compose.yml
+      dest: /tmp/docker-compose.yml
+    become: true
+  
+  - name: Tear down existing services
+    community.docker.docker_compose:
+      project_src: /tmp/
+      state: absent
+    become: true
+
+  - name: run the copied compose file
+    community.docker.docker_compose:
+      project_src: /tmp/
+      state: present
     become: true
