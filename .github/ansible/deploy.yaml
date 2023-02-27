@@ -26,15 +26,14 @@
       dest: /tmp/docker-compose.yml
     become: true
   
-  # - name: Tear down existing services
-  #   community.docker.docker_compose:
-  #     project_src: /tmp/
-  #     state: absent
-  #   become: true
+  - name: Tear down existing services
+    community.docker.docker_compose:
+      project_src: /tmp/
+      state: absent
+    become: true
 
-
-  # - name: run the copied compose file
-  #   community.docker.docker_compose:
-  #     project_src: /tmp/
-  #     state: present
-  #   become: true
+  - name: run the copied compose file
+    community.docker.docker_compose:
+      project_src: /tmp/
+      state: present
+    become: true
