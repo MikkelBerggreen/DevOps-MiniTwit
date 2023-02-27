@@ -42,36 +42,36 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/dbimage:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache,mode=max
-          
+
   deploy:
     dependsOn: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install Ansible
-      run: pip install ansible
-    
-    - name: Install community.docker
-      run: ansible-galaxy collection install community.docker
+      - name: Install Ansible
+        run: pip install ansible
+      
+      - name: Install community.docker
+        run: ansible-galaxy collection install community.docker
 
-    - name: Run playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        # Required, playbook filepath
-        playbook: deploy.yaml
-        # Optional, directory where playbooks live
-        directory: ./.github/ansible
-        # Optional, SSH private key
-        key: ${{secrets.SSH_KEY}}
-        # Optional, literal inventory file contents
-        inventory: |
-          [all]
-          ${{secrets.SSH_HOST}} ansible_user=${{secrets.SSH_USER}}
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: deploy.yaml
+          # Optional, directory where playbooks live
+          directory: ./.github/ansible
+          # Optional, SSH private key
+          key: ${{secrets.SSH_KEY}}
+          # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            ${{secrets.SSH_HOST}} ansible_user=${{secrets.SSH_USER}}
