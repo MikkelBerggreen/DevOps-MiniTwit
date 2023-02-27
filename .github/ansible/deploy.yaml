@@ -22,7 +22,7 @@
   
   - name: copy the compose file
     copy:
-      src: docker-compose.yml
+      src: ./docker-compose.yml
       dest: /tmp/docker-compose.yml
     become: true
   
