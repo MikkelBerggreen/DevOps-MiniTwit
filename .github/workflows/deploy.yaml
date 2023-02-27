@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - CI
+      - main
   workflow_dispatch:
     manual: true
 
