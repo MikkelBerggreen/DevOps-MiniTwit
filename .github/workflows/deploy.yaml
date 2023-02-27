@@ -37,8 +37,8 @@ jobs:
       - name: Build and push dbimage
         uses: docker/build-push-action@v2
         with:
-          context: ./src/db
-          file: ./Dockerfile
+          context: src/db
+          file: src/db/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/dbimage:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache
