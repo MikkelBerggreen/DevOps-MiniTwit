@@ -10,7 +10,6 @@ on:
 jobs:
   build: 
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -43,8 +42,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/dbimage:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache,mode=max
-    
-jobs:
+          
   deploy:
     dependsOn: build
     runs-on: ubuntu-latest
