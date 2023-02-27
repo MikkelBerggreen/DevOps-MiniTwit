@@ -59,8 +59,16 @@ class FollowMessage(BaseModel):
     unfollow: Union[str, None]
 
 @router.get("/fllws/{username}")
-def _(username: str, no: Union[str, None] = Query(default=100)):
-    return RedirectResponse(f"/api/users/{username}/followers?no={no}", status_code=307)
+def _(username: str, response: Response, no: Union[str, None] = Query(default=100)):
+    user_id = user_service.get_user_id_from_username(username)
+    if not user_id:
+        response.status_code = 404
+        return {"error": "user doesn't exist"}
+
+    followers = user_service.get_all_followers(user_id, no)
+
+    follower_names = [f["username"] for f in followers]
+    return {"follows": follower_names}
 
 @router.post("/fllws/{username}")
 def _(username: str, response: Response, body: FollowMessage):
