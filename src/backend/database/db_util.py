@@ -44,7 +44,6 @@ def get_user_id(username):
     db.execute('select user_id from users where username = %s',
                     [username])
     rv = db.fetchall()
-    print(rv)
     return rv[0][0] if rv else None
 
 

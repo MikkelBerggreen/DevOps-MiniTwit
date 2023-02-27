@@ -14,7 +14,7 @@ user_service = User_Service()
 
 @router.get("/msgs")
 def _():
-    return RedirectResponse("/api/timelines/", status_code=307)
+    return RedirectResponse("/api/timelines/public", status_code=307)
 
 # This is a route that bypasses authorization and our session so it is implemented here
 @router.get("/msgs/{username}", status_code=204)
@@ -24,7 +24,7 @@ def _(username: str, latest: Union[str, None] = Query(default=100)):
 class MessageBody(BaseModel):
     content: Union[str, None]
 # This is a route that bypasses authorization and our session so it is implemented here
-@router.post("/msgs/{username}", status_code=204)
+@router.post("/msgs/{username}", status_code=200)
 def _(request: Request, username: str, body: MessageBody):
     
     user_id = user_service.get_user_id_from_username(username)
@@ -66,7 +66,7 @@ def _(username: str, response: Response, no: Union[str, None] = Query(default=10
         return {"error": "user doesn't exist"}
 
     followers = user_service.get_all_followers(user_id, no)
-
+    response.status_code = 200
     follower_names = [f["username"] for f in followers]
     return {"follows": follower_names}
 
