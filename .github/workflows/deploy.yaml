@@ -36,4 +36,4 @@ jobs:
         # Optional, literal inventory file contents
         inventory: |
           [all]
-          ${{secrets.SSH_HOST}} ansible-user=${{secrets.SSH_USER}}
+          ${{secrets.SSH_HOST}} ansible-user=root
