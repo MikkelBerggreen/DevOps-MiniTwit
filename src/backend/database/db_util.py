@@ -20,7 +20,7 @@ class Database():
 
     def query_db(self, query, args=(), one=False):
       """Queries the database and returns a list of dictionaries."""
-      db = connect_db().cursor()
+      db = self.connect_db().cursor()
       db.execute(query, args)
       rv = [dict((db.description[idx][0], value)
                  for idx, value in enumerate(row)) for row in db.fetchall()]
@@ -28,15 +28,15 @@ class Database():
 
     def insert_in_db(self, query, args=()):
       """Queries the database and returns a list of dictionaries."""
-      db = connect_db()
+      db = self.connect_db()
       cur = db.cursor()
       cur.execute(query, args)
       db.commit()
       return cur.lastrowid
 
-    def get_user_id(username):
+    def get_user_id(self, username):
         """Convenience method to look up the id for a username."""
-        db = connect_db().cursor()
+        db = self.connect_db().cursor()
         db.execute('select user_id from users where username = %s',
                         [username])
         rv = db.fetchall()
