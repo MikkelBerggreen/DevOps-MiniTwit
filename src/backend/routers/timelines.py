@@ -8,15 +8,10 @@ router = APIRouter()
 timeline_service = Timeline_Service()
 auth_service = Auth_Service()
 
-
+#This route is not used. Might need to be redoe
 @router.get("/api/timelines/", status_code=200)
-def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
-    # todo auth check
-
-    # todo get user_id from the session
-    user = "Test"
-
-    messages = timeline_service.get_user_timeline(user, PER_PAGE)
+def home_timeline(username: Union[str, None] = Query(default="None") ,PER_PAGE: Union[int, None] = Query(default=30)):
+    messages = timeline_service.get_public_timeline(username, PER_PAGE)
     return messages
 
 @router.get("/api/timelines/public")

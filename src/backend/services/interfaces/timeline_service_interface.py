@@ -18,3 +18,11 @@ class Timeline_Service_Interface:
     @abstractmethod
     def get_follower_timeline(self,username, per_page_limit):
         raise NotImplementedError
+    
+    @abstractmethod
+    def record_latest(self, latest):
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_latest(self):
+        raise NotImplementedError

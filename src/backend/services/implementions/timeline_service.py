@@ -14,3 +14,9 @@ class Timeline_Service(Timeline_Service_Interface):
     
     def get_follower_timeline(self,username, per_page_limit):
         return self.timeline_repo.get_follower_timeline(username,per_page_limit)
+    
+    def record_latest(self, latest):
+        self.timeline_repo.record_latest(latest)
+        
+    def get_latest(self):
+        return self.timeline_repo.get_latest()

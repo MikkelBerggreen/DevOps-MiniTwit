@@ -31,3 +31,11 @@ class Timeline_Repo(Timeline_Repo_Interface):
             order by messages.pub_date desc limit %s''',
             [user_id, per_page_limit])
     
+    def record_latest(self, latest):
+        database.insert_in_db('''INSERT INTO latest(latest_id) VALUES(%s); ''',
+                     [latest])
+
+    
+    def get_latest(self):
+       return database.query_db('''select latest_id from latest order by id desc limit 1 ''', one=True).get('latest_id')
+    
