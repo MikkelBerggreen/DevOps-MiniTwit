@@ -34,11 +34,12 @@ class MessageBody(BaseModel):
     content: Union[str, None]
 # This is a route that bypasses authorization and our session so it is implemented here
 @router.post("/msgs/{username}", status_code=200)
-def _(request: Request, username: str, body: MessageBody, latest: Union[str, None] = Query(default=-1)):
+def _(response: Response, username: str, body: MessageBody, latest: Union[str, None] = Query(default=-1)):
     auth_service.record_latest(latest)
     user_id = user_service.get_user_id_from_username(username)
     if user_id is None:
-        return Response(status_code=403)
+        response.status_code = 403
+        return {"error": "username already exists"}
     
     user_service.post_message(user_id, body.content)
     # passing a body when redirecting is not supported
