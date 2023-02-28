@@ -22,6 +22,10 @@ def home_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
 @router.get("/api/timelines/public")
 def public_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
     messages = timeline_service.get_public_timeline(PER_PAGE)
+    # Messy way of doing conversion. Change it later !
+    for x in messages:
+        x['content'] = x['text']
+        x['user'] = x['username']
     return messages
 
 @router.get("/api/timelines/{username}", status_code=204)
@@ -30,4 +34,7 @@ def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30))
         raise HTTPException(status_code=404, detail="User not found")
     else:
         messages = timeline_service.get_follower_timeline(username ,PER_PAGE)
+        for x in messages:
+            x['content'] = x['text']
+            x['user'] = x['username']
         return messages

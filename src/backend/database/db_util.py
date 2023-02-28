@@ -19,28 +19,28 @@ class Database():
         return connection
 
     def query_db(self, query, args=(), one=False):
-        """Queries the database and returns a list of dictionaries."""
-        db = self.connect_db().cursor()
-        db.execute(query, args)
-        rv = [dict((db.description[idx][0], value)
-                   for idx, value in enumerate(row)) for row in db.fetchall()]
-        return (rv[0] if rv else None) if one else rv
+      """Queries the database and returns a list of dictionaries."""
+      db = connect_db().cursor()
+      db.execute(query, args)
+      rv = [dict((db.description[idx][0], value)
+                 for idx, value in enumerate(row)) for row in db.fetchall()]
+      return (rv[0] if rv else None) if one else rv
 
     def insert_in_db(self, query, args=()):
-        """Queries the database and returns a list of dictionaries."""
-        db = self.connect_db()
-        cur = db.cursor()
-        cur.execute(query, args)
-        db.commit()
-        return cur.lastrowid
+      """Queries the database and returns a list of dictionaries."""
+      db = connect_db()
+      cur = db.cursor()
+      cur.execute(query, args)
+      db.commit()
+      return cur.lastrowid
 
-    def get_user_id(self, username):
+    def get_user_id(username):
         """Convenience method to look up the id for a username."""
-        db = self.connect_db().cursor()
+        db = connect_db().cursor()
         db.execute('select user_id from users where username = %s',
-                   [username])
+                        [username])
         rv = db.fetchall()
-        return rv[0][0] if rv[0] else None
+        return rv[0][0] if rv else None
 
     def execute_db(self, query, args=()):
         db = self.connect_db()

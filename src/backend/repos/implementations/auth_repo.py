@@ -23,3 +23,11 @@ class Auth_Repo(Auth_Repo_Interface):
         hashed_pw = hashlib.md5(password.encode())
         database.insert_in_db('''INSERT INTO users(username, email, pw_hash) VALUES(%s, %s, %s); ''',
                      [username, email, hashed_pw.hexdigest()])
+
+    def record_latest(self, latest):
+        insert_in_db('''INSERT INTO latest(latest_id) VALUES(%s); ''',
+                     [latest])
+
+    
+    def get_latest(self):
+       return query_db('''select latest_id from latest order by id desc limit 1 ''', one=True).get('latest_id')
