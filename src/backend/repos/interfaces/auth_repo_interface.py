@@ -18,3 +18,11 @@ class Auth_Repo_Interface:
     @abstractmethod
     def register_user(self, username, email, password):
         raise NotImplementedError
+    
+    @abstractmethod
+    def record_latest(self, latest):
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_latest(self):
+        raise NotImplementedError
