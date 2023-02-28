@@ -53,7 +53,7 @@ class Registration(BaseModel):
     pwd: str
 
 @router.post("/register", status_code=204)
-def _(response: Response, body: Registration, latest: Union[int, None] = Query(default=30)):
+def _(response: Response, body: Registration, latest: Union[int, None] = Query(default=-1)):
     auth_service.record_latest(latest)
     if auth_service.check_if_user_exists(body.username):
         response.status_code = 403
