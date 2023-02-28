@@ -21,3 +21,8 @@ create table messages (
   pub_date integer,
   flagged integer
 );
+drop table if exists latest;
+create table latest (
+  id integer primary key GENERATED ALWAYS AS IDENTITY,
+  latest_id integer
+);

@@ -30,8 +30,10 @@ class User_Repo(User_Repo_Interface):
         return True
     
     def get_all_followers(self, user_id, limit):
-        query = """SELECT user.username FROM user
-                        WHERE follower.who_id= %s
+        query = """
+        SELECT users.username FROM users
+        INNER JOIN followers ON followers.whom_id=users.user_id
+                        WHERE followers.who_id= %s
                         LIMIT %s"""
         return query_db(query, [user_id, limit])
     

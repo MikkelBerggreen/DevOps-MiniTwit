@@ -14,3 +14,9 @@ class Auth_Service(Auth_Service_Interface):
 
     def register_user(self, username, email, password):
         self.auth_repo.register_user(username,email,password)
+
+    def record_latest(self, latest):
+        self.auth_repo.record_latest(latest)
+        
+    def get_latest(self):
+        return self.auth_repo.get_latest()
