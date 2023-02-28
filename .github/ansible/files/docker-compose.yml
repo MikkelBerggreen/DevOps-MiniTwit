@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   db:
-    image: mirbitu/dbimage
+    image: mirbitu/dbimage:latest
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -16,7 +16,7 @@ services:
       - postgres
 
   fastapi:
-    image: mirbitu/minitwitimage
+    image: mirbitu/minitwitimage:latest
     depends_on:
       - db
     networks:
