@@ -1,51 +1,55 @@
 from repos.interfaces.user_repo_interface import User_Repo_Interface
-from database import execute_db, get_user_id, query_db
 import time
+from database.db_util import Database
+
+database = Database()
+
 
 class User_Repo(User_Repo_Interface):
     def post_message(self, user_id, message):
-        execute_db('''insert into messages (author_id, text, pub_date, flagged)
-                values (%s, %s, %s, 0)''', [user_id, message, int(time.time())])
-        
-    def remove_follower(self, user_id, follower_username):
-        follower_id = get_user_id(follower_username)
+        database.execute_db(
+            """insert into messages (author_id, text, pub_date, flagged)
+                values (%s, %s, %s, 0)""",
+            [user_id, message, int(time.time())],
+        )
 
-        if follower_id is None:
-            return False
-        
-        execute_db('delete from followers where who_id=%s and whom_id=%s',
-               [user_id, follower_id])
-        
-        return True
-    
-    def add_follower(self, user_id, follower_username):
-        follower_id = get_user_id(follower_username)
+    def remove_follower(self, user_id, follower_id):
 
-        if follower_id is None:
-            return False
-        
-        execute_db('insert into followers (who_id, whom_id) values (%s, %s)',
-                [user_id, follower_id])
-        
+        database.execute_db(
+            "delete from followers where who_id=%s and whom_id=%s",
+            [user_id, follower_id],
+        )
+
         return True
-    
+
+    def add_follower(self, user_id, follower_id):
+
+        database.execute_db(
+            "insert into followers (who_id, whom_id) values (%s, %s)",
+            [user_id, follower_id],
+        )
+
+        return True
+
     def get_all_followers(self, user_id, limit):
         query = """
         SELECT users.username FROM users
         INNER JOIN followers ON followers.whom_id=users.user_id
                         WHERE followers.who_id= %s
                         LIMIT %s"""
-        return query_db(query, [user_id, limit])
-    
-    def get_user_id_from_username(self, username):
-        return get_user_id(username)
-    
-    def check_if_following( self, user_id, follower_username):
-        follower_id = get_user_id(follower_username)
+        return database.query_db(query, [user_id, limit])
 
-        if follower_id is None:
-            return False
-        
-        return  query_db('''select 1 from followers where
-            followers.who_id = %s and followers.whom_id = %s''',
-            [user_id, follower_id], one=True) is not None
+    def get_user_id_from_username(self, username):
+        return database.get_user_id(username)
+
+    def check_if_following(self, user_id, follower_id):
+
+        return (
+            database.query_db(
+                """select 1 from followers where
+            followers.who_id = %s and followers.whom_id = %s""",
+                [user_id, follower_id],
+                one=True,
+            )
+            is not None
+        )
