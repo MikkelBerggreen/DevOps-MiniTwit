@@ -1,17 +1,17 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 import routers
-import util
 from dotenv import dotenv_values
+
 # style reference
 import os
 
-dotenv = dotenv_values('.env')
+dotenv = dotenv_values(".env")
 
 # configuration
-if 'SESSION_SECRET_KEY' in dotenv:
-    SECRET_KEY = dotenv['SESSION_SECRET_KEY']
+if "SESSION_SECRET_KEY" in dotenv:
+    SECRET_KEY = dotenv["SESSION_SECRET_KEY"]
 else:
     SECRET_KEY = "Test"
 PER_PAGE = 30

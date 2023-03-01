@@ -5,7 +5,8 @@ class Auth_Repo_Interface:
     __metaclass__ = ABCMeta
 
     @classmethod
-    def version(self): return "1.0"
+    def version(self):
+        return "1.0"
 
     @abstractmethod
     def check_if_user_exists(self, username):
