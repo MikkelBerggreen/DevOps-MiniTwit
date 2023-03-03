@@ -13,7 +13,7 @@ class Auth_Repo(Auth_Repo_Interface):
             return False
         return True
 
-    def retrieve_user_by_username(self, username):
+    def validate_user(self, username):
         user = database.query_db(
             """SELECT * FROM users WHERE username = %s""", [username], one=True
         )

@@ -11,8 +11,7 @@ class Auth_Service(Auth_Service_Interface):
         return self.auth_repo.check_if_user_exists(username)
 
     def validate_user(self, username, password):
-        found_user = self.auth_repo.retrieve_user_by_username(username)
-        print(found_user, "found user", username, "username", password, "password")
+        found_user = self.auth_repo.validate_user(username)
         if found_user is None:
             return None
         else:
