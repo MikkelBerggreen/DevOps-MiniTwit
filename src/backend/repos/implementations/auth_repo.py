@@ -13,12 +13,10 @@ class Auth_Repo(Auth_Repo_Interface):
             return False
         return True
 
-    def validate_user(self, username, password):
+    def retrieve_user_by_username(self, username):
         user = database.query_db(
             """SELECT * FROM users WHERE username = %s""", [username], one=True
         )
-        if user is None or not password == user["pw_hash"]:
-            return None
         return user
 
     def register_user(self, username, email, password):
