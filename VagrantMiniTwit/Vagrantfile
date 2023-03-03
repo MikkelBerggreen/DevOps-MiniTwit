@@ -40,11 +40,13 @@ Vagrant.configure("2") do |config|
       echo "Cloning repo"
       git clone https://github.com/MinitwitGroupI/MiniTwit.git
 
+      echo "Setup droplet monitoring"
+      curl -sSL https://repos.insights.digitalocean.com/install.sh | sudo bash
+
       echo "Setup environment"
       cd MiniTwit/src/backend/
 
       echo "SESSION_SECRET_KEY=uiuiui" > .env
-      echo "DATABASE_URL=/tmp/minitwit.db" >> .env
       echo "POSTGRES_USER=postgres" >> .env
       echo "POSTGRES_PASSWORD=postgres" >> .env
       echo "POSTGRES_SERVER=db" >> .env
