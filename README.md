@@ -1,6 +1,6 @@
 # MiniTwit
 
-MiniTwit is an messaging application being converted from Flask to FastAPI
+MiniTwit is a messaging application being converted from Flask to FastAPI.
 
 
 # How to dockerise the app.
