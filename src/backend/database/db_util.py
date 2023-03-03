@@ -24,6 +24,7 @@ class Database:
             dict((db.description[idx][0], value) for idx, value in enumerate(row))
             for row in db.fetchall()
         ]
+        db.close()
         return (rv[0] if rv else None) if one else rv
 
     def insert_in_db(self, query, args=()):
@@ -32,6 +33,7 @@ class Database:
         cur = db.cursor()
         cur.execute(query, args)
         db.commit()
+        db.close()
         return cur.lastrowid
 
     def get_user_id(self, username):
@@ -39,9 +41,11 @@ class Database:
         db = self.connect_db().cursor()
         db.execute("select user_id from users where username = %s", [username])
         rv = db.fetchall()
+        db.close()
         return rv[0][0] if rv else None
 
     def execute_db(self, query, args=()):
         db = self.connect_db()
         db.cursor().execute(query, args)
         db.commit()
+        db.close()
