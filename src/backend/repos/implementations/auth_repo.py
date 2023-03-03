@@ -24,3 +24,9 @@ class Auth_Repo(Auth_Repo_Interface):
             """INSERT INTO users(username, email, pw_hash) VALUES(%s, %s, %s); """,
             [username, email, password],
         )
+
+    def change_user_password(self, password, user_id):
+        database.update_in_db(
+            """UPDATE users SET pw_hash = %s WHERE user_id = %s; """,
+            [password, user_id],
+        )

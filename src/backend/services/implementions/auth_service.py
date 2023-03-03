@@ -12,18 +12,36 @@ class Auth_Service(Auth_Service_Interface):
 
     def validate_user(self, username, password):
         found_user = self.auth_repo.retrieve_user_by_username(username)
-        print(found_user)
+        print(found_user, "found user", username, "username", password, "password")
         if found_user is None:
-            return False
+            return None
         else:
             db_password = found_user["pw_hash"]
-            is_password_correct = bcrypt.checkpw(password.encode(), db_password.encode())
             del found_user["pw_hash"]
+
+            # legacy users have md5 encrypted passwords that need to be encrypted with bcrypt instead 
+            if not db_password.startswith("$2b$"):
+                # the user is a legacy user and only then will we import the hashlib library (to avoid bloat)
+                import hashlib
+                
+                if hashlib.md5(password.encode()).hexdigest() != db_password:
+                    # handling the edge case that a user has found a legacy account but provides incorrect password
+                    return None
+                else: 
+                    self.reset_password(password, found_user["user_id"])
+                    return found_user
+                
+            is_password_correct = bcrypt.checkpw(password.encode(), db_password.encode())
             return found_user
 
     def register_user(self, username, email, password):
         hashed_pw = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt())
-        # Having to decode below is a Postgres specific issue, see:
+        # Having to decode it is a Postgres specific issue, see:
         # https://stackoverflow.com/a/38262440
         hashed_pw_decoded = hashed_pw.decode("utf8")
         self.auth_repo.register_user(username, email, hashed_pw_decoded)
+
+    def reset_password(self, password, user_id):
+        hashed_pw = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt())
+        hashed_pw_decoded = hashed_pw.decode("utf8")
+        self.auth_repo.change_user_password(hashed_pw_decoded, user_id)
