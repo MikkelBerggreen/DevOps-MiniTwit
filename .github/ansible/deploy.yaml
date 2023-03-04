@@ -35,5 +35,6 @@
   - name: run the copied compose file
     community.docker.docker_compose:
       project_src: /tmp/
+      recreate: always
       state: present
     become: true
