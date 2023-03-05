@@ -29,12 +29,12 @@
   - name: Tear down existing services
     community.docker.docker_compose:
       project_src: /tmp/
+      remove_images: local
       state: absent
     become: true
 
   - name: run the copied compose file
     community.docker.docker_compose:
       project_src: /tmp/
-      recreate: always
       state: present
     become: true
