@@ -9,7 +9,10 @@ class Auth_Service(Auth_Service_Interface):
         self.auth_repo = Auth_Repo()
 
     def check_if_user_exists(self, username):
-        return self.auth_repo.check_if_user_exists(username)
+        found_user = self.auth_repo.check_if_user_exists(username)
+        if found_user is None:
+            raise Custom_Exception(status_code=404,msg="User not found")
+        return found_user
 
     def validate_user(self, username, password):
         found_user = self.auth_repo.validate_user(username)

@@ -1,5 +1,6 @@
 from services.interfaces.user_service_interface import User_Service_Interface
 from repos.implementations.user_repo import User_Repo
+from util.custom_exceptions import Custom_Exception
 
 
 class User_Service(User_Service_Interface):
@@ -13,7 +14,7 @@ class User_Service(User_Service_Interface):
         follower_id = self.user_repo.get_user_id_from_username(follower_username)
 
         if follower_id is None:
-            return False
+            raise Custom_Exception(status_code=404,msg="User not found")
 
         return self.user_repo.remove_follower(user_id, follower_id)
 
@@ -21,7 +22,7 @@ class User_Service(User_Service_Interface):
         follower_id = self.user_repo.get_user_id_from_username(follower_username)
 
         if follower_id is None:
-            return False
+            raise Custom_Exception(status_code=404,msg="User not found")
 
         return self.user_repo.add_follower(user_id, follower_id)
 
@@ -29,12 +30,16 @@ class User_Service(User_Service_Interface):
         return self.user_repo.get_all_followers(user_id, limit)
 
     def get_user_id_from_username(self, username):
-        return self.user_repo.get_user_id_from_username(username)
+
+        user = self.user_repo.get_user_id_from_username(username)
+        if user is None:
+            raise Custom_Exception(status_code=404,msg="User not found")
+        return user
 
     def check_if_following(self, user_id, follower_username):
         follower_id = self.user_repo.get_user_id_from_username(follower_username)
 
         if follower_id is None:
-            return False
+            raise Custom_Exception(status_code=404,msg="User not found")
 
         return self.user_repo.check_if_following(user_id, follower_id)
