@@ -31,11 +31,9 @@ def public_timeline(PER_PAGE: Union[int, None] = Query(default=30)):
 
 @router.get("/api/timelines/{username}", status_code=204)
 def user_timeline(username: str, PER_PAGE: Union[int, None] = Query(default=30)):
-    if not auth_service.check_if_user_exists(username):
-        raise HTTPException(status_code=404, detail="User not found")
-    else:
-        messages = timeline_service.get_follower_timeline(username, PER_PAGE)
-        for x in messages:
-            x["content"] = x["text"]
-            x["user"] = x["username"]
-        return messages
+    auth_service.check_if_user_exists(username)
+    messages = timeline_service.get_follower_timeline(username, PER_PAGE)
+    for x in messages:
+        x["content"] = x["text"]
+        x["user"] = x["username"]
+    return messages

@@ -77,8 +77,8 @@ def user_timeline(
     request: Request, username: str, PER_PAGE: Union[int, None] = Query(default=30)
 ):
 
-    if not auth_service.check_if_user_exists(username):
-        raise HTTPException(status_code=404, detail="User not found")
+    auth_service.check_if_user_exists(username)
+    
     followed = False
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     if get_session(request, "user_id"):

@@ -30,8 +30,7 @@ def follow_user(request: Request, username: str):
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
 
-    if not user_service.add_follower(user_id, username):
-        raise HTTPException(status_code=404, detail="User not found")
+    user_service.add_follower(user_id, username)
 
     # todo add flash message
     return RedirectResponse("/timeline/" + username, status_code=302)
@@ -44,8 +43,7 @@ def unfollow_user(request: Request, username: str):
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authorized")
 
-    if not user_service.remove_follower(user_id, username):
-        raise HTTPException(status_code=404, detail="User not found")
+    user_service.remove_follower(user_id, username)
 
     # todo add flash message
     return RedirectResponse("/timeline/" + username, status_code=302)
