@@ -33,6 +33,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8000:8000
+    volumes: 
+      - ./backend/.env:/app/.env
     expose:
       - 8000
 
