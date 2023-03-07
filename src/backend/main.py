@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI , Request
+
+from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
+from util.custom_exceptions import Custom_Exception
 import routers
 from dotenv import dotenv_values
 
@@ -19,6 +22,14 @@ DEBUG = True
 
 app = FastAPI()
 
+
+@app.exception_handler(Custom_Exception)
+async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
+    request.session["error"] = exc.msg
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": f"{exc.msg}"},
+    )
 # middleware
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 

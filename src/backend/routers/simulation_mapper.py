@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from fastapi import APIRouter, Response, Query
 from fastapi.responses import RedirectResponse
 
+from util.custom_exceptions import Custom_Exception
+
 from services.implementions.auth_service import Auth_Service
 from services.implementions.timeline_service import Timeline_Service
 from services.implementions.user_service import User_Service
@@ -72,14 +74,15 @@ class Registration(BaseModel):
 def _(
     response: Response, body: Registration, latest: Union[int, None] = Query(default=-1)
 ):
-    if auth_service.check_if_user_exists(body.username):
-        response.status_code = 403
-        return {"error": "username already exists"}
-    else:
+    try:
         timeline_service.record_latest(latest)
-        response.status_code = 204
         auth_service.register_user(body.username, body.email, body.pwd)
+        response.status_code = 204
         return {"success": "register success"}
+    except Custom_Exception as er:
+        response.status_code = er.status_code
+        
+        return {"error": er.msg}
 
 
 class FollowMessage(BaseModel):

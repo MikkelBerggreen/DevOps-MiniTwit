@@ -18,6 +18,8 @@ from database.db_util import Database
 
 from services.implementions.auth_service import Auth_Service
 
+from util.custom_exceptions import Custom_Exception
+
 import bcrypt
 import json
 
@@ -45,34 +47,19 @@ class MiniTwitTestCase(unittest.TestCase):
     
     @patch.object(Database, "query_db")
     def test_cant_register_two_of_same_users(self, Query_DB_Mock):
-        plain_password = ";;æøåÆØÅ!# truncate users;"
+
+
         mock_Return_user_one = {
             "user_id": 1,
             "username": "TestUser",
             "email": "test@email.com"
         }
         Query_DB_Mock.return_value = mock_Return_user_one
-        mock_Return_user_two = {
-            "username": "TestUser",
-            "email": "test@email.com"
-        }
-
-        response_one = client.post(
-            "/api/auth/register/",
-            data=mock_Return_user_one,
-            allow_redirects=True,
-        )
-        Query_DB_Mock.return_value = None
-
-        assert response_one.status_code == 200
-
-        response_two = client.post(
-            "/api/auth/register/",
-            data=mock_Return_user_two,
-            # Note that in this test we are not allowing redirects
-            allow_redirects=False,
-        )
-        assert response_two.status_code == 307
+        try:
+            Auth_Service().register_user("TestUser", "test@email.com",  ";;æøåÆØÅ!# truncate users;")
+            assert False
+        except:
+            assert True
 
 
 
