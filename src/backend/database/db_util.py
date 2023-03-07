@@ -4,7 +4,6 @@ import psycopg2
 
 dotenv = dotenv_values(".env")
 
-
 class Database:
 
     @contextmanager
@@ -41,6 +40,14 @@ class Database:
             cur.execute(query, args)
             db.commit()
             return cur.lastrowid
+
+    def update_in_db(self, query, args=()):
+        """Queries the database and returns a list of dictionaries."""
+        db = self.connect_db()
+        cur = db.cursor()
+        cur.execute(query, args)
+        db.commit()
+        return cur.rowcount
 
     def get_user_id(self, username):
         """Convenience method to look up the id for a username."""
