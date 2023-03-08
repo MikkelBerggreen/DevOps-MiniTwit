@@ -71,6 +71,9 @@ jobs:
           envkey_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           envkey_POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           envkey_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          envkey_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
           directory: ./.github/ansible/files
           file_name: .env
           fail_on_empty: true
