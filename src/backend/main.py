@@ -6,6 +6,8 @@ from fastapi.staticfiles import StaticFiles
 from util.custom_exceptions import Custom_Exception
 import routers
 from dotenv import dotenv_values
+from starlette.background import BackgroundTask
+from util import redis_util
 
 # style reference
 import os
@@ -22,6 +24,12 @@ DEBUG = True
 
 app = FastAPI()
 
+
+@app.middleware("http")
+async def add_process_request_count(request: Request, call_next):
+    response = await call_next(request)
+    response.background = BackgroundTask(redis_util.increment_request_count, request)
+    return response 
 
 @app.exception_handler(Custom_Exception)
 async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
