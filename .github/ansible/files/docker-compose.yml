@@ -25,6 +25,8 @@ services:
       - postgres
     ports:
       - 8000:8000
+    volumes: 
+      - /home/config/.env:/app/.env
     expose:
       - 8000
 
