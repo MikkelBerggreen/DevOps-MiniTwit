@@ -12,9 +12,11 @@ redis_client = redis.Redis(
 )
 
 def increment_request_count(request):
+    # don't count requests when developing locally
+    if request.client.host == "127.0.0.1":
+        return
     request_log = str(request.client) + " : " + str(datetime.now())
     redis_client.pfadd('processed_requests', request_log)
     
 def get_request_count():
     return redis_client.pfcount('processed_requests')
-
