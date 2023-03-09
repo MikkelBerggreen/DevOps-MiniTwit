@@ -4,16 +4,19 @@ from datetime import datetime
 from dotenv import dotenv_values
 
 dotenv = dotenv_values(".env")
-
-redis_client = redis.Redis(
-    host=dotenv["REDIS_HOST"],
-    port=dotenv["REDIS_PORT"], 
-    password=dotenv["REDIS_PASSWORD"]
-)
+if "REDIS_HOST" in dotenv:
+    redis_client = redis.Redis(
+        host=dotenv["REDIS_HOST"],
+        port=dotenv["REDIS_PORT"], 
+        password=dotenv["REDIS_PASSWORD"]
+    )
+else:
+    redis_client = None
 
 def increment_request_count(request):
+    print(request.client.host)
     # don't count requests when developing locally
-    if request.client.host == "127.0.0.1":
+    if request.client.host == "127.0.0.1" or request.client.host == "testclient":
         return
     request_log = str(request.client) + " : " + str(datetime.now())
     redis_client.pfadd('processed_requests', request_log)
