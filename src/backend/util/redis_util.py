@@ -5,7 +5,6 @@ from dotenv import dotenv_values
 
 dotenv = dotenv_values(".env")
 if "REDIS_HOST" in dotenv:
-if "REDIS_HOST" in dotenv:
         redis_client = redis.Redis(
             host=dotenv["REDIS_HOST"],
             port=dotenv["REDIS_PORT"], 
