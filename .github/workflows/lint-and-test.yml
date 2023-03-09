@@ -39,7 +39,6 @@ jobs:
           python -m pytest --import-mode=append src/backend/
   
   postman:
-    needs: deploy
 
     jobs:
       automated-api-tests:
