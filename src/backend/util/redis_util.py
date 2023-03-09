@@ -12,8 +12,7 @@ if "REDIS_HOST" in dotenv:
         )
 else:
     redis_client = None
-else:
-    redis_client = None
+
 
 def redis_increment_request_count(request):
     # don't count requests when developing locally
