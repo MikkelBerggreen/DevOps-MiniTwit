@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from util.custom_exceptions import Custom_Exception
 import routers
 from dotenv import dotenv_values
+import time
 
 # style reference
 import os
@@ -33,7 +34,22 @@ async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
 # middleware
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
+from util.prometheus_util import update_process_time, update_CPU_usage, increment_request_count, metrics_router
+
+
+@app.middleware("http")
+async def calculate_process_time(request: Request, call_next):
+    update_CPU_usage()
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    update_process_time(process_time)
+    # increment_request_count()
+    return response
+
+
 # import routers
+app.include_router(metrics_router)
 app.include_router(routers.simulation_mapper_router)
 app.include_router(routers.pages_router)
 app.include_router(routers.timelines_router)
