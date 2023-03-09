@@ -5,11 +5,14 @@ from dotenv import dotenv_values
 
 dotenv = dotenv_values(".env")
 
-redis_client = redis.Redis(
-    host=dotenv["REDIS_HOST"],
-    port=dotenv["REDIS_PORT"], 
-    password=dotenv["REDIS_PASSWORD"]
-)
+if "REDIS_HOST" in dotenv:
+    redis_client = redis.Redis(
+        host=dotenv["REDIS_HOST"],
+        port=dotenv["REDIS_PORT"], 
+        password=dotenv["REDIS_PASSWORD"]
+    )
+else:
+    redis_client = None
 
 def redis_increment_request_count(request):
     # don't count requests when developing locally
