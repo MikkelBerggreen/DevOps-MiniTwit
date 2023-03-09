@@ -14,7 +14,6 @@ else:
     redis_client = None
 
 def increment_request_count(request):
-    print(request.client.host)
     # don't count requests when developing locally
     if request.client.host == "127.0.0.1" or request.client.host == "testclient":
         return
