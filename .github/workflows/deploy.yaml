@@ -89,20 +89,18 @@ jobs:
             [all]
             ${{secrets.SSH_HOST}} ansible_user=${{secrets.SSH_USER}}
 
+
   postman:
     needs: deploy
-
-    jobs:
-      automated-api-tests:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v3
-          - name: Install Postman CLI
-            run: |
-              curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-          - name: Login to Postman CLI
-            run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-          - name: Run API tests
-            run: |
-              postman collection run "8945217-6624a47c-3fc2-4136-ab89-df49655d926f"
-      
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "8945217-6624a47c-3fc2-4136-ab89-df49655d926f"
+  
