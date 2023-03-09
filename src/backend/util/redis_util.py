@@ -11,12 +11,12 @@ redis_client = redis.Redis(
     password=dotenv["REDIS_PASSWORD"]
 )
 
-def increment_request_count(request):
+def redis_increment_request_count(request):
     # don't count requests when developing locally
-    if request.client.host == "127.0.0.1":
+    if request.client.host == "127.0.0.1" or request.client.host == "testclient":
         return
     request_log = str(request.client) + " : " + str(datetime.now())
     redis_client.pfadd('processed_requests', request_log)
     
-def get_request_count():
+def redis_get_request_count():
     return redis_client.pfcount('processed_requests')
