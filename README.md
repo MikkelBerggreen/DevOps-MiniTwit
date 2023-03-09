@@ -2,6 +2,10 @@
 
 MiniTwit is a messaging application being converted from Flask to FastAPI.
 
+It is deployed here:
+
+http://157.245.16.6:8000/
+
 
 # How to dockerise the app.
 To run the application, we suggest using docker and building an image of the app.
