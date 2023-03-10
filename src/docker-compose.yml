@@ -38,9 +38,20 @@ services:
     expose:
       - 8000
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - prometheus:/prometheus
+      - ../.github/ansible/files/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - postgres
 
 networks:
   postgres:
 
 volumes:
   database:
+  prometheus:
