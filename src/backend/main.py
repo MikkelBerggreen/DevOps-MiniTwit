@@ -8,6 +8,8 @@ import routers
 from dotenv import dotenv_values
 from starlette.background import BackgroundTask
 from util import redis_util
+from util.prometheus_util import handle_update_metrics, metrics_router
+import time
 
 # style reference
 import os
@@ -28,7 +30,7 @@ app = FastAPI()
 @app.middleware("http")
 async def add_process_request_count(request: Request, call_next):
     response = await call_next(request)
-    response.background = BackgroundTask(redis_util.increment_request_count, request)
+    response.background = BackgroundTask(redis_util.redis_increment_request_count, request)
     return response 
 
 @app.exception_handler(Custom_Exception)
@@ -41,7 +43,18 @@ async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
 # middleware
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
+
+@app.middleware("http")
+async def add_process_request_count(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    response.background = BackgroundTask(handle_update_metrics, request, process_time)
+    return response 
+
+
 # import routers
+app.include_router(metrics_router)
 app.include_router(routers.simulation_mapper_router)
 app.include_router(routers.pages_router)
 app.include_router(routers.timelines_router)
