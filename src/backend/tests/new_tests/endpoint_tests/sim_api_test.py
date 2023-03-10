@@ -18,7 +18,7 @@ from main import app
 # it is hard to make tests / predict how the tests could look like. 
 
 # test_database.py
-SQLALCHEMY_DATABASE_URL = "postgresql://test-fastapi:password@db/test-fastapi-test"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5442/test"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
