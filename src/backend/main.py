@@ -30,7 +30,7 @@ app = FastAPI()
 @app.middleware("http")
 async def add_process_request_count(request: Request, call_next):
     response = await call_next(request)
-    response.background = BackgroundTask(redis_util.increment_request_count, request)
+    response.background = BackgroundTask(redis_util.redis_increment_request_count, request)
     return response 
 
 @app.exception_handler(Custom_Exception)
