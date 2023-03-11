@@ -81,7 +81,6 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 200
             assert response.json() == {"latest": 1337}
         
-    @unittest.skip("No way to test it just yet")
     @patch.object(Database, "connect_db")
     def test_create_msg_for_user_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
@@ -98,7 +97,6 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 200
             assert response.json() == {"latest": 2}
 
-    @unittest.skip("No way to test it just yet")
     @patch.object(Database, "connect_db")
     def test_get_latest_user_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
@@ -121,7 +119,6 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 200
             assert response.json() == {"latest": 3}
 
-    @unittest.skip("No way to test it just yet")
     @patch.object(Database, "connect_db")
     def test_get_latest_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
@@ -143,7 +140,6 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 200
             assert response.json() == {"latest": 4}
 
-    @unittest.skip("No way to test it just yet")
     @patch.object(Database, "connect_db")
     def test_follow_user(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
@@ -176,7 +172,6 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 200
             assert response.json() == {"latest": 9}
 
-    @unittest.skip("No way to test it just yet")
     @patch.object(Database, "connect_db")
     def test_a_unfollows_b(self, connect_db_mock):
         with self.override_get_db() as mocK_return:

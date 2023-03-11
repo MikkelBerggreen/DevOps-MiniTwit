@@ -29,5 +29,5 @@ class Timeline_Repo(Timeline_Repo_Interface):
 
     def get_latest(self):
         with database.connect_db() as db:
-            latest = db.query(Latest).one().latest_id
+            latest = db.query(Latest).order_by(Latest.id.desc()).first().latest_id
             return latest
