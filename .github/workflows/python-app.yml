@@ -28,7 +28,7 @@ jobs:
         if [ -f src/backend/requirements.txt ]; then pip install -r src/backend/requirements.txt; fi
 
     - name: Start containers
-      run: docker-compose -f "src/backend/docker-compose.yml" up -d --build
+      run: docker-compose -f "src/docker-compose.yml" up -d --build
 
     - name: Lint with flake8
       run: |
@@ -39,5 +39,9 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest --import-mode=append src/backend/
+        
+     - name: Stop containers
+      if: always()
+      run: docker-compose -f "src/docker-compose.yml" down
 
 
