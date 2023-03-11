@@ -3,9 +3,12 @@ from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 import routers
 from dotenv import dotenv_values
-
 # style reference
 import os
+from repos.orm.implementations.models import Base
+from database.db_orm import engine
+
+Base.metadata.create_all(bind=engine)
 
 dotenv = dotenv_values(".env")
 

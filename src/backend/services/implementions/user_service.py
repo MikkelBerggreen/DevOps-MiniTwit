@@ -1,5 +1,5 @@
 from services.interfaces.user_service_interface import User_Service_Interface
-from repos.implementations.user_repo import User_Repo
+from repos.orm.implementations.user_queries import User_Repo
 
 
 class User_Service(User_Service_Interface):

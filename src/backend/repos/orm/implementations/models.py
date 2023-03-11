@@ -72,3 +72,4 @@ class Latest(Base):
 
     def __repr__(self):
         return f"Latest('{self.latest_id}')"
+    

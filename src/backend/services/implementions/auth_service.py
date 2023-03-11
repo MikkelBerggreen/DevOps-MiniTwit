@@ -1,5 +1,5 @@
 from services.interfaces.auth_service_interface import Auth_Service_Interface
-from repos.implementations.auth_repo import Auth_Repo
+from repos.orm.implementations.auth_queries import Auth_Repo
 import bcrypt
 
 
