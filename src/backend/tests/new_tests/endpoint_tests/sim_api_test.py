@@ -1,17 +1,13 @@
-import json
-import base64
-import requests
 import unittest
-from fastapi.testclient import TestClient
+from unittest.mock import patch
+from contextlib import contextmanager
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_utils import database_exists, create_database
+from fastapi.testclient import TestClient
 from repos.orm.implementations.models import Base
 from database.db_orm import Database
-from sqlalchemy_utils import database_exists, create_database
-from unittest.mock import patch
-from contextlib import contextmanager
 from main import app
 
 # In order for the tests to work. We need to override existing db connection url with a fake database
@@ -56,13 +52,32 @@ def test_register_NormalRegister(user, email, pwd, latest):
 
 
 class Simulation_API_Testing(unittest.TestCase):
+
     @contextmanager
     def override_get_db(self):
-        try:
-            db = TestingSessionLocal()
-            yield db
-        finally:
-            db.close()
+        connection = engine.connect()
+
+        # begin a non-ORM transaction
+        transaction = connection.begin()
+
+        # bind an individual Session to the connection
+        db = TestingSessionLocal(bind=connection)
+        # db = Session(engine)
+
+        yield db
+
+        db.close()
+        transaction.rollback()
+        connection.close()
+        
+    def set_up_users(self, username, email, passwords, latest):
+        response = client.post(
+                "/register",
+                json={"username": username, "email": email, "pwd": passwords},
+                params={"latest": latest}
+            )
+            
+        assert response.status_code == 204
 
     @patch.object(Database, "connect_db")
     def test_latest(self, connect_db_mock):
@@ -80,11 +95,63 @@ class Simulation_API_Testing(unittest.TestCase):
             response = client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 1337}
-        
+
+    @patch.object(Database, "connect_db")
+    def test_register_c(self, connect_db_mock):
+        with self.override_get_db() as mocK_return:
+            connect_db_mock.return_value = mocK_return
+            response = client.post(
+                "/register",
+                json={"username": "c", "email": "c@c.c", "pwd": "c"},
+                params={"latest": 6},
+            )
+            assert response.status_code == 204
+            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
+
+            response = client.get("/latest")
+            assert response.status_code == 200
+            assert response.json() == {"latest": 6}
+
+
+    @patch.object(Database, "connect_db")
+    def test_register_b(self, connect_db_mock):
+        with self.override_get_db() as mocK_return:
+            connect_db_mock.return_value = mocK_return
+            response = client.post(
+                "/register",
+                json={"username": "b", "email": "b@b.b", "pwd": "b"},
+                params={"latest": 5},
+            )
+            assert response.status_code == 204
+            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
+
+            response = client.get("/latest")
+            assert response.status_code == 200
+            assert response.json() == {"latest": 5}
+
+    @patch.object(Database, "connect_db")
+    def test_register_a(self, connect_db_mock):
+        with self.override_get_db() as mocK_return:
+            connect_db_mock.return_value = mocK_return
+            response = client.post(
+                "/register",
+                json={"username": "a", "email": "a@a.a", "pwd": "a"},
+                params={"latest": 1},
+            )
+            assert response.status_code == 204
+            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
+
+            response = client.get("/latest")
+            assert response.status_code == 200
+            assert response.json() == {"latest": 1}
+
     @patch.object(Database, "connect_db")
     def test_create_msg_for_user_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
+            #############################
             connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+            #############################
             response = client.post(
                 "/msgs/a",
                 json={"content": "Blub"},
@@ -100,7 +167,16 @@ class Simulation_API_Testing(unittest.TestCase):
     @patch.object(Database, "connect_db")
     def test_get_latest_user_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
+            #############################
             connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+            
+            response = client.post(
+                "/msgs/a",
+                json={"content": "Blub"},
+                params={"latest": 2},
+            )
+            #############################
             response = client.get(
                 "/msgs/a",
                 params={"no": 20, "latest": 3},
@@ -122,7 +198,17 @@ class Simulation_API_Testing(unittest.TestCase):
     @patch.object(Database, "connect_db")
     def test_get_latest_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
+            #############################
             connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+            
+            response = client.post(
+                "/msgs/a",
+                json={"content": "Blub"},
+                params={"latest": 2},
+            )
+
+            #############################
             response = client.get(
                 "/msgs",
                 params={"no": 20, "latest": 4},
@@ -143,7 +229,12 @@ class Simulation_API_Testing(unittest.TestCase):
     @patch.object(Database, "connect_db")
     def test_follow_user(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
+            #############################
             connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+            self.set_up_users("b", "b@b.b", "b", 5)
+            self.set_up_users("c", "c@c.c", "c", 6)
+            #############################
             response = client.post(
                 "/fllws/a",
                 json={"follow": "b"},
@@ -175,7 +266,18 @@ class Simulation_API_Testing(unittest.TestCase):
     @patch.object(Database, "connect_db")
     def test_a_unfollows_b(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
+            #############################
             connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+            self.set_up_users("b", "b@b.b", "b", 5)
+
+            response = client.post(
+                "/fllws/a",
+                json={"follow": "b"},
+                params={"latest": 7},
+            )
+            assert response.status_code == 204
+            #############################
             response = client.post(
                 "/fllws/a",
                 json={"unfollow": "b"},
