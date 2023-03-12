@@ -19,6 +19,7 @@ from database.db_util import Database
 
 from repos.orm.implementations.auth_queries import Auth_Repo
 
+from services.implementions.auth_service import Auth_Service
 from util.custom_exceptions import Custom_Exception
 
 import bcrypt

@@ -6,6 +6,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from repos.orm.implementations.auth_queries import Auth_Repo
+
+from services.implementions.auth_service import Auth_Service
 from main import app
 
 client = TestClient(app)
