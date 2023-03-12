@@ -54,7 +54,7 @@ services:
     container_name: grafana
     volumes:
       - grafana-data:/var/lib/grafana
-      - ../.github/ansible/provisioning:/etc/grafana/provisioning
+      - ../.github/ansible/files/provisioning:/etc/grafana/provisioning
     ports:
       - "3000:3000"  
     networks:
