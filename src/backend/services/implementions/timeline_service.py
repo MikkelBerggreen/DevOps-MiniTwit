@@ -1,5 +1,6 @@
 from services.interfaces.timeline_service_interface import Timeline_Service_Interface
 from repos.orm.implementations.timeline_queries import Timeline_Repo
+from repos.orm.implementations.models import Latest, Message,User
 from datetime import datetime
 
 class Timeline_Service(Timeline_Service_Interface):
@@ -24,6 +25,6 @@ class Timeline_Service(Timeline_Service_Interface):
     def __format_time(self, messages):
         if messages != None:
             for x in messages:
-                x.date = datetime.fromtimestamp(x.pub_date).strftime("%H:%M:%S, %m/%d/%Y")
+                x["date"] = datetime.fromtimestamp(x["pub_date"]).strftime("%H:%M:%S, %m/%d/%Y")
             return messages
         return []

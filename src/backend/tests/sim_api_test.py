@@ -175,7 +175,7 @@ class Simulation_API_Testing(unittest.TestCase):
             
             response = client.post(
                 "/msgs/a",
-                json={"content": "Blub"},
+                json={"content": "Blub!"},
                 params={"latest": 2},
             )
 

@@ -173,10 +173,10 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
             assert 'the message by bar' in rv.text
 
             # but on the user's page we only want the user's message
-            rv = client.get('/bar')
+            rv = client.get('/timeline/bar')
             assert 'the message by foo' not in rv.text
             assert 'the message by bar' in rv.text
-            rv = client.get('/foo')
+            rv = client.get('/timeline/foo')
             assert 'the message by foo' in rv.text
             assert 'the message by bar' not in rv.text
 

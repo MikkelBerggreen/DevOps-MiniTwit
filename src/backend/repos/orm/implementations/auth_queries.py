@@ -27,7 +27,8 @@ class Auth_Repo(Auth_Repo_Interface):
             return db_user
 
     def change_user_password(self, password, user_id):
-        # To implement
-        pass
+        with database.connect_db() as db:
+            db.query(User).filter_by(user_id=user_id).update({User.pw_hash: password})
+            db.commit()
 
 
