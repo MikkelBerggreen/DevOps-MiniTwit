@@ -22,6 +22,8 @@ class Timeline_Service(Timeline_Service_Interface):
         return self.timeline_repo.get_latest()
     
     def __format_time(self, messages):
-        for x in messages:
-            x["date"] = datetime.fromtimestamp(x["pub_date"]).strftime("%H:%M:%S, %m/%d/%Y")
-        return messages
+        if messages != None:
+            for x in messages:
+                x.date = datetime.fromtimestamp(x.pub_date).strftime("%H:%M:%S, %m/%d/%Y")
+            return messages
+        return []

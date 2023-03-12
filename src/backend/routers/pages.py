@@ -111,7 +111,6 @@ def register(request: Request):
     """todo auth check, and redirect if not logged in"""
     user = get_session(request, "user_id")
     username = get_session(request, "username")
-
     if user:
         return RedirectResponse("/", status_code=307)
 
