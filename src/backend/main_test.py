@@ -15,7 +15,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from main import app
-from database.db_util import Database
+from database.db_orm import Database
 
 from repos.orm.implementations.auth_queries import Auth_Repo
 
