@@ -1,7 +1,6 @@
 from typing import Union
 from pydantic import BaseModel
-from fastapi import APIRouter, Response, Query
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Response, Query, HTTPException
 
 from util.custom_exceptions import Custom_Exception
 
@@ -23,7 +22,7 @@ def _(response: Response):
 
 
 @router.get("/msgs")
-def _(latest: Union[str, None] = Query(default=-1)):
+def _(latest: Union[str, None] = Query(default=-1), PER_PAGE: Union[int, None] = Query(default=30)):
     timeline_service.record_latest(latest)
     messages = timeline_service.get_public_timeline(PER_PAGE)
     # Messy way of doing conversion. Change it later !
@@ -36,7 +35,7 @@ def _(latest: Union[str, None] = Query(default=-1)):
 # This is a route that bypasses authorization and our session
 # so it is implemented here
 @router.get("/msgs/{username}", status_code=204)
-def _(username: str, no: Union[str, None] = Query(default=100), latest: Union[int, None] = Query(default=-1)):
+def _(username: str, no: Union[int, None] = Query(default=100), latest: Union[int, None] = Query(default=-1)):
     timeline_service.record_latest(latest)
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
