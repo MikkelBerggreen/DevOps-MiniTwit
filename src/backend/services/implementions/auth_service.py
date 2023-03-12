@@ -19,8 +19,8 @@ class Auth_Service(Auth_Service_Interface):
         if found_user is None:
             raise Custom_Exception(status_code=403,msg="username not found")
         else:
-            db_password = found_user["pw_hash"]
-            del found_user["pw_hash"]
+            db_password = found_user.pw_hash
+            del found_user.pw_hash
 
             # legacy users have md5 encrypted passwords that need to be encrypted with bcrypt instead 
             if not db_password.startswith("$2b$"):
@@ -31,7 +31,7 @@ class Auth_Service(Auth_Service_Interface):
                     # handling the edge case that a user has found a legacy account but provides incorrect password
                     raise Custom_Exception(status_code=403,msg="username not found")
                 else: 
-                    self.reset_password(password, found_user["user_id"])
+                    self.reset_password(password, found_user.user_id)
                     return found_user
                 
             if bcrypt.checkpw(password.encode(), db_password.encode()):

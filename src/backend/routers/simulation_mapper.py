@@ -27,8 +27,8 @@ def _(latest: Union[str, None] = Query(default=-1), PER_PAGE: Union[int, None] =
     messages = timeline_service.get_public_timeline(PER_PAGE)
     # Messy way of doing conversion. Change it later !
     for x in messages:
-        x["content"] = x["text"]
-        x["user"] = x["username"]
+        x.content = x.text
+        x.user = x.username
     return messages
 
 
@@ -42,8 +42,8 @@ def _(username: str, no: Union[int, None] = Query(default=100), latest: Union[in
     
     messages = timeline_service.get_follower_timeline(username, no)
     for x in messages:
-        x["content"] = x["text"]
-        x["user"] = x["username"]
+        x.content = x.text
+        x.user = x.username
     return messages
 
 
@@ -112,7 +112,7 @@ def _(
     followers = user_service.get_all_followers(user_id, no)
 
     response.status_code = 200
-    follower_names = [f["username"] for f in followers]
+    follower_names = [f.username for f in followers]
     return {"follows": follower_names}
 
 

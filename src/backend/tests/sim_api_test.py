@@ -10,16 +10,6 @@ from repos.orm.implementations.models import Base
 from database.db_orm import Database
 from main import app
 
-# In order for the tests to work. We need to override existing db connection url with a fake database
-# Afterwards we might take several approaches :
-# Revert transactions to prevent committing. Using fixture
-# Allow transactions but delete the database after all tests are done.
-# Have single instances of testing. Meaning we test a single function in a vacuum.
-# In this file. I Attempted to make the override but without a more concrete ORM implementation, 
-# it is hard to make tests / predict how the tests could look like. 
-
-
-
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5442/test"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 if not database_exists(engine.url):
