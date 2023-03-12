@@ -26,6 +26,18 @@
       dest: /tmp/docker-compose.yml
     become: true
   
+  - name: copy the prometheus configuration file
+    copy:
+      src: prometheus.yml
+      dest: /home/config/prometheus.yml
+    become: true
+
+  - name: copy the generated .env file
+    copy:
+      src: .env
+      dest: /home/config/.env
+    become: true
+  
   - name: Tear down existing services
     community.docker.docker_compose:
       project_src: /tmp/

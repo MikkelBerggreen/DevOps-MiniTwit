@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Query, HTTPException
+from fastapi import APIRouter, Request, Query
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Union
@@ -45,31 +45,24 @@ def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     user = get_session(request, "user_id")
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
-    return templates.TemplateResponse(
-        "timeline.html",
-        {
-            "request": request,
+    template = templates.get_template("timeline.html")
+    html = template.render({  "request": request,
             "g": username,
             "endpoint": endpoint,
-            "messages": timeline_service.get_user_timeline(user, PER_PAGE),
-        },
-    )
+            "messages": timeline_service.get_user_timeline(user, PER_PAGE),})
+    return HTMLResponse(html)
 
 
 @router.get("/public", response_class=HTMLResponse)
 def public_timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
-
-    return templates.TemplateResponse(
-        "timeline.html",
-        {
-            "request": request,
+    template = templates.get_template("timeline.html")
+    html = template.render({ "request": request,
             "g": username,
             "endpoint": endpoint,
-            "messages": timeline_service.get_public_timeline(PER_PAGE),
-        },
-    )
+            "messages": timeline_service.get_public_timeline(PER_PAGE),})
+    return HTMLResponse(html)
 
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
@@ -77,8 +70,8 @@ def user_timeline(
     request: Request, username: str, PER_PAGE: Union[int, None] = Query(default=30)
 ):
 
-    if not auth_service.check_if_user_exists(username):
-        raise HTTPException(status_code=404, detail="User not found")
+    auth_service.check_if_user_exists(username)
+    
     followed = False
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     if get_session(request, "user_id"):
@@ -90,18 +83,15 @@ def user_timeline(
         "user_id": user_service.get_user_id_from_username(username),
         "username": username,
     }
-    return templates.TemplateResponse(
-        "timeline.html",
-        {
-            "request": request,
+    template = templates.get_template("timeline.html")
+    html = template.render({ "request": request,
             "messages": timeline_service.get_follower_timeline(username, PER_PAGE),
             "followed": followed,
             "profile_user": profile_user,
             "endpoint": endpoint,
             "g": get_session(request, "username"),
-            "f": get_session(request, "user_id"),
-        },
-    )
+            "f": get_session(request, "user_id")})
+    return HTMLResponse(html)
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -111,11 +101,9 @@ def login(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     username = get_session(request, "username")
     if user:
         return RedirectResponse("/", status_code=307)
-
-    return templates.TemplateResponse(
-        "login.html",
-        {"request": request, "error": get_session(request, "error"), "g": username},
-    )
+    template = templates.get_template("login.html")
+    html = template.render({"request": request, "error": get_session(request, "error"), "g": username})
+    return HTMLResponse(html)
 
 
 @router.get("/register", response_class=HTMLResponse)
@@ -127,7 +115,6 @@ def register(request: Request):
     if user:
         return RedirectResponse("/", status_code=307)
 
-    return templates.TemplateResponse(
-        "register.html",
-        {"request": request, "error": get_session(request, "error"), "g": username},
-    )
+    template = templates.get_template("register.html")
+    html = template.render({"request": request, "error": get_session(request, "error"), "g": username})
+    return HTMLResponse(html)

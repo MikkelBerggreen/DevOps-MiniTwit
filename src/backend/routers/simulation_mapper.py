@@ -2,6 +2,8 @@ from typing import Union
 from pydantic import BaseModel
 from fastapi import APIRouter, Response, Query, HTTPException
 
+from util.custom_exceptions import Custom_Exception
+
 from services.implementions.auth_service import Auth_Service
 from services.implementions.timeline_service import Timeline_Service
 from services.implementions.user_service import User_Service
@@ -60,9 +62,6 @@ def _(
 ):
 
     user_id = user_service.get_user_id_from_username(username)
-    if user_id is None:
-        response.status_code = 404
-        return {"error": "user doesn't exist"}
 
     timeline_service.record_latest(latest)
     user_service.post_message(user_id, body.content)
@@ -83,14 +82,15 @@ class Registration(BaseModel):
 def _(
     response: Response, body: Registration, latest: Union[int, None] = Query(default=-1)
 ):
-    if auth_service.check_if_user_exists(body.username):
-        response.status_code = 403
-        return {"error": "username already exists"}
-    
-    timeline_service.record_latest(latest)
-    response.status_code = 204
-    auth_service.register_user(body.username, body.email, body.pwd)
-    return {"success": "register success"}
+    try:
+        timeline_service.record_latest(latest)
+        auth_service.register_user(body.username, body.email, body.pwd)
+        response.status_code = 204
+        return {"success": "register success"}
+    except Custom_Exception as er:
+        response.status_code = er.status_code
+        
+        return {"error": er.msg}
 
 
 class FollowMessage(BaseModel):
@@ -106,10 +106,6 @@ def _(
     latest: Union[str, None] = Query(default=-1),
 ):
     user_id = user_service.get_user_id_from_username(username)
-
-    if not user_id:
-        response.status_code = 404
-        return {"error": "user doesn't exist"}
 
     timeline_service.record_latest(latest)
 
@@ -129,24 +125,18 @@ def _(
 ):
     user_id = user_service.get_user_id_from_username(username)
 
-    if user_id is None:
-        response.status_code = 404
-        return {"error": "user doesn't exist"}
-
     timeline_service.record_latest(latest)
 
     if body.follow is not None:
 
-        if not user_service.add_follower(user_id, body.follow):
-            response.status_code = 404
-            return {"error": "user doesn't exist"}
+        user_service.add_follower(user_id, body.follow)
+
         response.status_code = 204
         return ""
 
     elif body.unfollow is not None:
-        if not user_service.remove_follower(user_id, body.unfollow):
-            response.status_code = 404
-            return {"error": "user doesn't exist"}
+
+        user_service.remove_follower(user_id, body.unfollow)
 
         response.status_code = 204
         return ""

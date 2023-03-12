@@ -1,3 +1,5 @@
+.env
+
 # Docker Dev Environments File
 compose-dev.yaml
 
