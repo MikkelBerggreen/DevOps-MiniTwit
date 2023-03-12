@@ -55,6 +55,8 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ../.github/ansible/files/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
     ports:
       - "3000:3000"  
     networks:
