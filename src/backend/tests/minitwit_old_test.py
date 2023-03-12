@@ -10,7 +10,7 @@ from repos.orm.implementations.models import Base
 from database.db_orm import Database
 from main import app
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5442/test"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/test"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 if not database_exists(engine.url):
     create_database(engine.url)
