@@ -43,6 +43,8 @@ class Auth_Service(Auth_Service_Interface):
         if self.auth_repo.check_if_user_exists(username):
             raise Custom_Exception(status_code=403,msg="User already exists")
 
+        if self.auth_repo.check_if_email_is_taken(email):
+            raise Custom_Exception(status_code=403,msg="Email is already taken")
 
         hashed_pw = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt())
         # Having to decode it is a Postgres specific issue, see:

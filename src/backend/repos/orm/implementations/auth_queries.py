@@ -12,6 +12,13 @@ class Auth_Repo(Auth_Repo_Interface):
                 return True
             else:
                 return False
+    def check_if_email_is_taken(self, email):
+        with database.connect_db() as db:
+            email = db.query(User).filter_by(email=email).one_or_none()
+            if email is not None:
+                return True
+            else:
+                return False
 
     def validate_user(self, username):
         with database.connect_db() as db:
