@@ -34,7 +34,7 @@
 
   - name: copy the grafana datasource file
     copy:
-      src: .github/ansible/provisioning/datasources/datasource.yml
+      src: datasource.yml
       dest: /home/config/datasource.yml
     become: true
 
