@@ -164,7 +164,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
             assert 'the message by bar' in rv.text
 
             # now let's follow foo
-            rv = client.get('/api/users/foo/follow', follow_redirects=True)
+            rv = client.get('/api/users/foo/follow', allow_redirects=True)
             assert 'You are currently following this user.' in rv.text
 
             # we should now see foo's message
@@ -181,7 +181,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
             assert 'the message by bar' not in rv.text
 
             # now unfollow and check if that worked
-            rv = client.get('/api/users/foo/unfollow', follow_redirects=True)
+            rv = client.get('/api/users/foo/unfollow', allow_redirects=True)
             assert 'You are not yet following this user.' in rv.text
             rv = client.get('/')
             assert 'the message by foo' not in rv.text
