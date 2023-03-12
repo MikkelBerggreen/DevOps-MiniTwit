@@ -32,11 +32,11 @@
       dest: /home/config/prometheus.yml
     become: true
 
-  - name: copy the grafana datasource file
-    copy:
-      src: .github/ansible/provisioning/datasources/datasource.yml
-      dest: /home/config/datasource.yml
+  - name: copying provisioning directory
     become: true
+    copy:
+      src: provisioning/
+      dest: /home/config/provisioning
 
   - name: copy the generated .env file
     copy:

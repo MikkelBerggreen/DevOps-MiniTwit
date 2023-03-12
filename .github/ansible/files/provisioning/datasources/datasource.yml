@@ -18,6 +18,7 @@ datasources:
   # <int> org id. will default to orgId 1 if not specified
   orgId: 1
   # <string> url
+  uid: 8vqxbp-Vk
   url: http://prometheus:9090
   # <string> database password, if used
   password:
