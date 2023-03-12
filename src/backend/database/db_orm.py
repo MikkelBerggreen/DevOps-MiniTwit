@@ -7,7 +7,7 @@ from sqlalchemy_utils import database_exists, create_database
 
 # Some reason the testing software doesnt like postgresql://postgres:postgres@host.docker.internal:5442/minitwit
 # Need to figure out a workaround for this
-url = "postgresql://postgres:postgres@host.docker.internal:5442/minitwit"
+url = "postgresql://postgres:postgres@localhost:5442/minitwit"
 engine = create_engine(url)
 if not database_exists(engine.url):
     create_database(engine.url)
