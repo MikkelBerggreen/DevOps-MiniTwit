@@ -41,9 +41,20 @@ services:
     networks:
       - postgres
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"  
+    networks:
+      - postgres
+
 networks:
   postgres:
 
 volumes:
   database:
   prometheus:
+  grafana-data:
