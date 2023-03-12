@@ -54,7 +54,6 @@ async def add_process_request_count(request: Request, call_next):
 app.include_router(metrics_router)
 app.include_router(routers.simulation_mapper_router)
 app.include_router(routers.pages_router)
-app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 

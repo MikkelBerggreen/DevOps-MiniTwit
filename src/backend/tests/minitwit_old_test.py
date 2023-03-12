@@ -10,7 +10,7 @@ from repos.orm.implementations.models import Base
 from database.db_orm import Database
 from main import app
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5442/test"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/test"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 if not database_exists(engine.url):
     create_database(engine.url)
@@ -173,10 +173,10 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
             assert 'the message by bar' in rv.text
 
             # but on the user's page we only want the user's message
-            rv = client.get('/bar')
+            rv = client.get('/timeline/bar')
             assert 'the message by foo' not in rv.text
             assert 'the message by bar' in rv.text
-            rv = client.get('/foo')
+            rv = client.get('/timeline/foo')
             assert 'the message by foo' in rv.text
             assert 'the message by bar' not in rv.text
 

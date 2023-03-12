@@ -2,8 +2,8 @@
 drop table if exists users;
 create table users (
   user_id integer primary key GENERATED ALWAYS AS IDENTITY,
-  username VARCHAR not null,
-  email VARCHAR not null,
+  username VARCHAR not null UNIQUE,
+  email VARCHAR not null UNIQUE,
   pw_hash VARCHAR not null
 );
 
