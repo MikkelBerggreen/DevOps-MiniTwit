@@ -1,5 +1,5 @@
 from services.interfaces.timeline_service_interface import Timeline_Service_Interface
-from repos.implementations.timeline_repo import Timeline_Repo
+from repos.orm.implementations.timeline_queries import Timeline_Repo
 from datetime import datetime
 
 class Timeline_Service(Timeline_Service_Interface):
