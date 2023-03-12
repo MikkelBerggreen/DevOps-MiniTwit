@@ -81,19 +81,19 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
 
     def logout(self):
         """Helper function to logout"""
-        return client.get('/logout', follow_redirects=True)
+        return client.get('/logout', allow_redirects=True)
 
     def add_message(self, text):
         """Records a message"""
         return client.post(
                 "/api/users/messages",
                 data={"text": text},
-                follow_redirects=True
+                allow_redirects=True
             )
 
     #Clean up errors.
     def setUp(self):
-        client.get('/logout', follow_redirects=True)
+        client.get('/logout', allow_redirects=True)
 
     # testing functions
     @patch.object(Database, "connect_db")
