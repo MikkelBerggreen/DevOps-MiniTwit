@@ -32,25 +32,6 @@ Base.metadata.create_all(bind=engine)
 
 client = TestClient(app)
 
-@unittest.skip("No way to test it just yet")
-@pytest.mark.parametrize("user, email, pwd, latest",
-                         [("a", "a@a.a", "a", 1),
-                          ("b", "b@b.b", "b", 5),
-                          ("c", "c@c.c", "c", 6)])
-def test_register_NormalRegister(user, email, pwd, latest):
-    response = client.post(
-        "/register",
-        data={"username": user, "email": email, "pwd": pwd},
-        params={"latest": latest},
-    )
-    assert response.status_code == 204
-    # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
-
-    response = client.get("/latest")
-    assert response.status_code == 200
-    assert response.json() == {"latest": latest}
-
-
 class Simulation_API_Testing(unittest.TestCase):
 
     @contextmanager
