@@ -32,13 +32,11 @@
       dest: /home/config/prometheus.yml
     become: true
 
-  - name: copy provisioning directory
-    tasks:
-      - name: copying provisioning directory
-        become: true
-        copy:
-          src: ~/provisioning/
-          dest: /home/config/provisioning
+  - name: copying provisioning directory
+    become: true
+    copy:
+      src: ~/provisioning/
+      dest: /home/config/provisioning
 
   - name: copy the generated .env file
     copy:
