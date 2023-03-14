@@ -51,8 +51,6 @@ class Message(Base):
     pub_date = Column(Integer, nullable=True)
     flagged = Column(Integer, nullable=True)
 
-    # user = relationship('User', backref='user_messages')
-
     def __init__(self, author_id, text, pub_date, flagged):
         self.author_id = author_id
         self.text = text

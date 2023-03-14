@@ -7,6 +7,7 @@ from repos.orm.implementations.user_queries import User_Repo
 database = Database()
 user_repo = User_Repo()
 
+
 class Timeline_Repo(Timeline_Repo_Interface):
     def get_user_timeline(self, user_id, per_page_limit):
         with database.connect_db() as db:
@@ -23,7 +24,6 @@ class Timeline_Repo(Timeline_Repo_Interface):
             results = self.object_as_dict(query)
             
             return results
-
 
     def get_public_timeline(self, per_page_limit):
         with database.connect_db() as db:
@@ -54,13 +54,13 @@ class Timeline_Repo(Timeline_Repo_Interface):
             return latest
 
     def object_as_dict(self, obj):
-        myList = []
+        dict_list = []
         for row in obj:
-            myList.append({**row.User.__dict__, **row.Message.__dict__})
-        return myList
+            dict_list.append({**row.User.__dict__, **row.Message.__dict__})
+        return dict_list
 
     def follow_dict(self, obj):
-        myList = []
+        dict_list = []
         for row in obj:
-            myList.append(row.__dict__)
-        return myList
+            dict_list.append(row.__dict__)
+        return dict_list
