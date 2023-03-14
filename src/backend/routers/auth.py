@@ -23,7 +23,7 @@ def login(
     if username == "":
         error = "Usename cannot be blank"
     elif password == "":
-        error = "Usename cannot be blank"
+        error = "Password cannot be blank"
 
     if error != "":
         response.status_code = 403
