@@ -50,7 +50,7 @@ async def add_process_request_count(request: Request, call_next):
     return response
 
 
-# import routers
+# routers
 app.include_router(metrics_router)
 app.include_router(simulation_mapper.router)
 app.include_router(pages.router)
