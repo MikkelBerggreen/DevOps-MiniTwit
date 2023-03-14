@@ -1,4 +1,4 @@
-from prometheus_client import Counter, Gauge, Histogram, generate_latest
+from prometheus_client import Gauge, Histogram, generate_latest
 from fastapi import APIRouter, Response
 import psutil
 from .redis_util import redis_increment_request_count, redis_get_request_count
@@ -27,11 +27,14 @@ def handle_update_metrics(request, process_time):
     update_process_time(process_time)
     redis_increment_request_count(request)
 
+
 def increment_request_count():
-    RESPONSE_COUNTER.inc() 
+    RESPONSE_COUNTER.inc()
+
 
 def update_CPU_usage():
     CPU_GAUGE.set(psutil.cpu_percent())
+
 
 def update_process_time(process_time):
     REQ_DURATION_SUMMARY.observe(process_time)

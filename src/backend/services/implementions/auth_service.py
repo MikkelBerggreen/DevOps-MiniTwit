@@ -22,18 +22,18 @@ class Auth_Service(Auth_Service_Interface):
             db_password = found_user.pw_hash
             del found_user.pw_hash
 
-            # legacy users have md5 encrypted passwords that need to be encrypted with bcrypt instead 
+            # legacy users have md5 encrypted passwords that need to be encrypted with bcrypt instead
             if not db_password.startswith("$2b$"):
                 # the user is a legacy user and only then will we import the hashlib library (to avoid bloat)
                 import hashlib
-                
+
                 if hashlib.md5(password.encode()).hexdigest() != db_password:
                     # handling the edge case that a user has found a legacy account but provides incorrect password
-                    raise Custom_Exception(status_code=403,msg="username not found")
-                else: 
+                    raise Custom_Exception(status_code=403, msg="username not found")
+                else:
                     self.reset_password(password, found_user.user_id)
                     return found_user
-                
+
             if bcrypt.checkpw(password.encode(), db_password.encode()):
                 return found_user
             else:

@@ -115,7 +115,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_login_logout(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-          
+
             """Make sure logging in and logging out works"""
             rv = self.register_and_login('user1', 'default')
             assert 'sign out [user1]' in rv.text
@@ -130,7 +130,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_message_recording(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            
+
             """Check if adding messages works"""
             self.register_and_login('foo', 'default')
             self.add_message('test message 1')
@@ -143,7 +143,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_timelines(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-          
+
             """Make sure that timelines work"""
             self.register_and_login('foo', 'default')
             self.add_message('the message by foo')

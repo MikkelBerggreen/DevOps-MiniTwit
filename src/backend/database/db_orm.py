@@ -32,4 +32,3 @@ class Database:
             yield db
         finally:
             db.close()
-

@@ -2,6 +2,7 @@ from services.interfaces.timeline_service_interface import Timeline_Service_Inte
 from repos.orm.implementations.timeline_queries import Timeline_Repo
 from datetime import datetime
 
+
 class Timeline_Service(Timeline_Service_Interface):
     def __init__(self):
         self.timeline_repo = Timeline_Repo()

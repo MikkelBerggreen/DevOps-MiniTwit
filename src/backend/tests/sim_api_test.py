@@ -77,12 +77,12 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 6},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
+            # assert response.json() == {"success": "register success"}
+            # This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 6}
-
 
     @patch.object(Database, "connect_db")
     def test_register_b(self, connect_db_mock):
@@ -94,7 +94,6 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 5},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200
@@ -110,7 +109,6 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 1},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200

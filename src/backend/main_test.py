@@ -15,20 +15,15 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from main import app
-from database.db_orm import Database
 
 from repos.orm.implementations.auth_queries import Auth_Repo
 
 from services.implementions.auth_service import Auth_Service
-from util.custom_exceptions import Custom_Exception
-
-import bcrypt
-import json
 
 client = TestClient(app)
 
 
-#NOTE: Do not add tests to this class, add tests to /tests/ folder. This class is only examples of tests !
+# NOTE: Do not add tests to this class, add tests to /tests/ folder. This class is only examples of tests !
 # For more examples related to testing on live db. See /tests/sim_api_test.py
 
 
@@ -37,20 +32,19 @@ client = TestClient(app)
 def test_param_example(count, expected):
     assert count == expected
 
+
 class MiniTwitTestCase(unittest.TestCase):
 
     # Note parametrize testing does not work inside a unittest class.
     # This class is used to illustrate this.
-    # To skip tests. Use : 
-    #    @unittest.skip("No way to test it just yet") 
+    # To skip tests. Use :
+    #    @unittest.skip("No way to test it just yet")
     def test_example(self):
-        assert True is True
+        assert True
 
     # Example of service testing + mocking objects
     @patch.object(Auth_Repo, "validate_user")
-
     def test_cant_register_two_of_same_users(self, Query_DB_Mock):
-
 
         mock_Return_user_one = {
             "user_id": 1,
