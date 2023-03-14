@@ -1,4 +1,4 @@
-from fastapi import FastAPI , Request
+from fastapi import FastAPI, Request
 
 from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
@@ -47,7 +47,7 @@ async def add_process_request_count(request: Request, call_next):
     response = await call_next(request)
     process_time = time.time() - start_time
     response.background = BackgroundTask(handle_update_metrics, request, process_time)
-    return response 
+    return response
 
 
 # import routers

@@ -23,11 +23,17 @@ auth_service = Auth_Service()
 def flash(request: Request, message: typing.Any, category: str = "") -> None:
     if "_messages" not in request.session:
         request.session["_messages"] = []
-    request.session["_messages"].append({"message": message, "category": category})
+
+    request.session["_messages"].append({
+        "message": message, "category": category
+        })
 
 
 def get_flashed_messages(request: Request):
-    return request.session.pop("_messages") if "_messages" in request.session else []
+    if "_messages" in request.session:
+        return request.session.pop("_messages")
+
+    return []
 
 
 templates.env.globals["get_flashed_messages"] = get_flashed_messages
@@ -43,40 +49,48 @@ def get_session(request, key):
 def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     user = get_session(request, "user_id")
     username = get_session(request, "username")
-    
+
     if not user:
         return RedirectResponse("/public", status_code=307)
 
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
-    html = template.render({  "request": request,
-            "g": username,
-            "endpoint": endpoint,
-            "messages": timeline_service.get_user_timeline(user, PER_PAGE),})
+    html = template.render({
+        "request": request,
+        "g": username,
+        "endpoint": endpoint,
+        "messages": timeline_service.get_user_timeline(user, PER_PAGE),
+        })
     return HTMLResponse(html)
 
 
 @router.get("/public", response_class=HTMLResponse)
-def public_timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
+def public_timeline(request: Request,
+                    PER_PAGE: Union[int, None] = Query(default=30)):
+
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
-    html = template.render({ "request": request,
-            "g": username,
-            "endpoint": endpoint,
-            "messages": timeline_service.get_public_timeline(PER_PAGE),})
+    html = template.render({
+        "request": request,
+        "g": username,
+        "endpoint": endpoint,
+        "messages": timeline_service.get_public_timeline(PER_PAGE),
+        })
     return HTMLResponse(html)
 
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(
-    request: Request, username: str, PER_PAGE: Union[int, None] = Query(default=30)
+    request: Request, username: str,
+    PER_PAGE: Union[int, None] = Query(default=30)
 ):
 
     auth_service.check_if_user_exists(username)
-    
+
     followed = False
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
+
     if get_session(request, "user_id"):
         followed = user_service.check_if_following(
             get_session(request, "user_id"), username
@@ -86,14 +100,17 @@ def user_timeline(
         "user_id": user_service.get_user_id_from_username(username),
         "username": username,
     }
+
     template = templates.get_template("timeline.html")
-    html = template.render({ "request": request,
-            "messages": timeline_service.get_follower_timeline(username, PER_PAGE),
-            "followed": followed,
-            "profile_user": profile_user,
-            "endpoint": endpoint,
-            "g": get_session(request, "username"),
-            "f": get_session(request, "user_id")})
+    html = template.render({
+        "request": request,
+        "messages": timeline_service.get_follower_timeline(username, PER_PAGE),
+        "followed": followed,
+        "profile_user": profile_user,
+        "endpoint": endpoint,
+        "g": get_session(request, "username"),
+        "f": get_session(request, "user_id")
+        })
     return HTMLResponse(html)
 
 
@@ -102,21 +119,32 @@ def login(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     """todo auth check, and redirect if not logged in"""
     user = get_session(request, "user_id")
     username = get_session(request, "username")
+
     if user:
         return RedirectResponse("/", status_code=307)
+
     template = templates.get_template("login.html")
-    html = template.render({"request": request, "success": get_session(request,"success"), "error": get_session(request, "error"), "g": username})
+    html = template.render({
+        "request": request,
+        "error": get_session(request, "error"),
+        "g": username
+        })
     return HTMLResponse(html)
 
 
 @router.get("/register", response_class=HTMLResponse)
 def register(request: Request):
-    """todo auth check, and redirect if not logged in"""
+
     user = get_session(request, "user_id")
     username = get_session(request, "username")
+
     if user:
         return RedirectResponse("/", status_code=307)
 
     template = templates.get_template("register.html")
-    html = template.render({"request": request, "error": get_session(request, "error"), "g": username})
+    html = template.render({
+        "request": request,
+        "error": get_session(request, "error"),
+        "g": username
+        })
     return HTMLResponse(html)

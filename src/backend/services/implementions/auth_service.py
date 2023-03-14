@@ -11,13 +11,13 @@ class Auth_Service(Auth_Service_Interface):
     def check_if_user_exists(self, username):
         found_user = self.auth_repo.check_if_user_exists(username)
         if found_user is None:
-            raise Custom_Exception(status_code=404,msg="User not found")
+            raise Custom_Exception(status_code=404, msg="User not found")
         return found_user
 
     def validate_user(self, username, password):
         found_user = self.auth_repo.validate_user(username)
         if found_user is None:
-            raise Custom_Exception(status_code=403,msg="username not found")
+            raise Custom_Exception(status_code=403, msg="username not found")
         else:
             db_password = found_user.pw_hash
             del found_user.pw_hash
@@ -37,14 +37,14 @@ class Auth_Service(Auth_Service_Interface):
             if bcrypt.checkpw(password.encode(), db_password.encode()):
                 return found_user
             else:
-                raise Custom_Exception(status_code=403,msg="Password is Incorrect")
+                raise Custom_Exception(status_code=403, msg="Password is Incorrect")
 
     def register_user(self, username, email, password):
         if self.auth_repo.check_if_user_exists(username):
-            raise Custom_Exception(status_code=403,msg="User already exists")
+            raise Custom_Exception(status_code=403, msg="User already exists")
 
         if self.auth_repo.check_if_email_is_taken(email):
-            raise Custom_Exception(status_code=403,msg="Email is already taken")
+            raise Custom_Exception(status_code=403, msg="Email is already taken")
 
         hashed_pw = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt())
         # Having to decode it is a Postgres specific issue, see:

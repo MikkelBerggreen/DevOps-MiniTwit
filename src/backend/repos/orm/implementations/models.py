@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -23,6 +24,7 @@ class User(Base):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
+
 class Follower(Base):
     __tablename__ = 'followers'
 
@@ -38,6 +40,7 @@ class Follower(Base):
 
     def __repr__(self):
         return f"Follower('{self.who_id}', '{self.whom_id}')"
+
 
 class Message(Base):
     __tablename__ = 'messages'
@@ -60,7 +63,6 @@ class Message(Base):
         return f"Message('{self.author_id}', '{self.text}', '{self.pub_date}', '{self.flagged}')"
 
 
-
 class Latest(Base):
     __tablename__ = 'latest'
 
@@ -72,4 +74,3 @@ class Latest(Base):
 
     def __repr__(self):
         return f"Latest('{self.latest_id}')"
-    

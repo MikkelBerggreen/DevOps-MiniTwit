@@ -22,7 +22,10 @@ def _(response: Response):
 
 
 @router.get("/msgs")
-def _(latest: Union[str, None] = Query(default=-1), PER_PAGE: Union[int, None] = Query(default=30)):
+def _(
+    latest: Union[str, None] = Query(default=-1),
+    PER_PAGE: Union[int, None] = Query(default=30)
+      ):
     timeline_service.record_latest(latest)
     messages = timeline_service.get_public_timeline(PER_PAGE)
     # Messy way of doing conversion. Change it later !
@@ -35,11 +38,12 @@ def _(latest: Union[str, None] = Query(default=-1), PER_PAGE: Union[int, None] =
 # This is a route that bypasses authorization and our session
 # so it is implemented here
 @router.get("/msgs/{username}", status_code=204)
-def _(username: str, no: Union[int, None] = Query(default=100), latest: Union[int, None] = Query(default=-1)):
+def _(username: str, no: Union[int, None] = Query(default=100),
+      latest: Union[int, None] = Query(default=-1)):
     timeline_service.record_latest(latest)
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
-    
+  
     messages = timeline_service.get_follower_timeline(username, no)
     for x in messages:
         x["content"] = x["text"]
@@ -80,7 +84,8 @@ class Registration(BaseModel):
 
 @router.post("/register", status_code=204)
 def _(
-    response: Response, body: Registration, latest: Union[int, None] = Query(default=-1)
+    response: Response, body: Registration,
+    latest: Union[int, None] = Query(default=-1)
 ):
     try:
         timeline_service.record_latest(latest)
@@ -89,7 +94,6 @@ def _(
         return {"success": "register success"}
     except Custom_Exception as er:
         response.status_code = er.status_code
-        
         return {"error": er.msg}
 
 
@@ -127,20 +131,16 @@ def _(
 
     timeline_service.record_latest(latest)
 
-    if body.follow is not None:
-
+    if body.follow is None or body.unfollow is None:
+        response.status_code = 403
+        return {
+            "error": "invalid request: missing the value of 'follow' or 'unfollow' in the body"
+        }
+ 
+    if body.follow:
         user_service.add_follower(user_id, body.follow)
-
-        response.status_code = 204
-        return ""
-
-    elif body.unfollow is not None:
-
+    elif body.unfollow:
         user_service.remove_follower(user_id, body.unfollow)
 
-        response.status_code = 204
-        return ""
-
-    return {
-        "error": "invalid request: missing the value of 'follow' or 'unfollow' in the body"
-    }
+    response.status_code = 204
+    return "Success: Executed succesfully"
