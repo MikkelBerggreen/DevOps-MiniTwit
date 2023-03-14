@@ -131,7 +131,7 @@ def _(
 
     timeline_service.record_latest(latest)
 
-    if body.follow is None or body.unfollow is None:
+    if body.follow is None and body.unfollow is None:
         response.status_code = 403
         return {
             "error": "invalid request: missing the value of 'follow' or 'unfollow' in the body"
