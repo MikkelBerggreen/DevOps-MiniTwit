@@ -20,7 +20,7 @@ class User(Base):
         self.username = username
         self.email = email
         self.pw_hash = pw_hash
-    
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
