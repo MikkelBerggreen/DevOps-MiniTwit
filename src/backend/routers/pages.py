@@ -105,7 +105,7 @@ def login(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     if user:
         return RedirectResponse("/", status_code=307)
     template = templates.get_template("login.html")
-    html = template.render({"request": request, "error": get_session(request, "error"), "g": username})
+    html = template.render({"request": request, "success": get_session(request,"success"), "error": get_session(request, "error"), "g": username})
     return HTMLResponse(html)
 
 

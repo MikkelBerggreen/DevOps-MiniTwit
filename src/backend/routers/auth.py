@@ -16,7 +16,7 @@ def login(
     password: str = Form("")
 ):
     request.session.pop("error", None)
-
+    request.session.pop("success", None)
     if username == "":
         response.status_code = 403
         request.session["error"] =  "Usename cannot be blank"
@@ -33,7 +33,7 @@ def login(
         response.status_code = er.status_code
         request.session["error"] = er.msg
         return RedirectResponse("/login", status_code=302)
-        
+
     response.status_code = 204
     request.session["user_id"] = user.user_id
     request.session["username"] = username
@@ -63,6 +63,7 @@ def register(
     password2: str = Form(""),
 ):
     request.session.pop("error", None)
+    request.session.pop("success", None)
     if username == "":
         response.status_code = 403
         request.session["error"] = "Username cannot be blank"
@@ -96,7 +97,7 @@ def register(
         return RedirectResponse("/register", status_code=302)
 
     response.status_code = 204
-
+    request.session["success"] = "You are registered. You can now log in!"
     return RedirectResponse("/login", status_code=302)
 
 
