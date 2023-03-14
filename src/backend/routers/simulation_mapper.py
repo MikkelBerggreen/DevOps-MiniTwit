@@ -1,7 +1,6 @@
 from typing import Union
 from pydantic import BaseModel
-from fastapi import APIRouter, Response, Query
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Response, Query, HTTPException
 
 from util.custom_exceptions import Custom_Exception
 
@@ -23,17 +22,29 @@ def _(response: Response):
 
 
 @router.get("/msgs")
-def _(latest: Union[str, None] = Query(default=-1)):
+def _(latest: Union[str, None] = Query(default=-1), PER_PAGE: Union[int, None] = Query(default=30)):
     timeline_service.record_latest(latest)
-    return RedirectResponse("/api/timelines/public", status_code=307)
+    messages = timeline_service.get_public_timeline(PER_PAGE)
+    # Messy way of doing conversion. Change it later !
+    for x in messages:
+        x["content"] = x["text"]
+        x["user"] = x["username"]
+    return messages
 
 
 # This is a route that bypasses authorization and our session
 # so it is implemented here
 @router.get("/msgs/{username}", status_code=204)
-def _(username: str, no: Union[str, None] = Query(default=100), latest: Union[int, None] = Query(default=-1)):
+def _(username: str, no: Union[int, None] = Query(default=100), latest: Union[int, None] = Query(default=-1)):
     timeline_service.record_latest(latest)
-    return RedirectResponse(f"/api/timelines/{username}?PER_PAGE={no}", status_code=307)
+    if not auth_service.check_if_user_exists(username):
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    messages = timeline_service.get_follower_timeline(username, no)
+    for x in messages:
+        x["content"] = x["text"]
+        x["user"] = x["username"]
+    return messages
 
 
 class MessageBody(BaseModel):
@@ -101,7 +112,7 @@ def _(
     followers = user_service.get_all_followers(user_id, no)
 
     response.status_code = 200
-    follower_names = [f["username"] for f in followers]
+    follower_names = [f.username for f in followers]
     return {"follows": follower_names}
 
 

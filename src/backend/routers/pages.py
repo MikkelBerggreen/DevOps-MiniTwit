@@ -27,7 +27,6 @@ def flash(request: Request, message: typing.Any, category: str = "") -> None:
 
 
 def get_flashed_messages(request: Request):
-    print(request.session)
     return request.session.pop("_messages") if "_messages" in request.session else []
 
 
@@ -115,7 +114,6 @@ def register(request: Request):
     """todo auth check, and redirect if not logged in"""
     user = get_session(request, "user_id")
     username = get_session(request, "username")
-
     if user:
         return RedirectResponse("/", status_code=307)
 

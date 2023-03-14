@@ -12,6 +12,10 @@ import time
 
 # style reference
 import os
+from repos.orm.implementations.models import Base
+from database.db_orm import engine
+
+Base.metadata.create_all(bind=engine)
 
 dotenv = dotenv_values(".env")
 
@@ -50,7 +54,6 @@ async def add_process_request_count(request: Request, call_next):
 app.include_router(metrics_router)
 app.include_router(routers.simulation_mapper_router)
 app.include_router(routers.pages_router)
-app.include_router(routers.timelines_router)
 app.include_router(routers.users_router)
 app.include_router(routers.auth_router)
 

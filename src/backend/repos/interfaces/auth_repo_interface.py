@@ -13,6 +13,10 @@ class Auth_Repo_Interface:
         raise NotImplementedError
 
     @abstractmethod
+    def check_if_email_is_taken(self, email):
+        raise NotImplementedError
+
+    @abstractmethod
     def validate_user(self, username, password):
         raise NotImplementedError
 
