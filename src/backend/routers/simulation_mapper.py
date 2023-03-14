@@ -43,7 +43,7 @@ def _(username: str, no: Union[int, None] = Query(default=100),
     timeline_service.record_latest(latest)
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
-  
+
     messages = timeline_service.get_follower_timeline(username, no)
     for x in messages:
         x["content"] = x["text"]
@@ -136,7 +136,7 @@ def _(
         return {
             "error": "invalid request: missing the value of 'follow' or 'unfollow' in the body"
         }
- 
+
     if body.follow:
         user_service.add_follower(user_id, body.follow)
     elif body.unfollow:

@@ -36,4 +36,3 @@ class User_Service(User_Service_Interface):
         follower_id = self.get_user_id_from_username(follower_username)
 
         return self.user_repo.check_if_following(user_id, follower_id)
-     

@@ -6,7 +6,7 @@ dotenv = dotenv_values(".env")
 if "REDIS_HOST" in dotenv:
     redis_client = redis.Redis(
         host=dotenv["REDIS_HOST"],
-        port=dotenv["REDIS_PORT"], 
+        port=dotenv["REDIS_PORT"],
         password=dotenv["REDIS_PASSWORD"]
     )
 else:
@@ -19,7 +19,7 @@ def redis_increment_request_count(request):
         return
     request_log = str(request.client) + " : " + str(datetime.now())
     redis_client.pfadd('processed_requests', request_log)
-    
+
 
 def redis_get_request_count():
     return redis_client.pfcount('processed_requests')

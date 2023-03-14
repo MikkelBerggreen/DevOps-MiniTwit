@@ -21,7 +21,7 @@ class Timeline_Service(Timeline_Service_Interface):
 
     def get_latest(self):
         return self.timeline_repo.get_latest()
-    
+
     def __format_time(self, messages):
         if messages is not None:
             for x in messages:

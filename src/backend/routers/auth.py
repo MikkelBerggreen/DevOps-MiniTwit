@@ -67,7 +67,7 @@ def register(
         error = "Password cannot be blank"
     elif password != password2:
         error = "The two passwords do not match"
-        
+
     if error != "":
         response.status_code = 403
         request.session["error"] = error
