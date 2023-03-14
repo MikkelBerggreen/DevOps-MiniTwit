@@ -37,7 +37,7 @@ class User_Repo(User_Repo_Interface):
             user = db.query(User).filter_by(username=username).one_or_none()
             if user:
                 return user.user_id
-            else: 
+            else:
                 return None
 
     def check_if_following(self, user_id, follower_id):

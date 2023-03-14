@@ -16,13 +16,13 @@ class Timeline_Repo(Timeline_Repo_Interface):
             following_ids = [followee["whom_id"] for followee in follower]
 
             query = db.query(Message, User).join(User, User.user_id == Message.author_id)\
-                        .filter(Message.flagged == 0)\
-                        .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
-                        .order_by(Message.pub_date.desc())\
-                        .limit(per_page_limit).all()
+                .filter(Message.flagged == 0)\
+                .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
+                .order_by(Message.pub_date.desc())\
+                .limit(per_page_limit).all()
 
             results = self.object_as_dict(query)
-            
+
             return results
 
     def get_public_timeline(self, per_page_limit):

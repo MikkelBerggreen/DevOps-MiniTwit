@@ -4,7 +4,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from repos.orm.implementations.auth_queries import Auth_Repo
-
+from util.custom_exceptions import Custom_Exception
 from services.implementions.auth_service import Auth_Service
 from main import app
 
@@ -25,5 +25,5 @@ class Exception_Test(unittest.TestCase):
         try:
             Auth_Service().register_user("TestUser", "test@email.com",  ";;æøåÆØÅ!# truncate users;")
             assert False
-        except:
+        except Custom_Exception:
             assert True

@@ -17,7 +17,7 @@ from fastapi.testclient import TestClient
 from main import app
 
 from repos.orm.implementations.auth_queries import Auth_Repo
-
+from util.custom_exceptions import Custom_Exception
 from services.implementions.auth_service import Auth_Service
 
 client = TestClient(app)
@@ -55,5 +55,5 @@ class MiniTwitTestCase(unittest.TestCase):
         try:
             Auth_Service().register_user("TestUser", "test@email.com",  ";;æøåÆØÅ!# truncate users;")
             assert False
-        except:
+        except Custom_Exception:
             assert True
