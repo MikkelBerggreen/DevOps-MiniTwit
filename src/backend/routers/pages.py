@@ -44,6 +44,10 @@ def get_session(request, key):
 def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
     user = get_session(request, "user_id")
     username = get_session(request, "username")
+    
+    if not user:
+        return RedirectResponse("/public", status_code=307)
+
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
     html = template.render({  "request": request,
