@@ -3,6 +3,7 @@
 {% block body %}
   <h2>Sign In</h2>
   {% if error %}<div class=error><strong>Error:</strong> {{ error }}</div>{% endif %}
+  {% if success %}<div class=flashes><strong>Success:</strong> {{ success }}</div>{% endif %}
   <form action="/api/auth/login" method=post>
     <dl>
       <dt>Username:
