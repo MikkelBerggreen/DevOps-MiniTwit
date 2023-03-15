@@ -32,5 +32,5 @@ class Timeline_Service(Timeline_Service_Interface):
 
     def __get_avatar(self, email):
         import hashlib
-        return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
+        return 'https://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
             (hashlib.md5(email.strip().lower().encode('utf-8')).hexdigest(), 48)
