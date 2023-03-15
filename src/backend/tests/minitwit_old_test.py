@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch
 from contextlib import contextmanager
-import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
@@ -41,10 +40,8 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
         db.close()
         transaction.rollback()
         connection.close()
-        
 
     # helper functions
-
     def register(self, username, password, password2=None, email=None):
         """Helper function to register a user"""
         if password2 is None:
@@ -54,22 +51,21 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
         return client.post(
             "/api/auth/register",
             data={
-            'username':     username,
-            'password':     password,
-            'password2':    password2,
-            'email':        email,
+                'username':     username,
+                'password':     password,
+                'password2':    password2,
+                'email':        email,
             },
             allow_redirects=True,
         )
-
 
     def login(self, username, password):
         """Helper function to login"""
         return client.post(
             "/api/auth/login",
             data={
-            'username':     username,
-            'password':     password,
+                'username':     username,
+                'password':     password,
             },
             allow_redirects=True,
         )
@@ -91,7 +87,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
                 allow_redirects=True
             )
 
-    #Clean up errors.
+    # Clean up errors.
     def setUp(self):
         client.get('/logout', allow_redirects=True)
 
@@ -103,7 +99,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
 
             """Make sure registering works"""
             rv = self.register('user1', 'default')
-
+            assert 'You are registered. You can now log in!' in rv.text
             rv = self.register('user1', 'default')
             assert 'User already exists' in rv.text
             rv = self.register('', 'default')
@@ -119,7 +115,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_login_logout(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-          
+
             """Make sure logging in and logging out works"""
             rv = self.register_and_login('user1', 'default')
             assert 'sign out [user1]' in rv.text
@@ -134,7 +130,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_message_recording(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            
+
             """Check if adding messages works"""
             self.register_and_login('foo', 'default')
             self.add_message('test message 1')
@@ -147,7 +143,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
     def test_timelines(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-          
+
             """Make sure that timelines work"""
             self.register_and_login('foo', 'default')
             self.add_message('the message by foo')

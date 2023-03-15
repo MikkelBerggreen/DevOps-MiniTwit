@@ -12,6 +12,7 @@ class Auth_Repo(Auth_Repo_Interface):
                 return True
             else:
                 return False
+
     def check_if_email_is_taken(self, email):
         with database.connect_db() as db:
             email = db.query(User).filter_by(email=email).one_or_none()
@@ -37,5 +38,3 @@ class Auth_Repo(Auth_Repo_Interface):
         with database.connect_db() as db:
             db.query(User).filter_by(user_id=user_id).update({User.pw_hash: password})
             db.commit()
-
-

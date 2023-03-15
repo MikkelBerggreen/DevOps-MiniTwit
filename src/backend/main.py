@@ -1,10 +1,10 @@
-from fastapi import FastAPI , Request
+from fastapi import FastAPI, Request
 
 from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 from util.custom_exceptions import Custom_Exception
-import routers
+from routers import auth, pages, simulation_mapper, users
 from dotenv import dotenv_values
 from starlette.background import BackgroundTask
 from util.prometheus_util import handle_update_metrics, metrics_router
@@ -47,15 +47,15 @@ async def add_process_request_count(request: Request, call_next):
     response = await call_next(request)
     process_time = time.time() - start_time
     response.background = BackgroundTask(handle_update_metrics, request, process_time)
-    return response 
+    return response
 
 
-# import routers
+# routers
 app.include_router(metrics_router)
-app.include_router(routers.simulation_mapper_router)
-app.include_router(routers.pages_router)
-app.include_router(routers.users_router)
-app.include_router(routers.auth_router)
+app.include_router(simulation_mapper.router)
+app.include_router(pages.router)
+app.include_router(users.router)
+app.include_router(auth.router)
 
 
 script_dir = os.path.dirname(__file__)

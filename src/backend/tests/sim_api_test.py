@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch
 from contextlib import contextmanager
-import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
@@ -22,6 +21,7 @@ Base.metadata.create_all(bind=engine)
 
 client = TestClient(app)
 
+
 class Simulation_API_Testing(unittest.TestCase):
 
     @contextmanager
@@ -40,14 +40,14 @@ class Simulation_API_Testing(unittest.TestCase):
         db.close()
         transaction.rollback()
         connection.close()
-        
+
     def set_up_users(self, username, email, passwords, latest):
         response = client.post(
                 "/register",
                 json={"username": username, "email": email, "pwd": passwords},
                 params={"latest": latest}
             )
-            
+
         assert response.status_code == 204
 
     @patch.object(Database, "connect_db")
@@ -60,7 +60,7 @@ class Simulation_API_Testing(unittest.TestCase):
                 json={"username": "test", "email": "test@test", "pwd": "foo"},
                 params={"latest": 1337}
             )
-            
+
             assert response.status_code == 204
 
             response = client.get("/latest")
@@ -77,12 +77,12 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 6},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
+            # assert response.json() == {"success": "register success"}
+            # This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 6}
-
 
     @patch.object(Database, "connect_db")
     def test_register_b(self, connect_db_mock):
@@ -94,7 +94,6 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 5},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200
@@ -110,7 +109,6 @@ class Simulation_API_Testing(unittest.TestCase):
                 params={"latest": 1},
             )
             assert response.status_code == 204
-            # assert response.json() == {"success": "register success"} This would test register normally. Due to 204 it fails.
 
             response = client.get("/latest")
             assert response.status_code == 200
@@ -141,7 +139,7 @@ class Simulation_API_Testing(unittest.TestCase):
             #############################
             connect_db_mock.return_value = mocK_return
             self.set_up_users("a", "a@a.a", "a", 1)
-            
+
             response = client.post(
                 "/msgs/a",
                 json={"content": "Blub"},
@@ -172,7 +170,7 @@ class Simulation_API_Testing(unittest.TestCase):
             #############################
             connect_db_mock.return_value = mocK_return
             self.set_up_users("a", "a@a.a", "a", 1)
-            
+
             response = client.post(
                 "/msgs/a",
                 json={"content": "Blub!"},

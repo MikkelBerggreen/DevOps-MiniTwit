@@ -1,10 +1,11 @@
-from services.implementions.auth_service import Auth_Service
 from fastapi import APIRouter, Form, Request, Response
 from fastapi.responses import RedirectResponse
+from routers.pages import flash
+from services.implementions.auth_service import Auth_Service
 import re
 from util.custom_exceptions import Custom_Exception
-router = APIRouter()
 
+router = APIRouter()
 auth_service = Auth_Service()
 
 
@@ -16,42 +17,34 @@ def login(
     password: str = Form("")
 ):
     request.session.pop("error", None)
-    request.session.pop("success", None)
-    if username == "":
-        response.status_code = 403
-        request.session["error"] =  "Usename cannot be blank"
-        return RedirectResponse("/login", status_code=302)
 
-    if password == "":
+    error = ""
+
+    if username == "":
+        error = "Usename cannot be blank"
+    elif password == "":
+        error = "Password cannot be blank"
+
+    if error != "":
         response.status_code = 403
-        request.session["error"] =  "Password cannot be blank"
+        request.session["error"] = error
         return RedirectResponse("/login", status_code=302)
 
     try:
         user = auth_service.validate_user(username, password)
+        response.status_code = 204
+        request.session["user_id"] = user.user_id
+        request.session["username"] = username
+        flash(request, 'You were logged in', "Success")
+        return RedirectResponse("/", status_code=302)
     except Custom_Exception as er:
         response.status_code = er.status_code
         request.session["error"] = er.msg
         return RedirectResponse("/login", status_code=302)
 
-    response.status_code = 204
-    request.session["user_id"] = user.user_id
-    request.session["username"] = username
-    return RedirectResponse("/", status_code=302)
 
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
- 
-# Define a function for
-# for validating an Email
-def check(email):
- 
-    # pass the regular expression
-    # and the string into the fullmatch() method
-    if(re.fullmatch(regex, email)):
-        print("Valid Email")
- 
-    else:
-        print("Invalid Email")
+
 
 @router.post("/api/auth/register")
 def register(
@@ -63,46 +56,39 @@ def register(
     password2: str = Form(""),
 ):
     request.session.pop("error", None)
-    request.session.pop("success", None)
+
+    error = ""
+
     if username == "":
-        response.status_code = 403
-        request.session["error"] = "Username cannot be blank"
-        return RedirectResponse("/register", status_code=302)
+        error = "Username cannot be blank"
+    elif email == "" or not re.fullmatch(regex, email):
+        error = "You have to enter a valid email address"
+    elif password == "":
+        error = "Password cannot be blank"
+    elif password != password2:
+        error = "The two passwords do not match"
 
-    if email == "":
+    if error != "":
         response.status_code = 403
-        request.session["error"] =  "Email cannot be blank"
-        return RedirectResponse("/register", status_code=302)
-
-    if not re.fullmatch(regex, email):
-        response.status_code = 403
-        request.session["error"] =  "You have to enter a valid email address"
-        return RedirectResponse("/register", status_code=302)
-
-    if password == "":
-        response.status_code = 403
-        request.session["error"] =  "Password cannot be blank"
-        return RedirectResponse("/register", status_code=302)
-
-    if password != password2:
-        response.status_code = 403
-        request.session["error"] =  "The two passwords do not match"
+        request.session["error"] = error
         return RedirectResponse("/register", status_code=302)
 
     try:
         auth_service.register_user(username, email, password)
+
+        response.status_code = 204
+        flash(request, "You are registered. You can now log in!", "Success")
+
+        return RedirectResponse("/login", status_code=302)
     except Custom_Exception as er:
         response.status_code = er.status_code
         request.session["error"] = er.msg
         return RedirectResponse("/register", status_code=302)
-
-    response.status_code = 204
-    request.session["success"] = "You are registered. You can now log in!"
-    return RedirectResponse("/login", status_code=302)
 
 
 @router.get("/logout")
 def logout(request: Request):
     request.session.pop("user_id", None)
     request.session.pop("username", None)
+    flash(request, "You were logged out", "Success")
     return RedirectResponse("/public", status_code=302)

@@ -1,35 +1,33 @@
 from repos.interfaces.timeline_repo_interface import Timeline_Repo_Interface
 from database.db_orm import Database
-from sqlalchemy.orm import sessionmaker, declarative_base, aliased, joinedload
-from sqlalchemy import Column, Date, Integer, Text, create_engine, inspect
 
-from repos.orm.implementations.models import Latest, Message,User, Follower
+from repos.orm.implementations.models import Latest, Message, User, Follower
 
 from repos.orm.implementations.user_queries import User_Repo
 database = Database()
 user_repo = User_Repo()
 
+
 class Timeline_Repo(Timeline_Repo_Interface):
     def get_user_timeline(self, user_id, per_page_limit):
         with database.connect_db() as db:
-            follower = self.follow_dict(db.query(Follower).filter_by(who_id = user_id).all())
+            follower = self.follow_dict(db.query(Follower).filter_by(who_id=user_id).all())
 
             following_ids = [followee["whom_id"] for followee in follower]
 
             query = db.query(Message, User).join(User, User.user_id == Message.author_id)\
-                        .filter(Message.flagged == 0)\
-                        .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
-                        .order_by(Message.pub_date.desc())\
-                        .limit(per_page_limit).all()
+                .filter(Message.flagged == 0)\
+                .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
+                .order_by(Message.pub_date.desc())\
+                .limit(per_page_limit).all()
 
             results = self.object_as_dict(query)
-            
-            return results
 
+            return results
 
     def get_public_timeline(self, per_page_limit):
         with database.connect_db() as db:
-            followers = db.query(Message,User).join(User, User.user_id == Message.author_id).where(Message.flagged == 0).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
+            followers = db.query(Message, User).join(User, User.user_id == Message.author_id).where(Message.flagged == 0).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
     def get_follower_timeline(self, username, per_page_limit):
@@ -39,7 +37,7 @@ class Timeline_Repo(Timeline_Repo_Interface):
             return []
 
         with database.connect_db() as db:
-            followers = db.query(Message,User).join(User, User.user_id == Message.author_id).where(User.user_id == user_id).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
+            followers = db.query(Message, User).join(User, User.user_id == Message.author_id).where(User.user_id == user_id).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
     def record_latest(self, latest):
@@ -56,13 +54,13 @@ class Timeline_Repo(Timeline_Repo_Interface):
             return latest
 
     def object_as_dict(self, obj):
-        myList = []
+        dict_list = []
         for row in obj:
-            myList.append({**row.User.__dict__, **row.Message.__dict__})
-        return myList
+            dict_list.append({**row.User.__dict__, **row.Message.__dict__})
+        return dict_list
 
     def follow_dict(self, obj):
-        myList = []
+        dict_list = []
         for row in obj:
-            myList.append(row.__dict__)
-        return myList
+            dict_list.append(row.__dict__)
+        return dict_list
