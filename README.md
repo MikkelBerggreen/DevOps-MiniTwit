@@ -1,3 +1,7 @@
+![Lint and Test - Main Branch](https://github.com/anderslatif/testbadges/actions/workflows/lint-and-test.yml/badge.svg?branch=main)
+![Lint and Test - All Branches](https://github.com/anderslatif/testbadges/actions/workflows/lint-and-test.yml/badge.svg)
+![Deploy](https://github.com/anderslatif/testbadges/actions/workflows/deploy.yml/badge.svg)
+
 # MiniTwit
 
 MiniTwit is a messaging application being converted from Flask to FastAPI.
@@ -6,6 +10,7 @@ It is deployed here:
 
 http://157.245.16.6:8000/
 
+![Landing Page](https://github.com//MinitwitGroupI/MiniTwit/blob/main/documentation/images/landingpage.png?raw=true)
 
 # How to dockerise the app.
 To run the application, we suggest using docker and building an image of the app.
