@@ -1,6 +1,7 @@
-![Lint and Test - Main Branch](https://github.com/anderslatif/testbadges/actions/workflows/lint-and-test.yml/badge.svg?branch=main)
-![Lint and Test - All Branches](https://github.com/anderslatif/testbadges/actions/workflows/lint-and-test.yml/badge.svg)
-![Deploy](https://github.com/anderslatif/testbadges/actions/workflows/deploy.yml/badge.svg)
+![Lint and Test - Main Branch](https://github.com/MinitwitGroupI/Minitwit/actions/workflows/lint-and-test.yml/badge.svg?branch=main)
+![Lint and Test - All Branches](https://github.com/MinitwitGroupI/Minitwit/actions/workflows/lint-and-test.yml/badge.svg)
+![Deploy](https://github.com/MinitwitGroupI/Minitwit/actions/workflows/deploy.yml/badge.svg)
+
 
 # MiniTwit
 
