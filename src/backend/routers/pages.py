@@ -46,12 +46,12 @@ def get_session(request, key):
 
 
 @router.get("/", response_class=HTMLResponse)
-def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
+def timeline(request: Request, no: Union[int, None] = Query(default=30)):
     user = get_session(request, "user_id")
     username = get_session(request, "username")
 
     if not user:
-        return RedirectResponse("/public", status_code=307)
+        return RedirectResponse("/public?no=" + str(no), status_code=307)
 
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
@@ -59,14 +59,14 @@ def timeline(request: Request, PER_PAGE: Union[int, None] = Query(default=30)):
         "request": request,
         "g": username,
         "endpoint": endpoint,
-        "messages": timeline_service.get_user_timeline(user, PER_PAGE),
+        "messages": timeline_service.get_user_timeline(user, no),
         })
     return HTMLResponse(html)
 
 
 @router.get("/public", response_class=HTMLResponse)
 def public_timeline(request: Request,
-                    PER_PAGE: Union[int, None] = Query(default=30)):
+                    no: Union[int, None] = Query(default=30)):
 
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
@@ -75,7 +75,7 @@ def public_timeline(request: Request,
         "request": request,
         "g": username,
         "endpoint": endpoint,
-        "messages": timeline_service.get_public_timeline(PER_PAGE),
+        "messages": timeline_service.get_public_timeline(no),
         })
     return HTMLResponse(html)
 
@@ -83,7 +83,7 @@ def public_timeline(request: Request,
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(
     request: Request, username: str,
-    PER_PAGE: Union[int, None] = Query(default=30)
+    no: Union[int, None] = Query(default=30)
 ):
 
     auth_service.check_if_user_exists(username)
@@ -104,7 +104,7 @@ def user_timeline(
     template = templates.get_template("timeline.html")
     html = template.render({
         "request": request,
-        "messages": timeline_service.get_follower_timeline(username, PER_PAGE),
+        "messages": timeline_service.get_follower_timeline(username, no),
         "followed": followed,
         "profile_user": profile_user,
         "endpoint": endpoint,
