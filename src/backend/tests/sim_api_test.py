@@ -196,6 +196,69 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.json() == {"latest": 4}
 
     @patch.object(Database, "connect_db")
+    def test_get_msgs_from_website_and_sim_map(self, connect_db_mock):
+        with self.override_get_db() as mocK_return:
+            #############################
+            connect_db_mock.return_value = mocK_return
+            self.set_up_users("a", "a@a.a", "a", 1)
+
+            response = client.post(
+                "/msgs/a",
+                json={"content": "Alub!"},
+                params={"latest": 2},
+            )
+            response = client.post(
+                "/msgs/a",
+                json={"content": "Blub!"},
+                params={"latest": 3},
+            )
+            #############################
+            response = client.get(
+                "/msgs",
+                params={"no": 1, "latest": 4},
+            )
+            assert response.status_code == 200
+
+            got_it_earlier = False
+
+            for msg in response.json():
+                if msg["content"] == "Blub!" and msg["user"] == "a":
+                    got_it_earlier = True
+                else if msg["content"] == "Alub!" and msg["user"] == "a":
+                    got_it_earlier = False
+
+
+            assert got_it_earlier
+
+
+            response = client.get(
+                "/msgs",
+                params={"no": 2, "latest": 4},
+            )
+            assert response.status_code == 200
+
+            got_it_earlier = False
+
+            for msg in response.json():
+                if msg["content"] == "Blub!" and msg["user"] == "a":
+                    got_it_earlier = True
+                else if msg["content"] == "Alub!" and msg["user"] == "a":
+                    got_it_earlier = True
+                else:
+                    got_it_earlier = False
+
+            rv = client.get('/public?no=1')
+            assert 'Blub!' in rv.text and not 'Alub!' in rv.text
+
+            
+            rv = client.get('/public?no=2')
+            assert 'Blub!' in rv.text and 'Alub!' in rv.text
+
+
+            assert got_it_earlier
+            
+
+    @patch.object(Database, "connect_db")
     def test_follow_user(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################

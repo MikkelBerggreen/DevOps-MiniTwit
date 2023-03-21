@@ -24,15 +24,11 @@ def _(response: Response):
 @router.get("/msgs")
 def _(
     latest: Union[str, None] = Query(default=-1),
-    PER_PAGE: Union[int, None] = Query(default=30)
+    no: Union[int, None] = Query(default=30)
       ):
     timeline_service.record_latest(latest)
-    messages = timeline_service.get_public_timeline(PER_PAGE)
-    # Messy way of doing conversion. Change it later !
-    for x in messages:
-        x["content"] = x["text"]
-        x["user"] = x["username"]
-    return messages
+
+    return timeline_service.get_public_timeline(no)
 
 
 # This is a route that bypasses authorization and our session
@@ -43,12 +39,8 @@ def _(username: str, no: Union[int, None] = Query(default=100),
     timeline_service.record_latest(latest)
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
-
-    messages = timeline_service.get_follower_timeline(username, no)
-    for x in messages:
-        x["content"] = x["text"]
-        x["user"] = x["username"]
-    return messages
+        
+    return timeline_service.get_follower_timeline(username, no)
 
 
 class MessageBody(BaseModel):
