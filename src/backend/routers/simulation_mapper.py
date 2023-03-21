@@ -39,7 +39,7 @@ def _(username: str, no: Union[int, None] = Query(default=100),
     timeline_service.record_latest(latest)
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
-        
+
     return timeline_service.get_follower_timeline(username, no)
 
 

@@ -227,9 +227,7 @@ class Simulation_API_Testing(unittest.TestCase):
                 elif msg["content"] == "Alub!" and msg["user"] == "a":
                     got_it_earlier = False
 
-
             assert got_it_earlier
-
 
             response = client.get(
                 "/msgs",
@@ -247,16 +245,14 @@ class Simulation_API_Testing(unittest.TestCase):
                 else:
                     got_it_earlier = False
 
+            assert got_it_earlier
+
             rv = client.get('/public?no=1')
             assert 'Blub!' in rv.text and not 'Alub!' in rv.text
 
-            
             rv = client.get('/public?no=2')
             assert 'Blub!' in rv.text and 'Alub!' in rv.text
 
-
-            assert got_it_earlier
-            
 
     @patch.object(Database, "connect_db")
     def test_follow_user(self, connect_db_mock):
