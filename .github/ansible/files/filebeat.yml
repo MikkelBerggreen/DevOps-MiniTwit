@@ -26,7 +26,7 @@ output.elasticsearch:
     - index: "filebeat-minitwit-%{[agent.version]}-%{+yyyy.MM.dd}"
       when.or:
           - equals:
-              container.image.name: mirbitu/minitwitimage
+              container.image.name: mirbitu/minitwitimage:latest
 
 logging.json: true
 logging.metrics.enabled: false

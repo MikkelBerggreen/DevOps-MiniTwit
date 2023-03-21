@@ -45,7 +45,7 @@ services:
       - prometheus:/prometheus
       - ../.github/ansible/files/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "9090:9090"
+      - 9090:9090
     networks:
       - postgres
 
@@ -58,7 +58,7 @@ services:
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
     ports:
-      - "3000:3000"  
+      - 3000:3000
     networks:
       - postgres
 
@@ -82,7 +82,7 @@ services:
     networks:
         - elk
     ports:
-      - "9200:9200"
+      - 9200:9200
 
   kibana:
     image: "docker.elastic.co/kibana/kibana:7.17.1"
@@ -91,7 +91,7 @@ services:
     networks:
         - elk
     ports:
-      - "5601:5601"  
+      - 5601:5601 
 
 
 networks:
