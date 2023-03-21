@@ -3,7 +3,7 @@ version: '3.4'
 services:
 
   db:
-    image: postgres:latest
+    image: mirbitu/dbimage:latest
     restart: always
     container_name: db-minitwit
     build:
@@ -23,7 +23,7 @@ services:
       - "host.docker.internal:127.0.0.1"
 
   fastapi:
-    image: fastapi
+    image: mirbitu/minitwitimage:latest
     depends_on:
       - db
     networks:
@@ -62,10 +62,44 @@ services:
     networks:
       - postgres
 
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.17.1"
+    user: root
+    volumes:
+        - ../.github/ansible/files/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - /var/lib/docker:/var/lib/docker:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+        - elk
+
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.1"
+    environment:
+        - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+        - "discovery.type=single-node"
+    volumes:
+        - elk_elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+        - elk
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.17.1"
+    environment:
+        elasticsearch.hosts: '["http://elasticsearch:9200"]'
+    networks:
+        - elk
+    ports:
+      - "5601:5601"  
+
+
 networks:
+  elk:
   postgres:
 
 volumes:
   database:
   prometheus:
   grafana-data:
+  elk_elasticsearch_data:
