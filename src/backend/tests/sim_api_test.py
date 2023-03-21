@@ -224,7 +224,7 @@ class Simulation_API_Testing(unittest.TestCase):
             for msg in response.json():
                 if msg["content"] == "Blub!" and msg["user"] == "a":
                     got_it_earlier = True
-                else if msg["content"] == "Alub!" and msg["user"] == "a":
+                elif msg["content"] == "Alub!" and msg["user"] == "a":
                     got_it_earlier = False
 
 
@@ -242,7 +242,7 @@ class Simulation_API_Testing(unittest.TestCase):
             for msg in response.json():
                 if msg["content"] == "Blub!" and msg["user"] == "a":
                     got_it_earlier = True
-                else if msg["content"] == "Alub!" and msg["user"] == "a":
+                elif msg["content"] == "Alub!" and msg["user"] == "a":
                     got_it_earlier = True
                 else:
                     got_it_earlier = False
