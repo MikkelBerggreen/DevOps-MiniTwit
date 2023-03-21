@@ -65,6 +65,7 @@ services:
   filebeat:
     image: "docker.elastic.co/beats/filebeat:7.17.1"
     user: root
+    command: filebeat -e -strict.perms=false
     volumes:
         - ../.github/ansible/files/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
         - /var/lib/docker:/var/lib/docker:ro
