@@ -161,7 +161,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
 
             # now let's follow foo
             rv = client.get('/api/users/foo/follow', allow_redirects=True)
-            assert 'You are now following &#34;foo&#34;' in rv.text
+            assert 'You are now following foo' in rv.text
 
             # we should now see foo's message
             rv = client.get('/')
@@ -178,7 +178,7 @@ class Old_Minitwit_GUI_Tests(unittest.TestCase):
 
             # now unfollow and check if that worked
             rv = client.get('/api/users/foo/unfollow', allow_redirects=True)
-            assert 'You are no longer following &#34;foo&#34;' in rv.text
+            assert 'You are no longer following foo' in rv.text
             rv = client.get('/')
             assert 'the message by foo' not in rv.text
             assert 'the message by bar' in rv.text
