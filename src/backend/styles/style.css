@@ -176,3 +176,12 @@ div.error {
     padding: 4px;
     font-size: 13px;
 }
+
+.flex{
+    display:flex;
+    flex-flow: row;
+}
+
+.float{
+    margin-left: auto;
+}

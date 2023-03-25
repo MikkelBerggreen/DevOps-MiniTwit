@@ -46,7 +46,7 @@ def get_session(request, key):
 
 
 @router.get("/", response_class=HTMLResponse)
-def timeline(request: Request, no: Union[int, None] = Query(default=30)):
+def timeline(request: Request, no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)):
     user = get_session(request, "user_id")
     username = get_session(request, "username")
 
@@ -55,27 +55,44 @@ def timeline(request: Request, no: Union[int, None] = Query(default=30)):
 
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
+
+    msg = timeline_service.get_user_timeline(user, no, page)
+
+    next_url = "/?no=" + str(no) + "&page=" + str(page+1)\
+        if len(msg) == no else None
+    prev_url = "/?no=" + str(no) + "&page=" + str(page-1) \
+        if page > 1 else None
+
     html = template.render({
         "request": request,
         "g": username,
         "endpoint": endpoint,
-        "messages": timeline_service.get_user_timeline(user, no),
-        })
+        "messages": msg,
+        "next_url": next_url,
+        "prev_url": prev_url, })
     return HTMLResponse(html)
 
 
 @router.get("/public", response_class=HTMLResponse)
 def public_timeline(request: Request,
-                    no: Union[int, None] = Query(default=30)):
+                    no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)):
 
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
+    msg = timeline_service.get_public_timeline(no, page)
+    next_url = "/public?no=" + str(no) + "&page=" + str(page+1)\
+        if len(msg) == no else None
+    prev_url = "/public?no=" + str(no) + "&page=" + str(page-1)\
+        if page > 1 else None
+
     html = template.render({
         "request": request,
         "g": username,
         "endpoint": endpoint,
-        "messages": timeline_service.get_public_timeline(no),
+        "messages": msg,
+        "next_url": next_url,
+        "prev_url": prev_url,
         })
     return HTMLResponse(html)
 
@@ -83,7 +100,7 @@ def public_timeline(request: Request,
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(
     request: Request, username: str,
-    no: Union[int, None] = Query(default=30)
+    no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)
 ):
 
     auth_service.check_if_user_exists(username)
@@ -100,16 +117,23 @@ def user_timeline(
         "user_id": user_service.get_user_id_from_username(username),
         "username": username,
     }
+    msg = timeline_service.get_follower_timeline(username, no, page)
+    next_url = "/timeline/"+username+"?no=" + str(no) + "&page=" + str(page+1)\
+        if len(msg) == no else None
+    prev_url = "/timeline/"+username+"?no=" + str(no) + "&page=" + str(page-1)\
+        if page > 1 else None
 
     template = templates.get_template("timeline.html")
     html = template.render({
         "request": request,
-        "messages": timeline_service.get_follower_timeline(username, no),
+        "messages": msg,
         "followed": followed,
         "profile_user": profile_user,
         "endpoint": endpoint,
         "g": get_session(request, "username"),
-        "f": get_session(request, "user_id")
+        "f": get_session(request, "user_id"),
+        "next_url": next_url,
+        "prev_url": prev_url, 
         })
     return HTMLResponse(html)
 
