@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
-from sqlalchemy import Index
 
 Base = declarative_base()
 
@@ -72,7 +71,3 @@ class Latest(Base):
 
     def __repr__(self):
         return f"Latest('{self.latest_id}')"
-
-
-i = Index("ix_messages_pub_date", Message.pub_date.desc())
-i2 = Index("ix_messages_author_id", Message.author_id)
