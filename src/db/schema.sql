@@ -26,3 +26,9 @@ create table latest (
   id integer primary key GENERATED ALWAYS AS IDENTITY,
   latest_id integer
 );
+
+CREATE INDEX ix_messages_pub_date 
+ON messages (pub_date DESC);
+
+CREATE INDEX ix_messages_author_id 
+ON messages (author_id);
