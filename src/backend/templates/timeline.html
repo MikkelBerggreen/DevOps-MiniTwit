@@ -43,7 +43,7 @@
   </div>
   <ul class=messages>
   {% for message in messages %}
-    <li><img alt="Users Profile Picture" src="{{ message.avatar }}"><p>
+    <li><img loading="lazy" alt="Users Profile Picture" src="{{ message.avatar }}"><p>
       <strong><a href="{{ '/timeline/' + message.user}}">{{ message.user }}</a></strong>
       {{ message.content }}
       <small>&mdash; {{ message.date }}</small>
