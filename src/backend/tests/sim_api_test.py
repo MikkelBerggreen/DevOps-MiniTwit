@@ -253,7 +253,6 @@ class Simulation_API_Testing(unittest.TestCase):
             rv = client.get('/public?no=2')
             assert 'Blub!' in rv.text and 'Alub!' in rv.text
 
-
     @patch.object(Database, "connect_db")
     def test_follow_user(self, connect_db_mock):
         with self.override_get_db() as mocK_return:

@@ -33,6 +33,14 @@
       </div>
     {% endif %}
   {% endif %}
+  <div class="flex">
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Newer posts</a>
+    {% endif %}
+    {% if next_url %}
+    <a class="float" href="{{ next_url }}">Older posts</a>
+    {% endif %}
+  </div>
   <ul class=messages>
   {% for message in messages %}
     <li><img alt="Users Profile Picture" src="{{ message.avatar }}"><p>

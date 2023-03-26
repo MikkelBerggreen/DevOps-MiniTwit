@@ -28,7 +28,7 @@ def _(
       ):
     timeline_service.record_latest(latest)
 
-    return timeline_service.get_public_timeline(no)
+    return timeline_service.get_public_timeline(no, 1)
 
 
 # This is a route that bypasses authorization and our session
@@ -40,7 +40,7 @@ def _(username: str, no: Union[int, None] = Query(default=100),
     if not auth_service.check_if_user_exists(username):
         raise HTTPException(status_code=404, detail="User not found")
 
-    return timeline_service.get_follower_timeline(username, no)
+    return timeline_service.get_follower_timeline(username, no, 1)
 
 
 class MessageBody(BaseModel):

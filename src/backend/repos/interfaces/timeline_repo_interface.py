@@ -9,15 +9,15 @@ class Timeline_Repo_Interface:
         return "1.0"
 
     @abstractmethod
-    def get_user_timeline(self, user_id, per_page_limit):
+    def get_user_timeline(self, user_id, per_page_limit, page):
         raise NotImplementedError
 
     @abstractmethod
-    def get_public_timeline(self, per_page_limit):
+    def get_public_timeline(self, per_page_limit, page):
         raise NotImplementedError
 
     @abstractmethod
-    def get_follower_timeline(self, username, per_page_limit):
+    def get_follower_timeline(self, username, per_page_limit, page):
         raise NotImplementedError
 
     @abstractmethod

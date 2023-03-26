@@ -9,7 +9,8 @@ user_repo = User_Repo()
 
 
 class Timeline_Repo(Timeline_Repo_Interface):
-    def get_user_timeline(self, user_id, per_page_limit):
+    def get_user_timeline(self, user_id, per_page_limit, page):
+        offset = (page * per_page_limit) - per_page_limit
         with database.connect_db() as db:
             follower = self.follow_dict(db.query(Follower).filter_by(who_id=user_id).all())
 
@@ -18,26 +19,36 @@ class Timeline_Repo(Timeline_Repo_Interface):
             query = db.query(Message, User).join(User, User.user_id == Message.author_id)\
                 .filter(Message.flagged == 0)\
                 .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
-                .order_by(Message.pub_date.desc())\
+                .order_by(Message.pub_date.desc()).offset(offset)\
                 .limit(per_page_limit).all()
 
             results = self.object_as_dict(query)
 
             return results
 
-    def get_public_timeline(self, per_page_limit):
+    def get_public_timeline(self, per_page_limit, page):
+        offset = (page * per_page_limit) - per_page_limit
         with database.connect_db() as db:
-            followers = db.query(Message, User).join(User, User.user_id == Message.author_id).where(Message.flagged == 0).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
+            followers = db.query(Message, User)\
+                .join(User, User.user_id == Message.author_id)\
+                .where(Message.flagged == 0)\
+                .order_by(Message.pub_date.desc()).offset(offset)\
+                .limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
-    def get_follower_timeline(self, username, per_page_limit):
+    def get_follower_timeline(self, username, per_page_limit, page):
         user_id = user_repo.get_user_id_from_username(username)
 
         if user_id is None:
             return []
+        offset = (page * per_page_limit) - per_page_limit
 
         with database.connect_db() as db:
-            followers = db.query(Message, User).join(User, User.user_id == Message.author_id).where(User.user_id == user_id).order_by(Message.pub_date.desc()).limit(per_page_limit).all()
+            followers = db.query(Message, User)\
+                .join(User, User.user_id == Message.author_id)\
+                .where(User.user_id == user_id)\
+                .order_by(Message.pub_date.desc()).offset(offset)\
+                .limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
     def record_latest(self, latest):
