@@ -19,8 +19,8 @@ class Timeline_Repo(Timeline_Repo_Interface):
             query = db.query(Message, User).join(User, User.user_id == Message.author_id)\
                 .filter(Message.flagged == 0)\
                 .filter((User.user_id == user_id) | (User.user_id.in_(following_ids)))\
-                .order_by(Message.pub_date.desc()).offset(offset)\
-                .limit(per_page_limit).all()
+                .order_by(Message.pub_date.desc())\
+                .offset(offset).limit(per_page_limit).all()
 
             results = self.object_as_dict(query)
 
@@ -32,8 +32,8 @@ class Timeline_Repo(Timeline_Repo_Interface):
             followers = db.query(Message, User)\
                 .join(User, User.user_id == Message.author_id)\
                 .where(Message.flagged == 0)\
-                .order_by(Message.pub_date.desc()).offset(offset)\
-                .limit(per_page_limit).all()
+                .order_by(Message.pub_date.desc())\
+                .offset(offset).limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
     def get_follower_timeline(self, username, per_page_limit, page):
@@ -47,8 +47,8 @@ class Timeline_Repo(Timeline_Repo_Interface):
             followers = db.query(Message, User)\
                 .join(User, User.user_id == Message.author_id)\
                 .where(User.user_id == user_id)\
-                .order_by(Message.pub_date.desc()).offset(offset)\
-                .limit(per_page_limit).all()
+                .order_by(Message.pub_date.desc())\
+                .offset(offset).limit(per_page_limit).all()
             return self.object_as_dict(followers)
 
     def record_latest(self, latest):

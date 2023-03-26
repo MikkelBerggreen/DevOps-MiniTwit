@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import Index
 
 Base = declarative_base()
-
 
 class User(Base):
     __tablename__ = 'users'
@@ -45,10 +45,10 @@ class Follower(Base):
 class Message(Base):
     __tablename__ = 'messages'
 
-    message_id = Column(Integer, primary_key=True)
-    author_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+    message_id = Column(Integer, primary_key=True, autoincrement=True)
+    author_id = Column(Integer, ForeignKey('users.user_id'), nullable=False, index=True)
     text = Column(String, nullable=False)
-    pub_date = Column(Integer, nullable=True)
+    pub_date = Column(Integer, nullable=True, index=True)
     flagged = Column(Integer, nullable=True)
 
     def __init__(self, author_id, text, pub_date, flagged):
@@ -72,3 +72,7 @@ class Latest(Base):
 
     def __repr__(self):
         return f"Latest('{self.latest_id}')"
+
+
+i = Index("ix_messages_pub_date", Message.pub_date.desc())
+i2 = Index("ix_messages_author_id", Message.author_id)
