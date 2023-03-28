@@ -47,6 +47,9 @@ fastapi_log.handlers = gunicorn_error_logger.handlers
 
 FORMAT: str = "%(levelname)s | %(asctime)s | %(message)s"
 # Set up custom formating for loggers. Question can be raised if above config is necessary. It works.
-fastapi_log.setLevel(logging.INFO)
-fastapi_log = fastapi_log.handlers[0]
-fastapi_log.setFormatter(logging.Formatter(FORMAT))
+try:
+    fastapi_log.setLevel(logging.INFO)
+    fastapi_log = fastapi_log.handlers[0]
+    fastapi_log.setFormatter(logging.Formatter(FORMAT))
+except IndexError:
+    print("error")
