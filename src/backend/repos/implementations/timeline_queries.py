@@ -1,7 +1,7 @@
 from repos.interfaces.timeline_repo_interface import Timeline_Repo_Interface
 from database.db_orm import Database
 
-from repos.orm.implementations.models import Latest, Message, User, Follower
+from database.models import Latest, Message, User, Follower
 
 from repos.orm.implementations.user_queries import User_Repo
 database = Database()

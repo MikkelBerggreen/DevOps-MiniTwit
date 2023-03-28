@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
-from repos.orm.implementations.auth_queries import Auth_Repo
+from repos.implementations.auth_queries import Auth_Repo
 from util.custom_exceptions import Custom_Exception
 from services.implementions.auth_service import Auth_Service
 from main import app

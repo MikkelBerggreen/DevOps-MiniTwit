@@ -1,6 +1,6 @@
 from database.db_orm import Database
 from repos.interfaces.auth_repo_interface import Auth_Repo_Interface
-from repos.orm.implementations.models import User
+from database.models import User
 database = Database()
 
 

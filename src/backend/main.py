@@ -10,9 +10,13 @@ from starlette.background import BackgroundTask
 from util.prometheus_util import handle_update_metrics, metrics_router
 import time
 
+from util.log_config import fastapi_log
+
+from fastapi.logger import logger as fastapi_logger
+
 # style reference
 import os
-from repos.orm.implementations.models import Base
+from database.models import Base
 from database.db_orm import engine
 
 Base.metadata.create_all(bind=engine)
@@ -25,14 +29,13 @@ if "SESSION_SECRET_KEY" in dotenv:
     SECRET_KEY = dotenv["SESSION_SECRET_KEY"]
 else:
     SECRET_KEY = "Test"
-PER_PAGE = 30
-DEBUG = True
 
 app = FastAPI()
 
 
 @app.exception_handler(Custom_Exception)
 async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
+    fastapi_logger.error(request['path'] + " | " + str(exc.status_code) + " | " + exc.msg)
     request.session["error"] = exc.msg
     return JSONResponse(
         status_code=exc.status_code,

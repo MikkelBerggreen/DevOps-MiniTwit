@@ -1,5 +1,5 @@
 from repos.interfaces.user_repo_interface import User_Repo_Interface
-from repos.orm.implementations.models import User, Follower, Message
+from database.models import User, Follower, Message
 from database.db_orm import Database
 import time
 database = Database()

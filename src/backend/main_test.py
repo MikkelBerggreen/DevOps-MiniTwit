@@ -16,7 +16,7 @@ from fastapi.testclient import TestClient
 
 from main import app
 
-from repos.orm.implementations.auth_queries import Auth_Repo
+from repos.implementations.auth_queries import Auth_Repo
 from services.implementions.auth_service import Auth_Service
 
 client = TestClient(app)

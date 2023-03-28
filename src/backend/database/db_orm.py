@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from repos.orm.implementations.models import Base
+from database.models import Base
 from sqlalchemy_utils import database_exists, create_database
 from dotenv import dotenv_values
 
@@ -11,7 +11,7 @@ if "POSTGRES_SERVER" in dotenv:
     url = "postgresql://"+dotenv["POSTGRES_USER"]+":"+dotenv["POSTGRES_PASSWORD"]+"@"+dotenv["POSTGRES_SERVER"]+":"+dotenv["POSTGRES_PORT"]+"/"+dotenv["POSTGRES_DB"]
 
 else:
-    url = "postgresql://postgres:postgres@localhost:5432/minitwit"
+    url = "postgresql://postgres:postgres@host.docker.internal:5432/minitwit"
 
 engine = create_engine(url)
 if not database_exists(engine.url):
