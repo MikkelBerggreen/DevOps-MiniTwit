@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Request, Query
+from fastapi import APIRouter, Request, Query, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Union
 import typing
-
+from typing_extensions import Annotated
 from services.implementions.timeline_service import Timeline_Service
 from services.implementions.auth_service import Auth_Service
 from services.implementions.user_service import User_Service
@@ -39,19 +39,39 @@ def get_flashed_messages(request: Request):
 templates.env.globals["get_flashed_messages"] = get_flashed_messages
 
 
+def common_parameters(
+    no: int = 30,
+    page: int = 1
+):
+    return {"no": no, "page": page}
+
+
 def get_session(request, key):
     if key in request.session:
         return request.session[key]
     return None
 
 
-@router.get("/", response_class=HTMLResponse)
-def timeline(request: Request, no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)):
+def func(request: Request):
+    request_args = dict(request.query_params)
+    user = get_session(request, "user_id")
+    if "no" not in request_args:
+        request_args["no"] = 30
+
+    if not user:
+        raise HTTPException(
+            status_code=307,
+            headers={'Location': '/public?no='+str(request_args["no"])})
+    return True
+
+@router.get("/", response_class=HTMLResponse, dependencies=[Depends(func)])
+def timeline(request: Request, commons: dict = Depends(common_parameters)):
+    no, page = commons["no"], commons["page"]
     user = get_session(request, "user_id")
     username = get_session(request, "username")
 
-    if not user:
-        return RedirectResponse("/public?no=" + str(no), status_code=307)
+    #if not user:
+        #return RedirectResponse("/public?no=" + str(no), status_code=307)
 
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
@@ -74,8 +94,9 @@ def timeline(request: Request, no: Union[int, None] = Query(default=30), page: U
 
 
 @router.get("/public", response_class=HTMLResponse)
-def public_timeline(request: Request,
-                    no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)):
+def public_timeline(
+    request: Request, commons: dict = Depends(common_parameters)):
+    no, page = commons["no"], commons["page"]
 
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
@@ -98,11 +119,9 @@ def public_timeline(request: Request,
 
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
-def user_timeline(
-    request: Request, username: str,
-    no: Union[int, None] = Query(default=30), page: Union[int, None] = Query(default=1)
-):
-
+def user_timeline(username: str,
+    request: Request, commons: dict = Depends(common_parameters)):
+    no, page = commons["no"], commons["page"]
     auth_service.check_if_user_exists(username)
 
     followed = False
