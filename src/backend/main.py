@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 
 from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
@@ -9,10 +9,10 @@ from dotenv import dotenv_values
 from starlette.background import BackgroundTask
 from util.prometheus_util import handle_update_metrics, metrics_router
 import time
-
-from util.log_config import fastapi_log
-
-from fastapi.logger import logger as fastapi_logger
+import json
+from http import HTTPStatus
+from util.app_logger import get_logger
+from util.app_logger_formatter import CustomFormatter
 
 # style reference
 import os
@@ -31,11 +31,41 @@ else:
     SECRET_KEY = "Test"
 
 app = FastAPI()
+formatter = CustomFormatter('%(asctime)s')
+logger = get_logger(__name__, formatter)
+status_reasons = {x.value: x.name for x in list(HTTPStatus)}
+
+
+def get_extra_info(request: Request, response: Response):
+    return {'req': {
+        'url': request.url.path,
+        'headers': {'host': request.headers['host'],
+                    'user-agent': request.headers['user-agent'],
+                    'accept': request.headers['accept']},
+        'method': request.method,
+        'httpVersion': request.scope['http_version'],
+        'originalUrl': request.url.path,
+        'query': {}
+        },
+        'res': {'statusCode': response.status_code, 'body': {'statusCode': response.status_code,
+                   'status': status_reasons.get(response.status_code)}}}
+
+
+def write_log_data(request, response):
+    logger.info(request.method + ' ' + request.url.path, extra={'extra_info': get_extra_info(request, response)})
+
+
+@app.middleware("http")
+async def log_request(request: Request, call_next):
+    response = await call_next(request)
+    response.background = BackgroundTask(write_log_data, request, response)
+    return response
 
 
 @app.exception_handler(Custom_Exception)
 async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
-    fastapi_logger.error(request['path'] + " | " + str(exc.status_code) + " | " + exc.msg)
+
+    logger.error(json.dumps({"path": request['path'], "status_code": str(exc.status_code), "error_msg": exc.msg}))
     request.session["error"] = exc.msg
     return JSONResponse(
         status_code=exc.status_code,
