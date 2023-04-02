@@ -107,10 +107,10 @@
       user: root
       restart: yes
       env:
-          - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-          - "discovery.type=single-node"
-          - "xpack.security.enabled=false"
-          - ELASTIC_PASSWORD=sesame0uvr3toi
+        ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+        discovery.type: "single-node"
+        xpack.security.enabled: false
+        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
       networks:
@@ -124,11 +124,11 @@
       name: kibana
       image: "docker.elastic.co/kibana/kibana:7.17.1"
       env:
-        - "xpack.security.enabled=false"
-        - ELASTICSEARCH_USERNAME=elastic
-        - ELASTICSEARCH_PASSWORD=sesame0uvr3toi
-        - ELASTICSEARCH_HOSTS:http://elasticsearch:9200
+        ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+        ELASTICSEARCH_USERNAME: "kibana"
+        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
+        xpack.security.enabled: false
       networks:
-          - name: elk
+        - name: elk
       ports:
         - 5601:5601 
