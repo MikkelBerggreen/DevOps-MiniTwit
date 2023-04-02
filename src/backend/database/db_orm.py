@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from repos.orm.implementations.models import Base
+from database.models import Base
 from sqlalchemy_utils import database_exists, create_database
 from dotenv import dotenv_values
 

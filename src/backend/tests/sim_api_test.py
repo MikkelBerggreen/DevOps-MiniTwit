@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 from fastapi.testclient import TestClient
-from repos.orm.implementations.models import Base
+from database.models import Base
 from database.db_orm import Database
 from main import app
 

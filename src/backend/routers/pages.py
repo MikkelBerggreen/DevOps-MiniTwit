@@ -1,9 +1,7 @@
-from fastapi import APIRouter, Request, Query, Depends, HTTPException
+from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from typing import Union
 import typing
-from typing_extensions import Annotated
 from services.implementions.timeline_service import Timeline_Service
 from services.implementions.auth_service import Auth_Service
 from services.implementions.user_service import User_Service
@@ -64,14 +62,12 @@ def func(request: Request):
             headers={'Location': '/public?no='+str(request_args["no"])})
     return True
 
+
 @router.get("/", response_class=HTMLResponse, dependencies=[Depends(func)])
 def timeline(request: Request, commons: dict = Depends(common_parameters)):
     no, page = commons["no"], commons["page"]
     user = get_session(request, "user_id")
     username = get_session(request, "username")
-
-    #if not user:
-        #return RedirectResponse("/public?no=" + str(no), status_code=307)
 
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
@@ -94,14 +90,15 @@ def timeline(request: Request, commons: dict = Depends(common_parameters)):
 
 
 @router.get("/public", response_class=HTMLResponse)
-def public_timeline(
-    request: Request, commons: dict = Depends(common_parameters)):
+def public_timeline(request: Request,
+                    commons: dict = Depends(common_parameters)):
     no, page = commons["no"], commons["page"]
 
     username = get_session(request, "username")
     endpoint = str(request.__getitem__("endpoint")).split(" ")[1]
     template = templates.get_template("timeline.html")
     msg = timeline_service.get_public_timeline(no, page)
+
     next_url = "/public?no=" + str(no) + "&page=" + str(page+1)\
         if len(msg) == no else None
     prev_url = "/public?no=" + str(no) + "&page=" + str(page-1)\
@@ -120,7 +117,8 @@ def public_timeline(
 
 @router.get("/timeline/{username}", response_class=HTMLResponse)
 def user_timeline(username: str,
-    request: Request, commons: dict = Depends(common_parameters)):
+                  request: Request,
+                  commons: dict = Depends(common_parameters)):
     no, page = commons["no"], commons["page"]
     auth_service.check_if_user_exists(username)
 

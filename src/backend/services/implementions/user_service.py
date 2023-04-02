@@ -1,5 +1,5 @@
 from services.interfaces.user_service_interface import User_Service_Interface
-from repos.orm.implementations.user_queries import User_Repo
+from repos.implementations.user_queries import User_Repo
 from util.custom_exceptions import Custom_Exception
 
 
