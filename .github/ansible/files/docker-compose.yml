@@ -35,7 +35,7 @@ services:
     container_name: prometheus
     volumes:
       - prometheus:/prometheus
-      - ${PWD}/home/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /home/config/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     networks:
@@ -60,7 +60,10 @@ services:
     user: root
     command: filebeat -e -strict.perms=false
     volumes:
-        - ${PWD}/home/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+        - type: bind
+          source: /home/config/filebeat.yml
+          target: /usr/share/filebeat/filebeat.yml
+          read_only: true
         - /var/lib/docker:/var/lib/docker:ro
         - /var/run/docker.sock:/var/run/docker.sock
     networks:
