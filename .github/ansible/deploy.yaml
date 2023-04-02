@@ -57,6 +57,13 @@
       state: absent
     become: true
 
+  - name: remove nginx docker container
+    docker_container:
+      name: "filebeat"
+      keep_volumes: false
+      state: absent
+    become: true
+
   - name: run the copied compose file
     community.docker.docker_compose:
       project_src: /tmp/
