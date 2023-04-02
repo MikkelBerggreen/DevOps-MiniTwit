@@ -32,6 +32,12 @@
       dest: /home/config/prometheus.yml
     become: true
 
+  - name: copy the filebeat configuration file
+    copy:
+      src: filebeat.yml
+      dest: /home/config/filebeat.yml
+    become: true
+
   - name: copying provisioning directory
     become: true
     copy:
