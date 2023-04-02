@@ -149,7 +149,7 @@
       env:
         ELASTICSEARCH_URL: "http://157.245.16.6:9200"
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
-        ELASTICSEARCH_USERNAME: "kibana_system"
+        ELASTICSEARCH_USERNAME: "elastic"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
         xpack.security.encryptionKey: "sssomething_at_least_32_characters"
       networks:

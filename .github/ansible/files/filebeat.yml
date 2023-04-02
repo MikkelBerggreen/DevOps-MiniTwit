@@ -24,6 +24,8 @@ processors:
 
 output.elasticsearch:
   hosts: ["http://157.245.16.6:9200", "elasticsearch:9200"]
+  username: "elastic"
+  password: "sesame0uvr3toi"
   indices:
     - index: "filebeat-elastic-%{[agent.version]}-%{+yyyy.MM.dd}"
       when.or:
