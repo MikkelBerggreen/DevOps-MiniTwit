@@ -19,7 +19,13 @@
       name: docker
       state: present
     become: true
-  
+
+  - name: ensure dockerlogs directory exists
+    become: true
+    file:
+      state: directory
+      path: /usr/share/filebeat/dockerlogs
+
   - name: copy the compose file
     copy:
       src: docker-compose.yml
@@ -35,7 +41,7 @@
   - name: copy the filebeat configuration file
     copy:
       src: filebeat.yml
-      dest: /home/config/filebeat.yml
+      dest: /usr/share/filebeat/filebeat.yml
       owner: root
       group: root
     become: true
@@ -65,16 +71,19 @@
       state: present
     become: true
 
-  - name: Restart a container
+  - name: Start filebeat container
+    become: true
     community.docker.docker_container:
       name: filebeat
       image: "docker.elastic.co/beats/filebeat:7.17.1"
-      command: filebeat -e -strict.perms=false
-      user: root
-      volumes:
-        - /home/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-        - /var/lib/docker:/var/lib/docker:ro
-        - /var/run/docker.sock:/var/run/docker.sock
       state: started
+      user: root
+      restart: yes
+      volumes:
+        - /var/lib/docker/containers:/usr/share/dockerlogs/data:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /usr/share/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      restart_policy: unless-stopped
       networks:
-        - elk
+        - name: elk
+      command: filebeat -e -strict.perms=false
