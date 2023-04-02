@@ -3,7 +3,7 @@ from database.db_orm import Database
 
 from database.models import Latest, Message, User, Follower
 
-from repos.orm.implementations.user_queries import User_Repo
+from repos.implementations.user_queries import User_Repo
 database = Database()
 user_repo = User_Repo()
 
