@@ -50,6 +50,12 @@
       dest: /home/config/.env
     become: true
 
+  - name: Delete content & directory
+    ansible.builtin.file:
+      state: absent
+      path: /usr/share/filebeat/
+    become: true
+
   - name: remove filebeat docker container
     community.docker.docker_container:
       name: "filebeat"
