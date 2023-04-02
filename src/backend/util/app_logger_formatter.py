@@ -8,10 +8,10 @@ def get_app_log(record):
             'level': record.levelname,
             'type': 'app',
             'timestamp': record.asctime,
-            #'filename': record.filename,
-            #'pathname': record.pathname,
-            #'line': record.lineno,
-            #'threadId': record.thread,
+            # 'filename': record.filename,
+            # 'pathname': record.pathname,
+            # 'line': record.lineno,
+            # 'threadId': record.thread,
             'path': res['path'],
             'status_code': res['status_code'],
             'error_msg': res['error_msg']
@@ -21,10 +21,10 @@ def get_app_log(record):
             'level': record.levelname,
             'type': 'app',
             'timestamp': record.asctime,
-            #'filename': record.filename,
-            #'pathname': record.pathname,
-            #'line': record.lineno,
-            #'threadId': record.thread,
+            # 'filename': record.filename,
+            # 'pathname': record.pathname,
+            # 'line': record.lineno,
+            # 'threadId': record.thread,
             'message': record.message
             }}
 
