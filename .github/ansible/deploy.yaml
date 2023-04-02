@@ -117,7 +117,7 @@
       restart_policy: unless-stopped
       networks:
         - name: elk
-      command: filebeat -e -strict.perms=false
+      command: "filebeat -e -strict.perms=false"
 
   - name: Start elasticsearch container
     become: true
@@ -145,7 +145,7 @@
       name: kibana
       image: "docker.elastic.co/kibana/kibana:7.17.1"
       env:
-        ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+        ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
         ELASTICSEARCH_USERNAME: "kibana"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
         xpack.security.enabled: "false"
