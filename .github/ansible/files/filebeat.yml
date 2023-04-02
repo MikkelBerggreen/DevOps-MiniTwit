@@ -18,7 +18,7 @@ processors:
     overwrite_keys: true
 
 output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
+  hosts: ["elasticsearch:9300"]
   indices:
     - index: "filebeat-elastic-%{[agent.version]}-%{+yyyy.MM.dd}"
       when.or:

@@ -150,7 +150,7 @@ def user_timeline(username: str,
         "g": get_session(request, "username"),
         "f": get_session(request, "user_id"),
         "next_url": next_url,
-        "prev_url": prev_url, 
+        "prev_url": prev_url,
         })
     return HTMLResponse(html)
 

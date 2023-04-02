@@ -1,4 +1,5 @@
-import json, logging
+import json
+import logging
 
 
 def get_app_log(record):
@@ -47,7 +48,7 @@ class CustomFormatter(logging.Formatter):
 
     def __init__(self, formatter):
         logging.Formatter.__init__(self, formatter)
-    
+
     def format(self, record):
         logging.Formatter.format(self, record)
         if not hasattr(record, 'extra_info'):

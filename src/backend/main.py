@@ -48,7 +48,7 @@ def get_extra_info(request: Request, response: Response):
         'query': {}
         },
         'res': {'statusCode': response.status_code, 'body': {'statusCode': response.status_code,
-                   'status': status_reasons.get(response.status_code)}}}
+                'status': status_reasons.get(response.status_code)}}}
 
 
 def write_log_data(request, response):

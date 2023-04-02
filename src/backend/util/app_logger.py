@@ -1,4 +1,5 @@
-import logging, sys
+import logging
+import sys
 
 
 def get_file_handler(formatter, log_filename):
@@ -15,7 +16,7 @@ def get_stream_handler(formatter):
     return stream_handler
 
 
-def get_logger(name, formatter, log_filename = "logfile.log"):
+def get_logger(name, formatter, log_filename="logfile.log"):
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     logger.addHandler(get_file_handler(formatter, log_filename))
