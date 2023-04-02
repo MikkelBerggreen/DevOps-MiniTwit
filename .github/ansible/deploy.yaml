@@ -58,6 +58,27 @@
       dest: /home/config/.env
     become: true
 
+
+  - docker_host_info:
+      images: yes
+      containers: yes
+    register: docker_objects
+
+  - docker_container:
+      name: "{{ item.Id }}"
+      state: stopped
+    loop: "{{ docker_objects.containers }}"
+    loop_control:
+      label: "{{ item.Id }}"
+
+  - docker_image:
+      name: item.RepoTags | first
+      state: absent
+      force_absent: yes
+    loop: "{{ docker_objects.images }}"
+    loop_control:
+      label: "{{ item.RepoTags | first }}"
+
   - name: Tear down existing services
     community.docker.docker_compose:
       project_src: /tmp/
