@@ -93,8 +93,10 @@ services:
 
 networks:
   postgres:
+  elk:
 
 volumes:
   database:
   prometheus:
   grafana-data:
+  elk_elasticsearch:
