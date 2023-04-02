@@ -145,13 +145,11 @@
       name: kibana
       image: "docker.elastic.co/kibana/kibana:7.17.1"
       env:
+        ELASTICSEARCH_URL: "http://157.245.16.6:9200"
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
         ELASTICSEARCH_USERNAME: "kibana"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
-        xpack.security.encryptionKey: "sssssssssssssssomething_at_least_32_characters"
         xpack.security.enabled: "false"
-        xpack.security.session.idleTimeout: "1h"
-        xpack.security.session.lifespan: "30d"
       networks:
         - name: elk
       published_ports:
