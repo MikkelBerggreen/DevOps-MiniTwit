@@ -59,7 +59,7 @@ services:
     user: root
     command: filebeat -e -strict.perms=false
     volumes:
-        - $(pwd)/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - "$(pwd)/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
         - /var/lib/docker:/var/lib/docker:ro
         - /var/run/docker.sock:/var/run/docker.sock
     networks:
