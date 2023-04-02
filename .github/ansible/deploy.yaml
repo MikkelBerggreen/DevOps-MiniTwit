@@ -106,7 +106,7 @@
       state: started
       user: root
       restart: yes
-      environment:
+      env:
           - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
           - "discovery.type=single-node"
           - "xpack.security.enabled=false"
@@ -123,7 +123,7 @@
     community.docker.docker_container:
       name: kibana
       image: "docker.elastic.co/kibana/kibana:7.17.1"
-      environment:
+      env:
         - "xpack.security.enabled=false"
         - ELASTICSEARCH_USERNAME=elastic
         - ELASTICSEARCH_PASSWORD=sesame0uvr3toi
