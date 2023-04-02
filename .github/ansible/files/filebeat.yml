@@ -18,7 +18,7 @@ processors:
     overwrite_keys: true
 
 output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
+  hosts: ["http://157.245.16.6:9200", "elasticsearch:9200"]
   indices:
     - index: "filebeat-elastic-%{[agent.version]}-%{+yyyy.MM.dd}"
       when.or:
