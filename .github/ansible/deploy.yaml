@@ -131,6 +131,9 @@
         discovery.type: "single-node"
         xpack.security.enabled: "true"
         xpack.security.authc.api_key.enabled: "true"
+        xpack.security.encryptionKey: "sssssssssssssssomething_at_least_32_characters"
+        xpack.security.session.idleTimeout: "1h"
+        xpack.security.session.lifespan: "30d"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
@@ -147,9 +150,8 @@
       env:
         ELASTICSEARCH_URL: "http://157.245.16.6:9200"
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
-        ELASTICSEARCH_USERNAME: "kibana"
+        ELASTICSEARCH_USERNAME: "kibana_system"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
-        xpack.security.enabled: "false"
       networks:
         - name: elk
       published_ports:
