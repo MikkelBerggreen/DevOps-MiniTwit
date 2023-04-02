@@ -138,7 +138,7 @@
       networks:
         - name: elk
       published_ports:
-        - 9200:9200
+        - 9200:9300
 
   - name: Start kibana container
     become: true
@@ -150,6 +150,7 @@
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
         ELASTICSEARCH_USERNAME: "kibana_system"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
+        xpack.security.encryptionKey: "sssomething_at_least_32_characters"
       networks:
         - name: elk
       published_ports:
