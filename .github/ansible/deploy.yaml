@@ -132,13 +132,14 @@
         xpack.security.enabled: "true"
         xpack.security.authc.api_key.enabled: "true"
         xpack.security.encryptionKey: "sssomething_at_least_32_characters"
+        xpack.monitoring.collection.enabled: "true"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
       networks:
         - name: elk
       published_ports:
-        - 9200:9300
+        - 9200:9200
 
   - name: Start kibana container
     become: true

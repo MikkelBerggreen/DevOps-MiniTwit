@@ -39,5 +39,5 @@ output.elasticsearch:
               container.image.name: mirbitu/minitwitimage:latest
 
 logging.json: true
-logging.metrics.enabled: false
+logging.metrics.enabled: true
 
