@@ -8,6 +8,11 @@ filebeat.inputs:
     negate: true
     match: after
 
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      
 processors:
 - add_docker_metadata:
     host: "unix:///var/run/docker.sock"
@@ -19,6 +24,8 @@ processors:
 
 output.elasticsearch:
   hosts: ["http://157.245.16.6:9200", "elasticsearch:9200"]
+  username: 'kibana'
+  password: 'sesame0uvr3toi'
   indices:
     - index: "filebeat-elastic-%{[agent.version]}-%{+yyyy.MM.dd}"
       when.or:
