@@ -28,13 +28,13 @@
   
   - name: copy the prometheus configuration file
     copy:
-      src: prometheus.yml
+      src: files/prometheus.yml
       dest: /home/config/prometheus.yml
     become: true
 
   - name: copy the filebeat configuration file
     copy:
-      src: filebeat.yml
+      src: files/filebeat.yml
       dest: /home/config/filebeat.yml
     become: true
 
