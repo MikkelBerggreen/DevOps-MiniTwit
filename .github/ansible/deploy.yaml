@@ -136,8 +136,8 @@
           - elk_elasticsearch:/usr/share/elasticsearch/data
       networks:
         - name: elk
-      ports:
-        - 9300:9300
+      published_ports:
+        - 9200:9200
 
   - name: Start kibana container
     become: true
@@ -145,11 +145,11 @@
       name: kibana
       image: "docker.elastic.co/kibana/kibana:7.17.1"
       env:
-        ELASTICSEARCH_HOSTS: "http://elasticsearch:9300"
+        ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
         ELASTICSEARCH_USERNAME: "kibana"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
         xpack.security.enabled: "false"
       networks:
         - name: elk
-      ports:
-        - 5602:5602 
+      published_ports:
+        - 5601:5601
