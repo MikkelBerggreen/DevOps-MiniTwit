@@ -71,6 +71,11 @@
       state: present
     become: true
 
+  - name: Create a network
+    become: true
+    community.docker.docker_network:
+      name: elk
+
   - name: Start filebeat container
     become: true
     community.docker.docker_container:
