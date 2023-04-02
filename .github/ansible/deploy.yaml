@@ -49,18 +49,18 @@
       src: .env
       dest: /home/config/.env
     become: true
-  
+
+  - name: remove filebeat docker container
+    community.docker.docker_container:
+      name: "filebeat"
+      keep_volumes: false
+      state: absent
+    become: true
+
   - name: Tear down existing services
     community.docker.docker_compose:
       project_src: /tmp/
       remove_images: all
-      state: absent
-    become: true
-
-  - name: remove nginx docker container
-    docker_container:
-      name: "filebeat"
-      keep_volumes: false
       state: absent
     become: true
 
