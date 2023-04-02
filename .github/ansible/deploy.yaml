@@ -130,7 +130,7 @@
       env:
         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         discovery.type: "single-node"
-        xpack.security.enabled: "false"
+        xpack.security.enabled: "true"
         ELASTICSEARCH_USERNAME: "kibana"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
@@ -149,7 +149,7 @@
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
         ELASTICSEARCH_USERNAME: "kibana"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
-        xpack.security.enabled: "false"
+        xpack.security.enabled: "true"
       networks:
         - name: elk
       published_ports:
