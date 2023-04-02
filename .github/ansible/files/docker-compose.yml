@@ -54,10 +54,49 @@ services:
     networks:
       - postgres
 
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.17.1"
+    user: root
+    command: filebeat -e -strict.perms=false
+    volumes:
+        - /home/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - /var/lib/docker:/var/lib/docker:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+        - elk
+
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.1"
+    environment:
+        - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+        - "discovery.type=single-node"
+        - "xpack.security.enabled=false"
+        - ELASTIC_PASSWORD=sesame0uvr3toi
+    volumes:
+        - elk_elasticsearch:/usr/share/elasticsearch/data
+    networks:
+        - elk
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.17.1"
+    environment:
+      - "xpack.security.enabled=false"
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=sesame0uvr3toi
+      - ELASTICSEARCH_HOSTS:http://elasticsearch:9200
+    networks:
+        - elk
+    ports:
+      - 5601:5601 
+
 networks:
+  elk:
   postgres:
 
 volumes:
   database:
   prometheus:
   grafana-data:
+  elk_elasticsearch:

@@ -4,7 +4,7 @@ import json, logging
 def get_app_log(record):
     if record.levelname == "ERROR":
         res = json.loads(record.message)
-        json_obj = {'log': {
+        json_obj = {'error': {
             'level': record.levelname,
             'type': 'app',
             'timestamp': record.asctime,
@@ -17,7 +17,7 @@ def get_app_log(record):
             'error_msg': res['error_msg']
         }}
     else:
-        json_obj = {'log': {
+        json_obj = {'data_push': {
             'level': record.levelname,
             'type': 'app',
             'timestamp': record.asctime,
