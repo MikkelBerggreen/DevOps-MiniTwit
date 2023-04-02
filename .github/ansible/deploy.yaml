@@ -130,7 +130,8 @@
       env:
         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         discovery.type: "single-node"
-        xpack.security.enabled: "false"
+        xpack.security.enabled: "true"
+        xpack.security.authc.api_key.enabled: "true"
         ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
