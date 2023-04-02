@@ -130,8 +130,8 @@
       env:
         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         discovery.type: "single-node"
-        xpack.security.enabled: "true"
-        elasticsearch.password: "sesame0uvr3toi"
+        xpack.security.enabled: "false"
+        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
       networks:
@@ -146,8 +146,8 @@
       image: "docker.elastic.co/kibana/kibana:7.17.1"
       env:
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
-        elasticsearch.username: "kibana"
-        elasticsearch.password: "sesame0uvr3toi"
+        ELASTICSEARCH_USERNAME: "kibana"
+        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
         xpack.security.encryptionKey: "sssssssssssssssomething_at_least_32_characters"
         xpack.security.enabled: "false"
         xpack.security.session.idleTimeout: "1h"
