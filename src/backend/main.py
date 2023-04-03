@@ -9,15 +9,14 @@ from dotenv import dotenv_values
 from starlette.background import BackgroundTask
 from util.prometheus_util import handle_update_metrics, metrics_router
 import time
-import json
 from http import HTTPStatus
 from util.app_logger import get_logger
-from util.app_logger_formatter import CustomFormatter
 
 # style reference
 import os
 from database.models import Base
 from database.db_orm import engine
+import ecs_logging
 
 Base.metadata.create_all(bind=engine)
 
@@ -31,8 +30,7 @@ else:
     SECRET_KEY = "Test"
 
 app = FastAPI()
-formatter = CustomFormatter('%(asctime)s')
-logger = get_logger(__name__, formatter)
+logger = get_logger(__name__, ecs_logging.StdlibFormatter())
 status_reasons = {x.value: x.name for x in list(HTTPStatus)}
 
 
@@ -65,7 +63,7 @@ async def log_request(request: Request, call_next):
 @app.exception_handler(Custom_Exception)
 async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
 
-    logger.error(json.dumps({"path": request['path'], "status_code": str(exc.status_code), "error_msg": exc.msg}))
+    logger.error(request.method + ' ' + request.url.path + ' ' + str(exc.status_code), extra={'extra_info': {"path": request['path'], "status_code": str(exc.status_code), "error_msg": exc.msg}})
     request.session["error"] = exc.msg
     return JSONResponse(
         status_code=exc.status_code,
