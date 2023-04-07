@@ -38,6 +38,22 @@ services:
     expose:
       - 8000
 
+  fastapi-tls:
+    image: mirbitu/minitwitimage:latest
+    depends_on:
+      - db
+    networks:
+      - postgres
+    build:
+      context: backend
+      dockerfile: ./DockerfileTLS
+    ports:
+      - 443:8000
+    volumes: 
+      - ./backend/.env:/app/.env
+    expose:
+      - 443
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
