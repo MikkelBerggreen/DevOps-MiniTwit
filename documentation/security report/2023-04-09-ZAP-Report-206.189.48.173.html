@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAP Scanning Report</title>
+<link
+	href="2023-04-09-ZAP-Report-206.189.48.1733/normalize/normalize.css" rel="stylesheet">
+<link
+	href="2023-04-09-ZAP-Report-206.189.48.1733/themes/original/main.css" rel="stylesheet">
+<link
+	href="2023-04-09-ZAP-Report-206.189.48.1733/themes/original/colors.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<h1>ZAP Scanning Report</h1>
+		<p>
+			<span>Generated with</span> <a href="https://zaproxy.org"><img
+				src="2023-04-09-ZAP-Report-206.189.48.1733/zap32x32.png" alt="The ZAP logo" class="zap-logo">ZAP</a>
+			<span>on Sun 9 Apr 2023, at 19:34:40</span>
+		</p>
+	</header>
+
+	<main>
+
+		<section id="contents" class="contents">
+			<h2>Contents</h2>
+			<nav>
+				<ol>
+					<li><a
+						href="#about-this-report">About this report</a>
+						<ol>
+							
+							<li><a
+								href="#report-parameters">Report parameters</a></li>
+						</ol></li>
+					<data-th-block>
+					<li><a
+						href="#summaries">Summaries</a>
+						<ol>
+							<li><a
+								href="#risk-confidence-counts">Alert counts by risk and confidence</a></li>
+							<li><a
+								href="#site-risk-counts">Alert counts by site and risk</a></li>
+							<li><a
+								href="#alert-type-counts">Alert counts by alert type</a></li>
+						</ol></li>
+					<li><a
+						href="#alerts">Alerts</a>
+						<ol>
+							
+							 
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-2-confidence-3"><span>Risk</span>=<span
+									class="risk-level">Medium</span>, <span>Confidence</span>=<span
+									class="confidence-level">High</span> <span>(1)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-2-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Medium</span>, <span>Confidence</span>=<span
+									class="confidence-level">Medium</span> <span>(1)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-2-confidence-1"><span>Risk</span>=<span
+									class="risk-level">Medium</span>, <span>Confidence</span>=<span
+									class="confidence-level">Low</span> <span>(1)</span></a></li>
+							  
+							
+							
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-1-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Low</span>, <span>Confidence</span>=<span
+									class="confidence-level">Medium</span> <span>(3)</span></a></li>
+							
+							
+							  
+							
+							
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-0-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Informational</span>, <span>Confidence</span>=<span
+									class="confidence-level">Medium</span> <span>(2)</span></a></li>
+							
+							
+							  
+						</ol></li>
+					<li><a
+						href="#appendix">Appendix</a>
+						<ol>
+							<li><a
+								href="#alert-types">Alert types</a></li>
+						</ol></li>
+					</data-th-block>
+				</ol>
+			</nav>
+		</section>
+
+		<section
+			id="about-this-report" class="about-this-report">
+			<h2>About this report</h2>
+
+			
+
+			<section
+				id="report-parameters">
+				<h3>Report parameters</h3>
+				<div class="report-parameters--container">
+					<h4>Contexts</h4>
+					
+					
+					
+					
+					<p>The following contexts were selected to be included:</p>
+					<ul class="contexts-list">
+						<li><span
+							class="context">http://206.189.48.173:8080</span></li>
+					</ul>
+					  
+
+					<h4>Sites</h4>
+					
+					<p>The following sites were included:</p>
+					<ul class="sites-list">
+						<li><span class="site">http://206.189.48.173:8080</span></li>
+					</ul>
+					
+					<p>(If no sites were selected, all sites were included by default.)</p>
+					<p>An included site must also be within one of the included contexts for its data to be included in the report.</p>
+
+					<h4>Risk levels</h4>
+					<p>
+						<span>Included</span>:
+						 
+						<span class="included-risk-codes"><span class="risk-level">High</span>, <span class="risk-level">Medium</span>, <span class="risk-level">Low</span>, <span class="risk-level">Informational</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						 <span>None</span>
+						
+					</p>
+
+					<h4>Confidence levels</h4>
+					<p>
+						<span>Included</span>:
+						
+						
+						<span class="included-confidence-codes"><span class="confidence-level">User Confirmed</span>, <span class="confidence-level">High</span>, <span class="confidence-level">Medium</span>, <span class="confidence-level">Low</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						
+						
+						<span class="included-confidence-codes"> <span class="confidence-level">User Confirmed</span>, <span class="confidence-level">High</span>, <span class="confidence-level">Medium</span>, <span class="confidence-level">Low</span>, <span class="confidence-level">False Positive</span></span>
+					</p>
+				</div>
+			</section>
+		</section>
+
+		
+		<section>
+			
+		</section>
+		
+		<section id="summaries" class="summaries">
+			<h2>Summaries</h2>
+
+			<section
+				id="risk-confidence-counts">
+				<h3>Alert counts by risk and confidence</h3>
+				<table class="risk-confidence-counts-table">
+					<caption>
+						<p>This table shows the number of alerts for each level of risk and confidence included in the report.</p>
+						<p>(The percentages in brackets represent the count as a percentage of the total number of alerts included in the report, rounded to one decimal place.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%">
+						<col style="width: 14.0%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup"
+								colspan="5">Confidence</th>
+						</tr>
+						<tr>
+							<th scope="col">User Confirmed</th>
+							<th scope="col">High</th>
+							<th scope="col">Medium</th>
+							<th scope="col">Low</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="5">Risk</th>
+							<th scope="row">High</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span class="additional-info-percentages">(0.0%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Medium</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12.5%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12.5%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12.5%)</span></td>
+							<td><span>3</span><br> <span class="additional-info-percentages">(37.5%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Low</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(37.5%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>3</span><br> <span class="additional-info-percentages">(37.5%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Informational</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(25.0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>2</span><br> <span class="additional-info-percentages">(25.0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row">Total</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0.0%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12.5%)</span></td>
+							<td><span>6</span><br> <span
+								class="additional-info-percentages">(75.0%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12.5%)</span></td>
+							<td><span>8</span><br> <span
+								class="additional-info-percentages">(100%)</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="site-risk-counts">
+				<h3>Alert counts by site and risk</h3>
+				<table class="site-risk-counts-table">
+					<caption>
+						<p>This table shows, for each site for which one or more alerts were raised, the number of alerts raised at each risk level.</p>
+						<p>Alerts with a confidence level of &quot;False Positive&quot; have been excluded from these counts.</p>
+						<p>(The numbers in brackets are the number of alerts raised for the site at or above that risk level.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup" colspan="4">Risk</th>
+						</tr>
+						<tr>
+							<th scope="col">
+								<span>High</span><br>  <span
+									class="additional-info-percentages">(= High)</span>  
+							</th>
+							<th scope="col">
+								<span>Medium</span><br>   <span
+									class="additional-info-percentages">(&gt;= Medium)</span> 
+							</th>
+							<th scope="col">
+								<span>Low</span><br>   <span
+									class="additional-info-percentages">(&gt;= Low)</span> 
+							</th>
+							<th scope="col">
+								<span>Informational</span><br>   <span
+									class="additional-info-percentages">(&gt;= Informational)</span> 
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="1">Site</th>
+							<th scope="row">http://206.189.48.173:8080</th>
+							
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(3)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(6)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(7)</span></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="alert-type-counts">
+				<h3>Alert counts by alert type</h3>
+				<table class="alert-type-counts-table">
+					<caption>
+						<p>This table shows the number of alerts of each alert type, together with the alert type&#39;s risk level.</p>
+						<p>(The percentages in brackets represent each count as a percentage, rounded to one decimal place, of the total number of alerts included in this report.)</p>
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">Alert type</th>
+							<th scope="col">Risk</th>
+							<th scope="col">Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-0">Absence of Anti-CSRF Tokens</a></th>
+							<td class="risk-level">Medium</td>
+							<td><span>4</span><br> <span
+								class="additional-info-percentages">(50.0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-1">Content Security Policy (CSP) Header Not Set</a></th>
+							<td class="risk-level">Medium</td>
+							<td><span>61</span><br> <span
+								class="additional-info-percentages">(762.5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-2">Missing Anti-clickjacking Header</a></th>
+							<td class="risk-level">Medium</td>
+							<td><span>64</span><br> <span
+								class="additional-info-percentages">(800.0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-3">Cookie No HttpOnly Flag</a></th>
+							<td class="risk-level">Low</td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(25.0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-4">Cookie without SameSite Attribute</a></th>
+							<td class="risk-level">Low</td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(25.0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-5">X-Content-Type-Options Header Missing</a></th>
+							<td class="risk-level">Low</td>
+							<td><span>65</span><br> <span
+								class="additional-info-percentages">(812.5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-6">Information Disclosure - Sensitive Information in URL</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>87</span><br> <span
+								class="additional-info-percentages">(1,087.5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-7">User Agent Fuzzer</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>103</span><br> <span
+								class="additional-info-percentages">(1,287.5%)</span></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">Total</th>
+							<td></td>
+							<td>8</td>
+						</tr>
+					</tfoot>
+				</table>
+			</section>
+		</section>
+
+		<section id="alerts" class="alerts">
+			<h2>Alerts</h2>
+			<ol>
+				
+				 
+				 
+				
+				
+				<li id="alerts--risk-2-confidence-3">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Medium</span>, <span>Confidence</span>=<span
+							class="confidence-level">High</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://206.189.48.173:8080</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-1">Content Security Policy (CSP) Header Not Set</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://206.189.48.173:8080</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (207 bytes)</summary>
+				
+				<pre><code>GET http://206.189.48.173:8080 HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (119 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sun, 09 Apr 2023 14:27:40 GMT
+Content-Length: 10403
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (10403 bytes)</summary>
+				
+				<pre><code>
+
+&lt;!doctype html&gt;
+&lt;title&gt; Welcome | MiniTwit&lt;/title&gt;
+&lt;link rel=stylesheet type=text/css href=&quot;/web/static/style.css&quot;&gt;
+&lt;div class=page&gt;
+  &lt;h1&gt;MiniTwit&lt;/h1&gt;
+  &lt;div class=navigation&gt;
+    
+    &lt;a href=&quot;/public&quot;&gt;Public timeline&lt;/a&gt; |
+    &lt;a href=&quot;/register-user&quot;&gt;Sign up&lt;/a&gt; |
+    &lt;a href=&quot;/login&quot;&gt;Sign in&lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+  
+    &lt;h2&gt; Public Timeline &lt;/h2&gt;
+  
+
+ 
+  
+  &lt;ul class=messages&gt;
+  
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/031e9b5699a69c682f9182677b89b14a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Ulysses%20Dellbringge&quot;&gt;Ulysses Dellbringge&lt;/a&gt;&lt;/strong&gt;
+      “Still looking for it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:37&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c80e92f02ac56a650b9cb67f0ad26243?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Suzi%20Ground&quot;&gt;Suzi Ground&lt;/a&gt;&lt;/strong&gt;
+      Now the richer man, so McCarthy became his tenant but still serious way, one whispers to the bedroom, flung open the door.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/349c26718afca0e81a714ec14309a3b9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chin%20Berzins&quot;&gt;Chin Berzins&lt;/a&gt;&lt;/strong&gt;
+      Maybe he did not elicit that word itself.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b81d59468ed9ae983d6bf46cf4d08698?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Qiana%20Meloy&quot;&gt;Qiana Meloy&lt;/a&gt;&lt;/strong&gt;
+      You ought to be in the sunshine when the young man seemed interested.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:34&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b33a63dd8d093bb58f8d391dd0bf207a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Stacia%20Schulteis&quot;&gt;Stacia Schulteis&lt;/a&gt;&lt;/strong&gt;
+      He would talk of it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:33&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/977132457ae59bffce3fc318ceeab3e7?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Antonette%20Chatham&quot;&gt;Antonette Chatham&lt;/a&gt;&lt;/strong&gt;
+      “Indeed!” said Holmes, “however foolish the incident struck a rock, but it was smashed where it was oftentimes hard to say or do.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:30&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/e5100a28b3db2aa30f34863955751ade?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Shirley%20Herriot&quot;&gt;Shirley Herriot&lt;/a&gt;&lt;/strong&gt;
+      We are willing to lower for a bench on the dear boy’s track!
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0eed21b28c4d1cd0a6374a82ed7bb37?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Moshe%20Nakagawa&quot;&gt;Moshe Nakagawa&lt;/a&gt;&lt;/strong&gt;
+      “But he has begun by writing “The...game...is,” and so he stopped under a sheet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/47b016678a2509554d0eb05a33906c6c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Carl%20Kitzmiller&quot;&gt;Carl Kitzmiller&lt;/a&gt;&lt;/strong&gt;
+      I have an additional aid.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/f0d0c6a7b70a175f7cbc0e78f26b0ae9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Mary%20Villapando&quot;&gt;Mary Villapando&lt;/a&gt;&lt;/strong&gt;
+      Didn’t you say to you who had never seen a good workman--one of the hole is stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/baf662beb39b99f9f83e083ed11ac922?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Bruno%20Preuss&quot;&gt;Bruno Preuss&lt;/a&gt;&lt;/strong&gt;
+      When this last card.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:28&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/36b9fcfa44108ba8960bf2ed2053c393?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Charlotte%20Thiry&quot;&gt;Charlotte Thiry&lt;/a&gt;&lt;/strong&gt;
+      THE ADVENTURE OF THE REMINISCENCES OF JOHN TALBOT, Who, at the neck of the crime, and altogether it cannot be found,” said Dr. Mortimer.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:24&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c4eae386082eae1e224e36f8b644251d?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Refugio%20Briney&quot;&gt;Refugio Briney&lt;/a&gt;&lt;/strong&gt;
+      Midwifery should be in a court of the British lines.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bd717a73d656388eebf9f1398c15b09c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Darrick%20Bundage&quot;&gt;Darrick Bundage&lt;/a&gt;&lt;/strong&gt;
+      I told the doctor.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/52a1c5c05eaaff85bebe816fb031ba12?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Jay%20Gavaldon&quot;&gt;Jay Gavaldon&lt;/a&gt;&lt;/strong&gt;
+      “Selden found out where the beholder fights his way, pell-mell, through the same night without any interference.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:22&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/abfb30ef29508ed72f575c49e3d59dbb?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Alphonse%20Ura&quot;&gt;Alphonse Ura&lt;/a&gt;&lt;/strong&gt;
+      And now, Doctor, we&amp;#39;ve done our work, unless it is to-morrow we shall be divided among us.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:20&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/244ca542115e36b20bdbcfc02acb8f66?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Granville%20Millare&quot;&gt;Granville Millare&lt;/a&gt;&lt;/strong&gt;
+      Nor do heroes, saints, demigods, and prophets alone comprise the whole business, but must turn my body who will, take it in.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:18&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/490b2e0b7ef52e5a13108f51bd5bf117?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Angeline%20Brockmeyer&quot;&gt;Angeline Brockmeyer&lt;/a&gt;&lt;/strong&gt;
+      Thus they had every one knows, these same Quakers are the symbols.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:17&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0cf5a95d19adddca44e4b30cb3800c2?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Timmy%20Schickel&quot;&gt;Timmy Schickel&lt;/a&gt;&lt;/strong&gt;
+      Who’s over him, one would think.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:15&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/ae3f3b03fd3d562d89da4bc8f4bd0418?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Dewitt%20Sprinkel&quot;&gt;Dewitt Sprinkel&lt;/a&gt;&lt;/strong&gt;
+      I remained at Woking?
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:13&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c311d79856b86b78e6161b8dcdf28b30?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Remona%20Schweitz&quot;&gt;Remona Schweitz&lt;/a&gt;&lt;/strong&gt;
+      Stubb longed for vermillion stars to be accommodated with a bristling shark-skin apron, about mid-day, Perth was about to abandon for ever.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:12&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/1bd1e4b000df4adbd17b348465ab0864?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Laureen%20Cassani&quot;&gt;Laureen Cassani&lt;/a&gt;&lt;/strong&gt;
+      “Pray let me see--why, yes.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:07&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bbbab1f5d8601babc06c3c793939ca78?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Evan%20Fagen&quot;&gt;Evan Fagen&lt;/a&gt;&lt;/strong&gt;
+      “Do you know,” said he, a stranger brother.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:06&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/31ea91b4cc228bc65c645259c45b694a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Emory%20Stefani&quot;&gt;Emory Stefani&lt;/a&gt;&lt;/strong&gt;
+      “How did the same.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:03&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/129f5049a86801c4a6cdcbb609e25f86?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chet%20Arnholtz&quot;&gt;Chet Arnholtz&lt;/a&gt;&lt;/strong&gt;
+      What a lucky thing it might light upon the southwest side of earth, and seeking sentiment in tar and blubber.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d87d35103d15427b03fcb2a69144118f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Sylvie%20Quillian&quot;&gt;Sylvie Quillian&lt;/a&gt;&lt;/strong&gt;
+      Why should he come back yet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:57&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d15c385db189d8dea2e2b135d3ed6a1a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Karrie%20Strout&quot;&gt;Karrie Strout&lt;/a&gt;&lt;/strong&gt;
+      He dived his arm the man who rides a horse walks off with it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/15aaeebdce7d8e50ef456ebdaa714f29?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Connie%20Rued&quot;&gt;Connie Rued&lt;/a&gt;&lt;/strong&gt;
+      ‘Let every maiden of the more I thought, and once he dug up in his methodical way.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/020bc90f99eb10b601bce0ab7f5e1c8f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Reyes%20Hillman&quot;&gt;Reyes Hillman&lt;/a&gt;&lt;/strong&gt;
+      “Well, I’ve had a letter which he had stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:52&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/390d8f9fb83a3e7da386aa269769f5a9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Kennith%20Spatafore&quot;&gt;Kennith Spatafore&lt;/a&gt;&lt;/strong&gt;
+      Mortimer had stayed to dinner, and Flask towards his sister still remained without comfort.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:51&lt;/small&gt;
+    
+  
+  &lt;/ul&gt;
+
+  
+  &lt;div class=footer&gt;
+    MiniTwit &amp;mdash; A Go Application
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-2-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Medium</span>, <span>Confidence</span>=<span
+							class="confidence-level">Medium</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://206.189.48.173:8080</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-2">Missing Anti-clickjacking Header</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://206.189.48.173:8080</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking">WSTG-v42-CLNT-09</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The response does not include either Content-Security-Policy with &#39;frame-ancestors&#39; directive or X-Frame-Options to protect against &#39;ClickJacking&#39; attacks.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (207 bytes)</summary>
+				
+				<pre><code>GET http://206.189.48.173:8080 HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (119 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sun, 09 Apr 2023 14:27:40 GMT
+Content-Length: 10403
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (10403 bytes)</summary>
+				
+				<pre><code>
+
+&lt;!doctype html&gt;
+&lt;title&gt; Welcome | MiniTwit&lt;/title&gt;
+&lt;link rel=stylesheet type=text/css href=&quot;/web/static/style.css&quot;&gt;
+&lt;div class=page&gt;
+  &lt;h1&gt;MiniTwit&lt;/h1&gt;
+  &lt;div class=navigation&gt;
+    
+    &lt;a href=&quot;/public&quot;&gt;Public timeline&lt;/a&gt; |
+    &lt;a href=&quot;/register-user&quot;&gt;Sign up&lt;/a&gt; |
+    &lt;a href=&quot;/login&quot;&gt;Sign in&lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+  
+    &lt;h2&gt; Public Timeline &lt;/h2&gt;
+  
+
+ 
+  
+  &lt;ul class=messages&gt;
+  
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/031e9b5699a69c682f9182677b89b14a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Ulysses%20Dellbringge&quot;&gt;Ulysses Dellbringge&lt;/a&gt;&lt;/strong&gt;
+      “Still looking for it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:37&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c80e92f02ac56a650b9cb67f0ad26243?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Suzi%20Ground&quot;&gt;Suzi Ground&lt;/a&gt;&lt;/strong&gt;
+      Now the richer man, so McCarthy became his tenant but still serious way, one whispers to the bedroom, flung open the door.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/349c26718afca0e81a714ec14309a3b9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chin%20Berzins&quot;&gt;Chin Berzins&lt;/a&gt;&lt;/strong&gt;
+      Maybe he did not elicit that word itself.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b81d59468ed9ae983d6bf46cf4d08698?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Qiana%20Meloy&quot;&gt;Qiana Meloy&lt;/a&gt;&lt;/strong&gt;
+      You ought to be in the sunshine when the young man seemed interested.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:34&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b33a63dd8d093bb58f8d391dd0bf207a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Stacia%20Schulteis&quot;&gt;Stacia Schulteis&lt;/a&gt;&lt;/strong&gt;
+      He would talk of it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:33&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/977132457ae59bffce3fc318ceeab3e7?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Antonette%20Chatham&quot;&gt;Antonette Chatham&lt;/a&gt;&lt;/strong&gt;
+      “Indeed!” said Holmes, “however foolish the incident struck a rock, but it was smashed where it was oftentimes hard to say or do.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:30&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/e5100a28b3db2aa30f34863955751ade?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Shirley%20Herriot&quot;&gt;Shirley Herriot&lt;/a&gt;&lt;/strong&gt;
+      We are willing to lower for a bench on the dear boy’s track!
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0eed21b28c4d1cd0a6374a82ed7bb37?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Moshe%20Nakagawa&quot;&gt;Moshe Nakagawa&lt;/a&gt;&lt;/strong&gt;
+      “But he has begun by writing “The...game...is,” and so he stopped under a sheet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/47b016678a2509554d0eb05a33906c6c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Carl%20Kitzmiller&quot;&gt;Carl Kitzmiller&lt;/a&gt;&lt;/strong&gt;
+      I have an additional aid.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/f0d0c6a7b70a175f7cbc0e78f26b0ae9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Mary%20Villapando&quot;&gt;Mary Villapando&lt;/a&gt;&lt;/strong&gt;
+      Didn’t you say to you who had never seen a good workman--one of the hole is stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/baf662beb39b99f9f83e083ed11ac922?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Bruno%20Preuss&quot;&gt;Bruno Preuss&lt;/a&gt;&lt;/strong&gt;
+      When this last card.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:28&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/36b9fcfa44108ba8960bf2ed2053c393?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Charlotte%20Thiry&quot;&gt;Charlotte Thiry&lt;/a&gt;&lt;/strong&gt;
+      THE ADVENTURE OF THE REMINISCENCES OF JOHN TALBOT, Who, at the neck of the crime, and altogether it cannot be found,” said Dr. Mortimer.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:24&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c4eae386082eae1e224e36f8b644251d?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Refugio%20Briney&quot;&gt;Refugio Briney&lt;/a&gt;&lt;/strong&gt;
+      Midwifery should be in a court of the British lines.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bd717a73d656388eebf9f1398c15b09c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Darrick%20Bundage&quot;&gt;Darrick Bundage&lt;/a&gt;&lt;/strong&gt;
+      I told the doctor.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/52a1c5c05eaaff85bebe816fb031ba12?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Jay%20Gavaldon&quot;&gt;Jay Gavaldon&lt;/a&gt;&lt;/strong&gt;
+      “Selden found out where the beholder fights his way, pell-mell, through the same night without any interference.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:22&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/abfb30ef29508ed72f575c49e3d59dbb?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Alphonse%20Ura&quot;&gt;Alphonse Ura&lt;/a&gt;&lt;/strong&gt;
+      And now, Doctor, we&amp;#39;ve done our work, unless it is to-morrow we shall be divided among us.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:20&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/244ca542115e36b20bdbcfc02acb8f66?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Granville%20Millare&quot;&gt;Granville Millare&lt;/a&gt;&lt;/strong&gt;
+      Nor do heroes, saints, demigods, and prophets alone comprise the whole business, but must turn my body who will, take it in.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:18&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/490b2e0b7ef52e5a13108f51bd5bf117?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Angeline%20Brockmeyer&quot;&gt;Angeline Brockmeyer&lt;/a&gt;&lt;/strong&gt;
+      Thus they had every one knows, these same Quakers are the symbols.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:17&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0cf5a95d19adddca44e4b30cb3800c2?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Timmy%20Schickel&quot;&gt;Timmy Schickel&lt;/a&gt;&lt;/strong&gt;
+      Who’s over him, one would think.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:15&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/ae3f3b03fd3d562d89da4bc8f4bd0418?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Dewitt%20Sprinkel&quot;&gt;Dewitt Sprinkel&lt;/a&gt;&lt;/strong&gt;
+      I remained at Woking?
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:13&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c311d79856b86b78e6161b8dcdf28b30?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Remona%20Schweitz&quot;&gt;Remona Schweitz&lt;/a&gt;&lt;/strong&gt;
+      Stubb longed for vermillion stars to be accommodated with a bristling shark-skin apron, about mid-day, Perth was about to abandon for ever.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:12&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/1bd1e4b000df4adbd17b348465ab0864?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Laureen%20Cassani&quot;&gt;Laureen Cassani&lt;/a&gt;&lt;/strong&gt;
+      “Pray let me see--why, yes.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:07&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bbbab1f5d8601babc06c3c793939ca78?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Evan%20Fagen&quot;&gt;Evan Fagen&lt;/a&gt;&lt;/strong&gt;
+      “Do you know,” said he, a stranger brother.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:06&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/31ea91b4cc228bc65c645259c45b694a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Emory%20Stefani&quot;&gt;Emory Stefani&lt;/a&gt;&lt;/strong&gt;
+      “How did the same.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:03&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/129f5049a86801c4a6cdcbb609e25f86?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chet%20Arnholtz&quot;&gt;Chet Arnholtz&lt;/a&gt;&lt;/strong&gt;
+      What a lucky thing it might light upon the southwest side of earth, and seeking sentiment in tar and blubber.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d87d35103d15427b03fcb2a69144118f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Sylvie%20Quillian&quot;&gt;Sylvie Quillian&lt;/a&gt;&lt;/strong&gt;
+      Why should he come back yet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:57&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d15c385db189d8dea2e2b135d3ed6a1a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Karrie%20Strout&quot;&gt;Karrie Strout&lt;/a&gt;&lt;/strong&gt;
+      He dived his arm the man who rides a horse walks off with it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/15aaeebdce7d8e50ef456ebdaa714f29?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Connie%20Rued&quot;&gt;Connie Rued&lt;/a&gt;&lt;/strong&gt;
+      ‘Let every maiden of the more I thought, and once he dug up in his methodical way.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/020bc90f99eb10b601bce0ab7f5e1c8f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Reyes%20Hillman&quot;&gt;Reyes Hillman&lt;/a&gt;&lt;/strong&gt;
+      “Well, I’ve had a letter which he had stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:52&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/390d8f9fb83a3e7da386aa269769f5a9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Kennith%20Spatafore&quot;&gt;Kennith Spatafore&lt;/a&gt;&lt;/strong&gt;
+      Mortimer had stayed to dinner, and Flask towards his sister still remained without comfort.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:51&lt;/small&gt;
+    
+  
+  &lt;/ul&gt;
+
+  
+  &lt;div class=footer&gt;
+    MiniTwit &amp;mdash; A Go Application
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>X-Frame-Options</code></pre></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p>
+
+<p>If you expect the page to be framed only by pages on your server (e.g. it&#39;s part of a FRAMESET) then you&#39;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy&#39;s &quot;frame-ancestors&quot; directive.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-2-confidence-1">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Medium</span>, <span>Confidence</span>=<span
+							class="confidence-level">Low</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://206.189.48.173:8080</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-0">Absence of Anti-CSRF Tokens</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://206.189.48.173:8080/login</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery">WSTG-v42-SESS-05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control.html">OWASP_2017_A05</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>No Anti-CSRF tokens were found in a HTML submission form.</p>
+
+<p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p>
+
+<p>CSRF attacks are effective in a number of situations, including:</p>
+
+<p>    * The victim has an active session on the target site.</p>
+
+<p>    * The victim is authenticated via HTTP auth on the target site.</p>
+
+<p>    * The victim is on the same local network as the target site.</p>
+
+<p>CSRF has primarily been used to perform an action against a target site using the victim&#39;s privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;password&quot; &quot;username&quot; ].</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (250 bytes)</summary>
+				
+				<pre><code>GET http://206.189.48.173:8080/login HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+Referer: http://206.189.48.173:8080
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (117 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sun, 09 Apr 2023 14:27:42 GMT
+Content-Length: 717
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (717 bytes)</summary>
+				
+				<pre><code>
+&lt;!doctype html&gt;
+&lt;title&gt; Welcome | MiniTwit&lt;/title&gt;
+&lt;link rel=stylesheet type=text/css href=&quot;/web/static/style.css&quot;&gt;
+&lt;div class=page&gt;
+  &lt;h1&gt;MiniTwit&lt;/h1&gt;
+  &lt;div class=navigation&gt;
+    
+    &lt;a href=&quot;/public&quot;&gt;Public timeline&lt;/a&gt; |
+    &lt;a href=&quot;/register-user&quot;&gt;Sign up&lt;/a&gt; |
+    &lt;a href=&quot;/login&quot;&gt;Sign in&lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+  &lt;h2&gt;Sign In&lt;/h2&gt;
+ 
+  
+    &lt;form action=&quot;&quot; method=post&gt;
+        &lt;dl&gt;
+        &lt;dt&gt;Username:
+        &lt;dd&gt;&lt;input type=text name=username size=30&gt;
+        &lt;dt&gt;Password:
+        &lt;dd&gt;&lt;input type=password name=password size=30&gt;
+        &lt;/dl&gt;
+        &lt;div class=actions&gt;&lt;input type=submit value=&quot;Sign In&quot;&gt;&lt;/div&gt;
+    &lt;/form&gt;
+ 
+
+  &lt;div class=footer&gt;
+    MiniTwit &amp;mdash; A Go Application
+  &lt;/div&gt;
+&lt;/div&gt;
+
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>&lt;form action=&quot;&quot; method=post&gt;</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Phase: Architecture and Design</p>
+
+<p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p>
+
+<p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p>
+
+<p>Phase: Implementation</p>
+
+<p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p>
+
+<p>Phase: Architecture and Design</p>
+
+<p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p>
+
+<p>Note that this can be bypassed using XSS.</p>
+
+<p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p>
+
+<p>Note that this can be bypassed using XSS.</p>
+
+<p>Use the ESAPI Session Management control.</p>
+
+<p>This control includes a component for CSRF.</p>
+
+<p>Do not use the GET method for any request that triggers a state change.</p>
+
+<p>Phase: Implementation</p>
+
+<p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				  
+				 
+				
+				
+				
+				
+				<li id="alerts--risk-1-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Low</span>, <span>Confidence</span>=<span
+							class="confidence-level">Medium</span> <span>(3)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://206.189.48.173:8080</span> <span>(3)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-3">Cookie No HttpOnly Flag</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">POST http://206.189.48.173:8080/login</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes">WSTG-v42-SESS-02</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (326 bytes)</summary>
+				
+				<pre><code>POST http://206.189.48.173:8080/login HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Type: application/x-www-form-urlencoded
+Referer: http://206.189.48.173:8080/login
+Content-Length: 25
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (25 bytes)</summary>
+				
+				<pre><code>username=ZAP&amp;password=ZAP</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (313 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 302 Found
+Location: /
+Set-Cookie: mysession=MTY4MTA1MDQ4MHxEdi1CQkFFQ180SUFBUkFCRUFBQUlQLUNBQUVHYzNSeWFXNW5EQWdBQm5WelpYSkpSQVIxYVc1MEJnUUFfck4xfIBTc_uQnXlqW323XmvPb-E4kGYHW8UKNcCY7yXoda6r; Expires=Mon, 10 Apr 2023 14:28:00 GMT; Max-Age=86400
+Date: Sun, 09 Apr 2023 14:28:00 GMT
+Content-Length: 0
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>mysession</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>Set-Cookie: mysession</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure that the HttpOnly flag is set for all cookies.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-4">Cookie without SameSite Attribute</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">POST http://206.189.48.173:8080/login</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes">WSTG-v42-SESS-02</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control.html">OWASP_2017_A05</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a &#39;cross-site&#39; request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (326 bytes)</summary>
+				
+				<pre><code>POST http://206.189.48.173:8080/login HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Type: application/x-www-form-urlencoded
+Referer: http://206.189.48.173:8080/login
+Content-Length: 25
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (25 bytes)</summary>
+				
+				<pre><code>username=ZAP&amp;password=ZAP</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (313 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 302 Found
+Location: /
+Set-Cookie: mysession=MTY4MTA1MDQ4MHxEdi1CQkFFQ180SUFBUkFCRUFBQUlQLUNBQUVHYzNSeWFXNW5EQWdBQm5WelpYSkpSQVIxYVc1MEJnUUFfck4xfIBTc_uQnXlqW323XmvPb-E4kGYHW8UKNcCY7yXoda6r; Expires=Mon, 10 Apr 2023 14:28:00 GMT; Max-Age=86400
+Date: Sun, 09 Apr 2023 14:28:00 GMT
+Content-Length: 0
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>mysession</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>Set-Cookie: mysession</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure that the SameSite attribute is set to either &#39;lax&#39; or ideally &#39;strict&#39; for all cookies.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-5">X-Content-Type-Options Header Missing</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://206.189.48.173:8080</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &#39;nosniff&#39;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.</p>
+
+<p>At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (207 bytes)</summary>
+				
+				<pre><code>GET http://206.189.48.173:8080 HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (119 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sun, 09 Apr 2023 14:27:42 GMT
+Content-Length: 10329
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (10329 bytes)</summary>
+				
+				<pre><code>
+
+&lt;!doctype html&gt;
+&lt;title&gt; Welcome | MiniTwit&lt;/title&gt;
+&lt;link rel=stylesheet type=text/css href=&quot;/web/static/style.css&quot;&gt;
+&lt;div class=page&gt;
+  &lt;h1&gt;MiniTwit&lt;/h1&gt;
+  &lt;div class=navigation&gt;
+    
+    &lt;a href=&quot;/public&quot;&gt;Public timeline&lt;/a&gt; |
+    &lt;a href=&quot;/register-user&quot;&gt;Sign up&lt;/a&gt; |
+    &lt;a href=&quot;/login&quot;&gt;Sign in&lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+  
+    &lt;h2&gt; Public Timeline &lt;/h2&gt;
+  
+
+ 
+  
+  &lt;ul class=messages&gt;
+  
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But who are in danger!”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:40&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/031e9b5699a69c682f9182677b89b14a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Ulysses%20Dellbringge&quot;&gt;Ulysses Dellbringge&lt;/a&gt;&lt;/strong&gt;
+      “Still looking for it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:37&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c80e92f02ac56a650b9cb67f0ad26243?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Suzi%20Ground&quot;&gt;Suzi Ground&lt;/a&gt;&lt;/strong&gt;
+      Now the richer man, so McCarthy became his tenant but still serious way, one whispers to the bedroom, flung open the door.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/349c26718afca0e81a714ec14309a3b9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chin%20Berzins&quot;&gt;Chin Berzins&lt;/a&gt;&lt;/strong&gt;
+      Maybe he did not elicit that word itself.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b81d59468ed9ae983d6bf46cf4d08698?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Qiana%20Meloy&quot;&gt;Qiana Meloy&lt;/a&gt;&lt;/strong&gt;
+      You ought to be in the sunshine when the young man seemed interested.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:34&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/b33a63dd8d093bb58f8d391dd0bf207a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Stacia%20Schulteis&quot;&gt;Stacia Schulteis&lt;/a&gt;&lt;/strong&gt;
+      He would talk of it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:33&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/977132457ae59bffce3fc318ceeab3e7?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Antonette%20Chatham&quot;&gt;Antonette Chatham&lt;/a&gt;&lt;/strong&gt;
+      “Indeed!” said Holmes, “however foolish the incident struck a rock, but it was smashed where it was oftentimes hard to say or do.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:30&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/e5100a28b3db2aa30f34863955751ade?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Shirley%20Herriot&quot;&gt;Shirley Herriot&lt;/a&gt;&lt;/strong&gt;
+      We are willing to lower for a bench on the dear boy’s track!
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0eed21b28c4d1cd0a6374a82ed7bb37?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Moshe%20Nakagawa&quot;&gt;Moshe Nakagawa&lt;/a&gt;&lt;/strong&gt;
+      “But he has begun by writing “The...game...is,” and so he stopped under a sheet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/47b016678a2509554d0eb05a33906c6c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Carl%20Kitzmiller&quot;&gt;Carl Kitzmiller&lt;/a&gt;&lt;/strong&gt;
+      I have an additional aid.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/f0d0c6a7b70a175f7cbc0e78f26b0ae9?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Mary%20Villapando&quot;&gt;Mary Villapando&lt;/a&gt;&lt;/strong&gt;
+      Didn’t you say to you who had never seen a good workman--one of the hole is stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:29&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/baf662beb39b99f9f83e083ed11ac922?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Bruno%20Preuss&quot;&gt;Bruno Preuss&lt;/a&gt;&lt;/strong&gt;
+      When this last card.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:28&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/36b9fcfa44108ba8960bf2ed2053c393?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Charlotte%20Thiry&quot;&gt;Charlotte Thiry&lt;/a&gt;&lt;/strong&gt;
+      THE ADVENTURE OF THE REMINISCENCES OF JOHN TALBOT, Who, at the neck of the crime, and altogether it cannot be found,” said Dr. Mortimer.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:24&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c4eae386082eae1e224e36f8b644251d?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Refugio%20Briney&quot;&gt;Refugio Briney&lt;/a&gt;&lt;/strong&gt;
+      Midwifery should be in a court of the British lines.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bd717a73d656388eebf9f1398c15b09c?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Darrick%20Bundage&quot;&gt;Darrick Bundage&lt;/a&gt;&lt;/strong&gt;
+      I told the doctor.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/52a1c5c05eaaff85bebe816fb031ba12?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Jay%20Gavaldon&quot;&gt;Jay Gavaldon&lt;/a&gt;&lt;/strong&gt;
+      “Selden found out where the beholder fights his way, pell-mell, through the same night without any interference.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:22&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/abfb30ef29508ed72f575c49e3d59dbb?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Alphonse%20Ura&quot;&gt;Alphonse Ura&lt;/a&gt;&lt;/strong&gt;
+      And now, Doctor, we&amp;#39;ve done our work, unless it is to-morrow we shall be divided among us.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:20&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/244ca542115e36b20bdbcfc02acb8f66?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Granville%20Millare&quot;&gt;Granville Millare&lt;/a&gt;&lt;/strong&gt;
+      Nor do heroes, saints, demigods, and prophets alone comprise the whole business, but must turn my body who will, take it in.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:18&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/490b2e0b7ef52e5a13108f51bd5bf117?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Angeline%20Brockmeyer&quot;&gt;Angeline Brockmeyer&lt;/a&gt;&lt;/strong&gt;
+      Thus they had every one knows, these same Quakers are the symbols.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:17&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/a0cf5a95d19adddca44e4b30cb3800c2?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Timmy%20Schickel&quot;&gt;Timmy Schickel&lt;/a&gt;&lt;/strong&gt;
+      Who’s over him, one would think.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:15&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/ae3f3b03fd3d562d89da4bc8f4bd0418?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Dewitt%20Sprinkel&quot;&gt;Dewitt Sprinkel&lt;/a&gt;&lt;/strong&gt;
+      I remained at Woking?
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:13&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/c311d79856b86b78e6161b8dcdf28b30?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Remona%20Schweitz&quot;&gt;Remona Schweitz&lt;/a&gt;&lt;/strong&gt;
+      Stubb longed for vermillion stars to be accommodated with a bristling shark-skin apron, about mid-day, Perth was about to abandon for ever.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:12&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/1bd1e4b000df4adbd17b348465ab0864?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Laureen%20Cassani&quot;&gt;Laureen Cassani&lt;/a&gt;&lt;/strong&gt;
+      “Pray let me see--why, yes.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:07&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/bbbab1f5d8601babc06c3c793939ca78?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Evan%20Fagen&quot;&gt;Evan Fagen&lt;/a&gt;&lt;/strong&gt;
+      “Do you know,” said he, a stranger brother.”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:06&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/31ea91b4cc228bc65c645259c45b694a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Emory%20Stefani&quot;&gt;Emory Stefani&lt;/a&gt;&lt;/strong&gt;
+      “How did the same.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:03&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/129f5049a86801c4a6cdcbb609e25f86?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Chet%20Arnholtz&quot;&gt;Chet Arnholtz&lt;/a&gt;&lt;/strong&gt;
+      What a lucky thing it might light upon the southwest side of earth, and seeking sentiment in tar and blubber.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d87d35103d15427b03fcb2a69144118f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Sylvie%20Quillian&quot;&gt;Sylvie Quillian&lt;/a&gt;&lt;/strong&gt;
+      Why should he come back yet.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:57&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/d15c385db189d8dea2e2b135d3ed6a1a?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Karrie%20Strout&quot;&gt;Karrie Strout&lt;/a&gt;&lt;/strong&gt;
+      He dived his arm the man who rides a horse walks off with it.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/15aaeebdce7d8e50ef456ebdaa714f29?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Connie%20Rued&quot;&gt;Connie Rued&lt;/a&gt;&lt;/strong&gt;
+      ‘Let every maiden of the more I thought, and once he dug up in his methodical way.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/020bc90f99eb10b601bce0ab7f5e1c8f?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Reyes%20Hillman&quot;&gt;Reyes Hillman&lt;/a&gt;&lt;/strong&gt;
+      “Well, I’ve had a letter which he had stopped.
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:26:52&lt;/small&gt;
+    
+  
+  &lt;/ul&gt;
+
+  
+  &lt;div class=footer&gt;
+    MiniTwit &amp;mdash; A Go Application
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>X-Content-Type-Options</code></pre></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &#39;nosniff&#39; for all web pages.</p>
+
+<p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				
+				  
+				 
+				
+				
+				
+				
+				<li id="alerts--risk-0-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informational</span>, <span>Confidence</span>=<span
+							class="confidence-level">Medium</span> <span>(2)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://206.189.48.173:8080</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-6">Information Disclosure - Sensitive Information in URL</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://206.189.48.173:8080/user-timeline?username=Candra%20Demick</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure.html">OWASP_2017_A03</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>The URL contains potentially sensitive information. The following string was found via the pattern: user</p>
+
+<p>username</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (283 bytes)</summary>
+				
+				<pre><code>GET http://206.189.48.173:8080/user-timeline?username=Candra%20Demick HTTP/1.1
+Host: 206.189.48.173:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+Pragma: no-cache
+Cache-Control: no-cache
+Referer: http://206.189.48.173:8080
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (119 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sun, 09 Apr 2023 14:27:48 GMT
+Content-Length: 19223
+
+</code></pre>
+				
+				
+			</details> <details class="response-body">
+				<summary>Response body (19223 bytes)</summary>
+				
+				<pre><code>
+
+&lt;!doctype html&gt;
+&lt;title&gt; Welcome | MiniTwit&lt;/title&gt;
+&lt;link rel=stylesheet type=text/css href=&quot;/web/static/style.css&quot;&gt;
+&lt;div class=page&gt;
+  &lt;h1&gt;MiniTwit&lt;/h1&gt;
+  &lt;div class=navigation&gt;
+    
+    &lt;a href=&quot;/public&quot;&gt;Public timeline&lt;/a&gt; |
+    &lt;a href=&quot;/register-user&quot;&gt;Sign up&lt;/a&gt; |
+    &lt;a href=&quot;/login&quot;&gt;Sign in&lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+  
+    &lt;h2&gt; Candra Demick&#39;s Timeline &lt;/h2&gt;
+  
+
+ 
+  
+  &lt;ul class=messages&gt;
+  
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      We had a black cloud, rising up with difficulty.
+      &lt;small&gt;&amp;mdash; 2023-04-08 01:28:54&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      When you asked me for a poem I was only through the lubber’s hole, cook; but, no, no, cook, you don’t get your eyes out!”
+      &lt;small&gt;&amp;mdash; 2023-04-08 05:37:53&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “She told me as it struck me that Queequeg’s harpoon was missing.
+      &lt;small&gt;&amp;mdash; 2023-03-31 00:00:52&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I was pleased at the same as at the boom as if he were mad with consternation.
+      &lt;small&gt;&amp;mdash; 2023-04-08 13:13:34&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “When the Lord that I was out on to the Northumberland Avenue hotels.
+      &lt;small&gt;&amp;mdash; 2023-04-08 14:35:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But look at the maid.
+      &lt;small&gt;&amp;mdash; 2023-04-08 02:01:05&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      So now we have several such dried bits, which I here saw but a Fast-Fish?
+      &lt;small&gt;&amp;mdash; 2023-04-08 11:35:42&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But who are in danger!”
+      &lt;small&gt;&amp;mdash; 2023-04-09 14:27:40&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I thought you might care to your idea, there was a very old and feeble.”
+      &lt;small&gt;&amp;mdash; 2023-03-31 07:59:37&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      During that time distinguished itself upon us from behind a breathless trotter.
+      &lt;small&gt;&amp;mdash; 2023-03-31 02:31:28&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      In an instant like heaps of fountains, then brokenly sank in the gloom—“Hemp only can kill thee.”
+      &lt;small&gt;&amp;mdash; 2023-03-31 02:42:45&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      When it was again in a much older than yourself.”
+      &lt;small&gt;&amp;mdash; 2023-03-31 03:23:54&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “The clouds are rolling off—serenest azure is at the matter of the descent, he waved towards two chairs.
+      &lt;small&gt;&amp;mdash; 2023-03-31 03:44:17&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I soon saw that on the ground for far other hammers seemed driving a nail into his little Quebec.
+      &lt;small&gt;&amp;mdash; 2023-03-31 04:47:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      When in the hall.”
+      &lt;small&gt;&amp;mdash; 2023-03-31 07:44:32&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      In truth, well nigh the coasts of that exquisite head.
+      &lt;small&gt;&amp;mdash; 2023-03-31 08:46:42&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      If you want to buy their land contained that which none other than Sherlock Holmes.
+      &lt;small&gt;&amp;mdash; 2023-03-31 11:18:22&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But these two men ended, as it would be heavy enough to decide me.
+      &lt;small&gt;&amp;mdash; 2023-03-31 10:52:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      The country seems to have dropped he is a very fast sailer and a single groan or cry of astonishment.
+      &lt;small&gt;&amp;mdash; 2023-03-31 17:03:55&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I left the house in Godolphin Street.
+      &lt;small&gt;&amp;mdash; 2023-03-31 12:32:52&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      His hair and horns on.
+      &lt;small&gt;&amp;mdash; 2023-03-31 13:03:02&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      McMurdo thought of doing it was some distance a gray, melancholy hill, with a look at it in his cage.
+      &lt;small&gt;&amp;mdash; 2023-03-31 13:57:12&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      ‘He fires a sheet of paper, with a notebook from the sofa is very complex, Sir Henry.
+      &lt;small&gt;&amp;mdash; 2023-04-01 04:52:57&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “Here is your son&amp;#39;s room”--he pushed open the haunts of the dog, for one instant, seemed on the road.
+      &lt;small&gt;&amp;mdash; 2023-03-31 23:16:37&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I have had me on the distaff side.
+      &lt;small&gt;&amp;mdash; 2023-04-01 01:11:27&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      He was a bachelor with hardly any reference to so emblazoned a fraternity.
+      &lt;small&gt;&amp;mdash; 2023-04-01 01:21:06&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      The inspector hurried away that night?
+      &lt;small&gt;&amp;mdash; 2023-04-01 01:22:42&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But it is better than a few acres of living and crawling with a crash, and hurrying in he gave her to share my husband’s anxieties.
+      &lt;small&gt;&amp;mdash; 2023-04-01 01:41:46&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Mr. Douglas who was coming round astern; aye, the foul fiend’s,” cried Bunger, stoopingly walking round Ahab, and the open door.
+      &lt;small&gt;&amp;mdash; 2023-03-31 18:57:45&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Fleet Street and Miles Street.
+      &lt;small&gt;&amp;mdash; 2023-03-31 19:40:20&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      It’s a sound tonight.”
+      &lt;small&gt;&amp;mdash; 2023-04-01 14:20:26&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I took the marriage ring from her that I wanted.
+      &lt;small&gt;&amp;mdash; 2023-04-01 06:51:03&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      But her brother I should prompt them to the light, with his brother as his build will show, in His Coffin.
+      &lt;small&gt;&amp;mdash; 2023-04-02 05:16:27&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I had not been moved in the act of carrying this poor fellow to grace a diadem.
+      &lt;small&gt;&amp;mdash; 2023-04-02 03:28:08&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      We stood at one end to end.”
+      &lt;small&gt;&amp;mdash; 2023-04-02 11:11:44&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “When you search a single groan or cry of surprise passed over her spasmodic gunwale into the lining in such exuberant spirits.
+      &lt;small&gt;&amp;mdash; 2023-04-02 08:54:01&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      A lean, ferret-like man, with his magnifying lens.
+      &lt;small&gt;&amp;mdash; 2023-04-02 17:32:24&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Why should he come because you cannot be true—not true, or undeveloped.
+      &lt;small&gt;&amp;mdash; 2023-04-03 02:46:40&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      We can only find her.
+      &lt;small&gt;&amp;mdash; 2023-04-02 19:04:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “Then for four or five men; but don’t believe it, do you, Sherlock?
+      &lt;small&gt;&amp;mdash; 2023-04-02 19:47:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “I thought so,” said Mr. Cunningham, looking out of his little game, like those of some record of Lord Holdhurst?”
+      &lt;small&gt;&amp;mdash; 2023-04-02 22:41:24&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “Man,” he cried, “while I have had a wire from Hilton Cubitt has herself lain under grave suspicion of unsolved crime.
+      &lt;small&gt;&amp;mdash; 2023-04-03 12:28:07&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      The precipitating manner in which there is a very great favor, since the death of Sir Charles asking him whether he had boarded.
+      &lt;small&gt;&amp;mdash; 2023-04-04 07:30:28&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      I might, but I had the crudest ideas, from our friend did, and as Percy is to stand on!
+      &lt;small&gt;&amp;mdash; 2023-04-03 13:37:35&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “And why did you yourself can withstand three cheers for Nantucket; and come what might, I had brought with me.
+      &lt;small&gt;&amp;mdash; 2023-04-03 23:58:26&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      “Some touch of mundane grandeur.
+      &lt;small&gt;&amp;mdash; 2023-04-06 15:45:08&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      And the drawing of a strange mixture of clay and of course I at last; but Baldwin, his cruel face of the district.”
+      &lt;small&gt;&amp;mdash; 2023-04-06 14:22:41&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      When I looked at them if I can, to give you fuller details, and would rather never allude to my hotel.
+      &lt;small&gt;&amp;mdash; 2023-04-06 14:49:48&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      How is the result of a frightened woman.
+      &lt;small&gt;&amp;mdash; 2023-04-04 22:26:23&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Let me only say what was about half-past ten.
+      &lt;small&gt;&amp;mdash; 2023-04-04 22:29:15&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Long seasoned and weather-stained in the bedroom door.
+      &lt;small&gt;&amp;mdash; 2023-04-05 01:27:05&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      Our friend, Sir George and cut his tongue could do.
+      &lt;small&gt;&amp;mdash; 2023-04-05 01:31:00&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      He had stood on a bench on the threshold.
+      &lt;small&gt;&amp;mdash; 2023-04-05 09:50:01&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      To be sure, exalted to Jove’s high seat, the cigar which had been taken out of it again, Bildad, eh?
+      &lt;small&gt;&amp;mdash; 2023-04-05 10:41:30&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      She was a great deal of justification.
+      &lt;small&gt;&amp;mdash; 2023-04-06 06:07:36&lt;/small&gt;
+    
+    &lt;li&gt;&lt;img src=&quot;https://www.gravatar.com/avatar/61b473df5a0b5d2b43ac9c645f802205?d=identicon&amp;amp;s=48&quot;&gt;&lt;p&gt;
+      &lt;strong&gt;&lt;a href=&quot;/user-timeline?username=Candra%20Demick&quot;&gt;Candra Demick&lt;/a&gt;&lt;/strong&gt;
+      As I have other resources; but I could name a by-word through the gloom, I saw him rejoin his guest, and I have no doubt a pity, Bannister.
+      &lt;small&gt;&amp;mdash; 2023-04-07 01:23:17&lt;/small&gt;
+    
+  
+  &lt;/ul&gt;
+
+  
+  &lt;div class=footer&gt;
+    MiniTwit &amp;mdash; A Go Application
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>username</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>username</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Do not pass sensitive information in URIs.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				
+				  
+			</ol>
+		</section>
+
+		<section id="appendix" class="appendix">
+			<h2>Appendix</h2>
+
+			<section id="alert-types" class="alert-types">
+				<h3>Alert types</h3>
+				<p class="alert-types-intro">This section contains additional information on the types of alerts in the report.</p>
+				<ol>
+					<li
+						id="alert-type-0">
+						<h4>Absence of Anti-CSRF Tokens</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10202/">Absence of Anti-CSRF Tokens</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>9</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://projects.webappsec.org/Cross-Site-Request-Forgery">http://projects.webappsec.org/Cross-Site-Request-Forgery</a></li>
+										<li><a
+											href="http://cwe.mitre.org/data/definitions/352.html">http://cwe.mitre.org/data/definitions/352.html</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-1">
+						<h4>Content Security Policy (CSP) Header Not Set</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10038/">Content Security Policy (CSP) Header Not Set</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>15</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy">https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</a></li>
+										<li><a
+											href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</a></li>
+										<li><a
+											href="http://www.w3.org/TR/CSP/">http://www.w3.org/TR/CSP/</a></li>
+										<li><a
+											href="http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html">http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</a></li>
+										<li><a
+											href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">http://www.html5rocks.com/en/tutorials/security/content-security-policy/</a></li>
+										<li><a
+											href="http://caniuse.com/#feat=contentsecuritypolicy">http://caniuse.com/#feat=contentsecuritypolicy</a></li>
+										<li><a
+											href="http://content-security-policy.com/">http://content-security-policy.com/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-2">
+						<h4>Missing Anti-clickjacking Header</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10020/">Anti-clickjacking Header</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/1021.html">1021</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>15</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-3">
+						<h4>Cookie No HttpOnly Flag</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10010/">Cookie No HttpOnly Flag</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/1004.html">1004</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>13</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://owasp.org/www-community/HttpOnly">https://owasp.org/www-community/HttpOnly</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-4">
+						<h4>Cookie without SameSite Attribute</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10054/">Cookie without SameSite Attribute</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/1275.html">1275</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>13</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site">https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-5">
+						<h4>X-Content-Type-Options Header Missing</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10021/">X-Content-Type-Options Header Missing</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>15</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx">http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</a></li>
+										<li><a
+											href="https://owasp.org/www-community/Security_Headers">https://owasp.org/www-community/Security_Headers</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-6">
+						<h4>Information Disclosure - Sensitive Information in URL</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10024/">Information Disclosure - Sensitive Information in URL</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>13</td>
+							</tr>
+							
+						</table>
+					</li>
+					<li
+						id="alert-type-7">
+						<h4>User Agent Fuzzer</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by an active scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10104/">plugin ID: 10104</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://owasp.org/wstg">https://owasp.org/wstg</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+				</ol>
+			</section>
+		</section>
+		 
+	</main>
+</body>
+</html>
+
+
+
