@@ -131,9 +131,9 @@
         discovery.type: "single-node"
         xpack.security.enabled: "true"
         xpack.security.authc.api_key.enabled: "true"
-        xpack.security.encryptionKey: "sssomething_at_least_32_characters"
+        xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
         xpack.monitoring.collection.enabled: "true"
-        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
+        ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
       volumes:
           - elk_elasticsearch:/usr/share/elasticsearch/data
       networks:
@@ -150,8 +150,8 @@
         ELASTICSEARCH_URL: "http://157.245.16.6:9200"
         ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
         ELASTICSEARCH_USERNAME: "elastic"
-        ELASTICSEARCH_PASSWORD: "sesame0uvr3toi"
-        xpack.security.encryptionKey: "sssomething_at_least_32_characters"
+        ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
+        xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
       networks:
         - name: elk
       published_ports:

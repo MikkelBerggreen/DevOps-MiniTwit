@@ -91,6 +91,8 @@ jobs:
           inventory: |
             [all]
             ${{secrets.SSH_HOST}} ansible_user=${{secrets.SSH_USER}}
+          options: |
+            --extra-vars "ELASTICSEARCH_PASSWORD=${{secrets.ELASTICSEARCH_PASSWORD}} ENCRYPTION_KEY=${{secrets.ENCRYPTION_KEY}}"
 
 
   postman:
