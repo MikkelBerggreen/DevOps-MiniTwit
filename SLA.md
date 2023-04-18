@@ -15,3 +15,4 @@ We will provide email based support and be avaliable 24 hours 7 days a week and 
 
 <b>5. Security </b><br/>
 To keep our data safe we use ORM and prepared statements to prevent any for of injection attacks, bcrypt to encrypt and salt passwords, and firewalls from docker and digital ocean. 
+
