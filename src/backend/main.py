@@ -92,4 +92,4 @@ app.include_router(auth.router)
 
 script_dir = os.path.dirname(__file__)
 st_abs_file_path = os.path.join(script_dir, "styles/")
-app.mount("/static", StaticFiles(directory=st_abs_file_path), name="styles")
+app.mount("//static", StaticFiles(directory=st_abs_file_path), name="styles")
