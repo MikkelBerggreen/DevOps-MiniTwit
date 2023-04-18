@@ -11,6 +11,7 @@ from util.prometheus_util import handle_update_metrics, metrics_router
 import time
 from http import HTTPStatus
 from util.app_logger import get_logger
+from prometheus_fastapi_instrumentator import Instrumentator
 
 # style reference
 import os
@@ -52,7 +53,6 @@ def get_extra_info(request: Request, response: Response):
 def write_log_data(request, response):
     logger.info(request.method + ' ' + request.url.path, extra={'extra_info': get_extra_info(request, response)})
 
-
 @app.middleware("http")
 async def log_request(request: Request, call_next):
     response = await call_next(request)
@@ -93,3 +93,5 @@ app.include_router(auth.router)
 script_dir = os.path.dirname(__file__)
 st_abs_file_path = os.path.join(script_dir, "styles/")
 app.mount("//static", StaticFiles(directory=st_abs_file_path), name="styles")
+
+Instrumentator().instrument(app).expose(app)
