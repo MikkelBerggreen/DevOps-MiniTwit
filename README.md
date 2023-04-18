@@ -11,7 +11,7 @@ MiniTwit is a messaging application being converted from Flask to FastAPI.
 
 It is deployed here:
 
-http://157.245.16.6:8000/
+https://opsdev.gg
 
 ![Landing Page](https://github.com//MinitwitGroupI/MiniTwit/blob/main/documentation/images/landingpage.png?raw=true)
 
