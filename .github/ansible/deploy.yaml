@@ -102,57 +102,57 @@
     docker_volume:
       name: elk_elasticsearch
 
-  - name: Start filebeat container
-    become: true
-    community.docker.docker_container:
-      name: filebeat
-      image: "docker.elastic.co/beats/filebeat:7.17.1"
-      state: started
-      user: root
-      restart: yes
-      volumes:
-        - /usr/share/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-        - /var/lib/docker/containers:/var/lib/docker/containers:ro
-        - /var/run/docker.sock:/var/run/docker.sock:ro
-      networks:
-        - name: elk
-      command: "filebeat -e -strict.perms=false"
+  # - name: Start filebeat container
+  #   become: true
+  #   community.docker.docker_container:
+  #     name: filebeat
+  #     image: "docker.elastic.co/beats/filebeat:7.17.1"
+  #     state: started
+  #     user: root
+  #     restart: yes
+  #     volumes:
+  #       - /usr/share/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+  #       - /var/lib/docker/containers:/var/lib/docker/containers:ro
+  #       - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     networks:
+  #       - name: elk
+  #     command: "filebeat -e -strict.perms=false"
 
-  - name: Start elasticsearch container
-    become: true
-    community.docker.docker_container:
-      name: elasticsearch
-      image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.1"
-      state: started
-      user: root
-      restart: yes
-      env:
-        ES_JAVA_OPTS: "-Xms1g -Xmx1g"
-        discovery.type: "single-node"
-        xpack.security.enabled: "true"
-        xpack.security.authc.api_key.enabled: "true"
-        xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
-        xpack.monitoring.collection.enabled: "true"
-        ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
-      volumes:
-          - elk_elasticsearch:/usr/share/elasticsearch/data
-      networks:
-        - name: elk
-      published_ports:
-        - 9200:9200
+  # - name: Start elasticsearch container
+  #   become: true
+  #   community.docker.docker_container:
+  #     name: elasticsearch
+  #     image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.1"
+  #     state: started
+  #     user: root
+  #     restart: yes
+  #     env:
+  #       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+  #       discovery.type: "single-node"
+  #       xpack.security.enabled: "true"
+  #       xpack.security.authc.api_key.enabled: "true"
+  #       xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
+  #       xpack.monitoring.collection.enabled: "true"
+  #       ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
+  #     volumes:
+  #         - elk_elasticsearch:/usr/share/elasticsearch/data
+  #     networks:
+  #       - name: elk
+  #     published_ports:
+  #       - 9200:9200
 
-  - name: Start kibana container
-    become: true
-    community.docker.docker_container:
-      name: kibana
-      image: "docker.elastic.co/kibana/kibana:7.17.1"
-      env:
-        ELASTICSEARCH_URL: "http://157.245.16.6:9200"
-        ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
-        ELASTICSEARCH_USERNAME: "elastic"
-        ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
-        xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
-      networks:
-        - name: elk
-      published_ports:
-        - 5601:5601
+  # - name: Start kibana container
+  #   become: true
+  #   community.docker.docker_container:
+  #     name: kibana
+  #     image: "docker.elastic.co/kibana/kibana:7.17.1"
+  #     env:
+  #       ELASTICSEARCH_URL: "http://157.245.16.6:9200"
+  #       ELASTICSEARCH_HOSTS: '["http://157.245.16.6:9200","http://elasticsearch:9200"]'
+  #       ELASTICSEARCH_USERNAME: "elastic"
+  #       ELASTICSEARCH_PASSWORD: "{{ ELASTICSEARCH_PASSWORD }}"
+  #       xpack.security.encryptionKey: "{{ ENCRYPTION_KEY }}"
+  #     networks:
+  #       - name: elk
+  #     published_ports:
+  #       - 5601:5601
