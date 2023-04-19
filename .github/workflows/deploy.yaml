@@ -95,6 +95,20 @@ jobs:
             --extra-vars "ELASTICSEARCH_PASSWORD=${{secrets.ELASTICSEARCH_PASSWORD}} ENCRYPTION_KEY=${{secrets.ENCRYPTION_KEY}}"
 
 
+  postman-test-staging-is-up:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "8945217-5da48ae9-0c22-4f69-8d89-c51986a09491"
+
   postman:
     needs: deploy
     runs-on: ubuntu-latest
