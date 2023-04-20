@@ -7,48 +7,25 @@
 
 # MiniTwit
 
-MiniTwit is a messaging application being converted from Flask to FastAPI.
+MiniTwit is a messaging application which was converted from Flask to FastAPI framework.
 
-It is deployed here:
-
-https://opsdev.gg
+You can find the deployed application [here](https://opsdev.gg) or https://opsdev.gg
 
 ![Landing Page](https://github.com//MinitwitGroupI/MiniTwit/blob/main/documentation/images/landingpage.png?raw=true)
 
-# How to dockerise the app.
-To run the application, we suggest using docker and building an image of the app.
-For this purpose we created a docker-compose.yml file. 
+# How to install and run the application
 
-Instructions on how to build the docker image:
-- Locate the docker-compose.yml file inside src directory 
-- On VS code: Right click and select "Compose Up" and the image will be built and ran inside docker. 
+Prerequesesites: 
+- Docker must be installed.
+- Inside src/backend there is a file called ".env_sample". Input all necessary fields and rename the file to ".env".
 
-Alternatevely, you can use terminal commands to achieve the same thing.
+How to install and run the application:
+Inside src/ there is a docker-compose.yml file. Composing this file up will generate all necessary containers, volumes and files to run the application.
 
->  docker-compose build
+Once the containers have been deployed: navigate to http://localhost:8000 to access the main page.
 
->  docker-compose up 
+# How to install required dependencies
 
+All required dependencies will be installed once docker-compose file is executed.
 
-# How to install dependencies
-
-Locate the folder where the requirements.txt file is and write the following to install all dependencies.
-
-> pip install -r requirements.txt
-
-To freeze the dependencies.
-
-> pip freeze > requirements.txt
-
-To install a package and updating it in requirements.txt:
-
-> pip install -U package_name
-
-There can be a case that pip is not installed in the container.
-# To install pip
-
-> apt update
-
-> apt install python3-pip
-
-This will install pip, so dependencies can be downloaded.
+However, in the rare case that there is no way to run docker containers. You can find the list of all dependencies [here](https://github.com/MinitwitGroupI/MiniTwit/blob/main/src/backend/requirements.txt) or inside src/backend/requirements.txt

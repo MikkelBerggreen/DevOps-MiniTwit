@@ -1,0 +1,14 @@
+fastapi[all]==0.70.1
+uvicorn[standard]==0.15.0
+gunicorn==20.1.0
+httpx==0.23.3 
+python-dotenv==0.21.1
+psycopg2==2.9.3
+sqlalchemy==2.0.4
+bcrypt==4.0.1
+sqlalchemy-utils==0.40.0
+redis==4.5.1
+prometheus-client==0.16.0
+psutil==5.9.4
+ecs-logging==2.0.0
+prometheus-fastapi-instrumentator==6.0.0
