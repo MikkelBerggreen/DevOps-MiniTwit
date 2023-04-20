@@ -20,7 +20,7 @@ You can find the deployed application [here](https://opsdev.gg) or https://opsde
 
 ### Prerequisites: 
 - Docker must be installed.
-- Inside src/backend there is a file called ".env_sample". Input all necessary fields and rename the file to ".env".
+- Inside src/backend there is a file called [".env_sample"](src/backend/.env_sample). Input all necessary fields and rename the file to ".env".
 
 ### How to install and run the application:
 
