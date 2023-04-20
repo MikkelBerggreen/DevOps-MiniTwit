@@ -9,7 +9,7 @@ MiniTwit is a messaging application which was converted from Flask to FastAPI fr
 
 You can find the deployed application [here](https://opsdev.gg) or https://opsdev.gg
 
-![Landing Page](https://github.com//MinitwitGroupI/MiniTwit/blob/main/documentation/images/landingpage.png?raw=true)
+![Landing Page](docs/images/landingpage.png?raw=true)
 
 ## How to install and run the application
 
@@ -19,8 +19,7 @@ You can find the deployed application [here](https://opsdev.gg) or https://opsde
 
 ### How to install and run the application:
 
-Inside src/ there is a docker-compose.yml file.
-
+Inside src/ there is a [docker-compose.yml file](src/docker-compose.yml).
 Composing this file up will generate all necessary containers, volumes and files to run the application.
 
 Once the containers have been deployed: navigate to http://localhost:8000 to access the main page.
@@ -29,7 +28,7 @@ Once the containers have been deployed: navigate to http://localhost:8000 to acc
 
 All required dependencies will be installed once docker-compose file is executed.
 
-However, in the rare case that there is no way to run docker containers. You can find the list of all dependencies [here](https://github.com/MinitwitGroupI/MiniTwit/blob/main/src/backend/requirements.txt) or inside src/backend/requirements.txt
+However, in the rare case that there is no way to run docker containers. You can find the list of all dependencies [here](src/backend/requirements.txt) or inside src/backend/requirements.txt
 
 ## Contributing
 
