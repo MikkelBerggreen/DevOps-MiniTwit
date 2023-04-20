@@ -3,13 +3,18 @@
 
 ![Deployed to Server - Main Branch](https://github.com/MinitwitGroupI/Minitwit/actions/workflows/deploy.yaml/badge.svg?branch=main)
 
-## MiniTwit
+# MiniTwit
 
 MiniTwit is a messaging application which was converted from Flask to FastAPI framework.
 
 You can find the deployed application [here](https://opsdev.gg) or https://opsdev.gg
 
 ![Landing Page](docs/images/landingpage.png?raw=true)
+
+### All Url's: 
+*  [Main page](https://opsdev.gg)
+*  [Elastic] (http://opsdev.gg:5601) (Username: helgeandmircea, password: sesame0uvr3toi)
+*  [Grafana] (http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1)
 
 ## How to install and run the application
 
