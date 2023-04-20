@@ -43,10 +43,71 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/dbimage:webbuildcache,mode=max
 
-  deploy:
+  deploy-to-staging:
     needs: build
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Ansible
+        run: pip install ansible
+      
+      - name: Install community.docker
+        run: ansible-galaxy collection install community.docker
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_SESSION_SECRET_KEY: ${{ secrets.SESSION_SECRET_KEY }}
+          envkey_POSTGRES_SERVER: ${{ secrets.POSTGRES_SERVER }}
+          envkey_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          envkey_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          envkey_POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          envkey_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          envkey_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          directory: ./.github/ansible/files
+          file_name: .env
+          fail_on_empty: true
+
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: deploy.yaml
+          # Optional, directory where playbooks live
+          directory: ./.github/ansible
+          # Optional, SSH private key
+          key: ${{secrets.SSH_KEY}}
+          # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            ${{secrets.STAGING_SSH_HOST}} ansible_user=${{secrets.SSH_USER}}
+ 
+  verify-staging:
+    needs: deploy-to-staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "8945217-5da48ae9-0c22-4f69-8d89-c51986a09491"
+
+  deploy-to-production:
+    needs: verify-staging
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -94,9 +155,8 @@ jobs:
           options: |
             --extra-vars "ELASTICSEARCH_PASSWORD=${{secrets.ELASTICSEARCH_PASSWORD}} ENCRYPTION_KEY=${{secrets.ENCRYPTION_KEY}}"
 
-
-  postman:
-    needs: deploy
+  verify-production:
+    needs: deploy-to-production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
