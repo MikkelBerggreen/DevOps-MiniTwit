@@ -13,8 +13,8 @@ You can find the deployed application [here](https://opsdev.gg) or https://opsde
 
 ### All Url's: 
 *  [Main page](https://opsdev.gg)
-*  [Elastic] (http://opsdev.gg:5601) (Username: helgeandmircea, password: sesame0uvr3toi)
-*  [Grafana] (http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1)
+*  [Elastic](http://opsdev.gg:5601) (Username: helgeandmircea, password: sesame0uvr3toi)
+*  [Grafana](http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1)
 
 ## How to install and run the application
 
