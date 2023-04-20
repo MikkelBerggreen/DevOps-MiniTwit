@@ -81,7 +81,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
-          playbook: deploy.yaml
+          playbook: staging-deploy.yaml
           # Optional, directory where playbooks live
           directory: ./.github/ansible
           # Optional, SSH private key
