@@ -41,6 +41,13 @@ Anyone is welcome to [contribute](docs/CONTRIBUTE.md),
 however, if you decide to get involved, please take a moment to review
 the [guidelines](docs/CONTRIBUTE.md).
 
+## Logging
+
+TODO:
+
+[Postmortem](docs/Postmortems.md)
+
+
 ## SLA
 
 The team is commited to providing excelent service to their customers. Check out our commitments [here](docs/SLA.md).
@@ -48,6 +55,8 @@ The team is commited to providing excelent service to their customers. Check out
 ## Security report
 
 The team is proud to support our fellow students by evaluating [their applications security](docs/security%20report/Group%20I%20%20-%20Security%20Assessment%20Findings%20Report.pdf).
+
+TODO:
 Additionally, the team would like to thank group X for their contributions to the security of the application < link should be here>
 
 ## License
