@@ -43,10 +43,7 @@ the [guidelines](docs/CONTRIBUTE.md).
 
 ## Logging
 
-TODO:
-
-[Postmortem](docs/Postmortems.md)
-
+The team employs efficient logging infrastructure to track errors and other forms of data. Check out the teams [Postmortem](docs/Postmortems.md) report for a more detailed view on how the team tracks and manages errors.
 
 ## SLA
 
@@ -56,8 +53,7 @@ The team is commited to providing excelent service to their customers. Check out
 
 The team is proud to support our fellow students by evaluating [their applications security](docs/security%20report/Group%20I%20%20-%20Security%20Assessment%20Findings%20Report.pdf).
 
-TODO:
-Additionally, the team would like to thank group X for their contributions to the security of the application < link should be here>
+Additionally, the team would like to thank [Group d CI/CDont](https://github.com/kjaerb/DevOps-CI-CDont) for their [contributions to the security of the application](docs/group%20d%20security%20report/sec_report_group_i.md).
 
 ## License
 
