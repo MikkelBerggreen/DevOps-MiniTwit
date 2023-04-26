@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
     server.vm.provision "shell", inline: <<-SHELL
     echo "Update with sudo"
-    sudo apt-get update
+    sudo apt-get -y update
 
     echo "Install Nginx"
     apt-get -y install nginx
@@ -39,7 +39,9 @@ Vagrant.configure("2") do |config|
     git clone https://github.com/MinitwitGroupI/MiniTwit.git
 
     echo "Write to nginx config file"
-    cat /Minitwit/VagrantMiniTwit/nginx_config.txt > /etc/nginx/sites-enabled/default
+    cd MiniTwit/
+    git checkout staging_server_vagrant
+    cat VagrantMiniTwit/nginx_config.txt > /etc/nginx/sites-enabled/default
 
     echo "Reload nginx"
     service nginx reload
@@ -51,7 +53,7 @@ Vagrant.configure("2") do |config|
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
     
     echo "Run certbot"
-    printf '%s\n' mirb@itu.dk Y N c | sudo certbot --nginx
+    printf '%s\n' mirb@itu.dk Y N 1 | sudo certbot --nginx
 
     echo "Reload nginx"
     service nginx reload
