@@ -109,7 +109,7 @@
       image: "docker.elastic.co/beats/filebeat:7.17.1"
       state: started
       user: root
-      restart: yes
+      restart: unless-stopped
       volumes:
         - /usr/share/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
         - /var/lib/docker/containers:/var/lib/docker/containers:ro
@@ -125,7 +125,7 @@
       image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.1"
       state: started
       user: root
-      restart: yes
+      restart: unless-stopped
       env:
         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         discovery.type: "single-node"
