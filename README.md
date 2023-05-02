@@ -57,4 +57,4 @@ Additionally, the team would like to thank [Group d CI/CDont](https://github.com
 
 ## License
 
-The code is available under the [MIT license](docs/LICENSE).
+The code is available under the [MIT license](LICENSE).
