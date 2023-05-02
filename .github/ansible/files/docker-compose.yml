@@ -16,6 +16,8 @@ services:
       - postgres
     extra_hosts:
       - "host.docker.internal:127.0.0.1"
+    restart: unless-stopped
+
 
   fastapi:
     image: mirbitu/minitwitimage:latest
@@ -29,6 +31,8 @@ services:
       - /home/config/.env:/app/.env
     expose:
       - 8000
+    restart: unless-stopped
+
 
   prometheus:
     image: prom/prometheus
@@ -40,6 +44,8 @@ services:
       - "9090:9090"
     networks:
       - postgres
+    restart: unless-stopped
+
 
   grafana:
     image: grafana/grafana
@@ -53,6 +59,8 @@ services:
       - "3000:3000"  
     networks:
       - postgres
+    restart: unless-stopped
+
 
 networks:
   postgres:
