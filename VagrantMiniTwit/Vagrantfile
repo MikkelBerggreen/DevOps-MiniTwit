@@ -56,6 +56,35 @@ Vagrant.configure("2") do |config|
       echo "Reload nginx"
       service nginx reload
 
+      
+      echo "Setup Heartbeat"
+      sudo apt-get install heartbeat
+      cat MiniTwit/VagrantMiniTwit/hacf.txt > /etc/ha.d/ha.cf
+
+      sudo bash -c "{
+        echo auth1
+        echo 1 sha1 #{ENV["AUTH_KEY_HEARTBEAT"]}
+      } > /etc/ha.d/authkeys"
+      sudo chmod 600 /etc/ha.d/authkeys
+
+      echo "cloudserver floatip" > /etc/ha.d/haresources
+
+      sudo curl -L -o /usr/local/bin/assign-ip http://do.co/assign-ip
+      sudo chmod +x /usr/local/bin/assign-ip
+
+      sudo bash -c "{
+        echo #!/bin/bash
+        echo param=$1
+        echo export DO_TOKEN='#{ENV["DIGITAL_OCEAN_TOKEN"]}'
+      } > /etc/init.d/floatip
+      cat MiniTwit/VagrantMiniTwit/floatipHeartbeat.txt >> /etc/init.d/floatip
+      sudo chmod u+x /etc/init.d/floatip
+
+
+      echo "Start Heartbeat"
+      sudo systemctl start heartbeat
+
+
 
       echo "================================================================="
       echo "=                            DONE                               ="
@@ -92,6 +121,34 @@ Vagrant.configure("2") do |config|
     server.vm.provision "shell", inline: <<-SHELL
       echo "Setup droplet monitoring"
       curl -sSL https://repos.insights.digitalocean.com/install.sh | sudo bash
+
+
+      echo "Setup Heartbeat"
+      sudo apt-get install heartbeat
+      cat MiniTwit/VagrantMiniTwit/hacf.txt > /etc/ha.d/ha.cf
+
+      sudo bash -c "{
+        echo auth1
+        echo 1 sha1 #{ENV["AUTH_KEY_HEARTBEAT"]}
+      } > /etc/ha.d/authkeys"
+      sudo chmod 600 /etc/ha.d/authkeys
+
+      echo "cloudserver floatip" > /etc/ha.d/haresources
+
+      sudo curl -L -o /usr/local/bin/assign-ip http://do.co/assign-ip
+      sudo chmod +x /usr/local/bin/assign-ip
+
+      sudo bash -c "{
+        echo #!/bin/bash
+        echo param=$1
+        echo export DO_TOKEN='#{ENV["DIGITAL_OCEAN_TOKEN"]}'
+      } > /etc/init.d/floatip
+      cat MiniTwit/VagrantMiniTwit/floatipHeartbeat.txt >> /etc/init.d/floatip
+      sudo chmod u+x /etc/init.d/floatip
+
+
+      echo "Start Heartbeat"
+      sudo systemctl start heartbeat
 
     SHELL
   end

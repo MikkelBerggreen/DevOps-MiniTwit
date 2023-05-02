@@ -1,0 +1,4 @@
+node cloudserver
+ucast eth0 134.122.87.182
+node cloudserversecondary
+ucast eth0 178.128.196.241
