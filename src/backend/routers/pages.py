@@ -157,7 +157,6 @@ def user_timeline(username: str,
 
 @router.get("/login", response_class=HTMLResponse)
 def login(request: Request):
-    """todo auth check, and redirect if not logged in"""
     user = get_session(request, "user_id")
     username = get_session(request, "username")
 
