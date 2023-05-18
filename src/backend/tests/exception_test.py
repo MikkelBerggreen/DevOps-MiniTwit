@@ -24,7 +24,7 @@ Base.metadata.create_all(bind=engine)
 client = TestClient(app)
 
 
-class Simulation_API_Testing(unittest.TestCase):
+class Exception_Testing(unittest.TestCase):
 
     @contextmanager
     def override_get_db(self):
