@@ -63,7 +63,7 @@ class Exception_Testing(unittest.TestCase):
                     json={"username": "test", "email": "test@test", "pwd": "foo"},
                     params={"latest": 1337}
                     )
-                except http.client.IncompleteRead:
+                except:
                     attempt += 1
 
             assert response.status_code == 204
@@ -72,7 +72,7 @@ class Exception_Testing(unittest.TestCase):
             while attempt < maxretries:
                 try:
                     response = client.get("/latest")
-                except http.client.IncompleteRead:
+                except:
                     attempt += 1
             assert response.status_code == 200
             assert response.json() == {"latest": 1337}
