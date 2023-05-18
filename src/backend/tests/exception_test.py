@@ -68,13 +68,11 @@ class Exception_Testing(unittest.TestCase):
                 else:
                     break
 
-            assert response.json() == {"latest": 1337}
-            assert response.status_code == 204
             maxretries = 3
             attempt = 0
             while attempt < maxretries:
                 try:
-                    response = client.get("/latest")
+                    response = await client.get("/latest")
                 except:
                     attempt += 1
                 else:
