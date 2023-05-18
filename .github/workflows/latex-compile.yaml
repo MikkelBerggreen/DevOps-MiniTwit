@@ -1,9 +1,8 @@
 name: Build final report PDF
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [ closed ]
 
 jobs:
   build_latex:
