@@ -67,7 +67,7 @@ class Exception_Testing(unittest.TestCase):
                     attempt += 1
                 else:
                     break
-                    
+
             assert response.json() == {"latest": 1337}
             assert response.status_code == 204
             maxretries = 3
@@ -118,7 +118,7 @@ class Exception_Testing(unittest.TestCase):
     def test_register_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            response = client.post(
+            response = async client.post(
                 "/register",
                 json={"username": "a", "email": "a@a.a", "pwd": "a"},
                 params={"latest": 1},
