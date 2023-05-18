@@ -14,9 +14,15 @@ jobs:
         with:
           root_file: main.tex
           working_directory: report
+      
+      - name: Move report
+        run: |
+          mkdir -p report/build
+          mv report/main.pdf report/build/report.pdf
 
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
-        with:
-          name: report
-          path: report/main.pdf
+      - name: Push report
+        run: |
+          git config --global user.name 'OpsDev LaTex Report Automation Bot (ODLRAB)'
+          git config --global user.email 'odlrab@github.com'
+          git commit -am "ODLRAB - Update report.pdf"
+          git push
