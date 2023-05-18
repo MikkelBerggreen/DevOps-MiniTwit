@@ -1,0 +1,33 @@
+name: Build final report PDF
+
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          working_directory: report
+      
+      - name: Move report
+        run: |
+          mkdir -p report/build
+          mv report/main.pdf report/build/report.pdf
+
+      - name: Push report
+        run: |
+          git config --global user.name 'OpsDev LaTex Report Automation Bot (ODLRAB)'
+          git config --global user.email 'odlrab@github.com'
+          git add report/build/report.pdf -f
+          git commit -am "ODLRAB - Update report.pdf"
+          git push
