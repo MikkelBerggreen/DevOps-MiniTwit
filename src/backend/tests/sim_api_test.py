@@ -41,8 +41,8 @@ class Simulation_API_Testing(unittest.TestCase):
         transaction.rollback()
         connection.close()
 
-    def set_up_users(self, username, email, passwords, latest):
-        response = client.post(
+    async def set_up_users(self, username, email, passwords, latest):
+        response = await client.post(
                 "/register",
                 json={"username": username, "email": email, "pwd": passwords},
                 params={"latest": latest}
@@ -51,11 +51,11 @@ class Simulation_API_Testing(unittest.TestCase):
         assert response.status_code == 204
 
     @patch.object(Database, "connect_db")
-    def test_latest(self, connect_db_mock):
+    async def test_latest(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
 
-            response = client.post(
+            response = await client.post(
                 "/register",
                 json={"username": "test", "email": "test@test", "pwd": "foo"},
                 params={"latest": 1337}
@@ -63,15 +63,15 @@ class Simulation_API_Testing(unittest.TestCase):
 
             assert response.status_code == 204
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 1337}
 
     @patch.object(Database, "connect_db")
-    def test_register_c(self, connect_db_mock):
+    async def test_register_c(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            response = client.post(
+            response = await client.post(
                 "/register",
                 json={"username": "c", "email": "c@c.c", "pwd": "c"},
                 params={"latest": 6},
@@ -80,48 +80,48 @@ class Simulation_API_Testing(unittest.TestCase):
             # assert response.json() == {"success": "register success"}
             # This would test register normally. Due to 204 it fails.
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 6}
 
     @patch.object(Database, "connect_db")
-    def test_register_b(self, connect_db_mock):
+    async def test_register_b(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            response = client.post(
+            response = await client.post(
                 "/register",
                 json={"username": "b", "email": "b@b.b", "pwd": "b"},
                 params={"latest": 5},
             )
             assert response.status_code == 204
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 5}
 
     @patch.object(Database, "connect_db")
-    def test_register_a(self, connect_db_mock):
+    async def test_register_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            response = client.post(
+            response = await client.post(
                 "/register",
                 json={"username": "a", "email": "a@a.a", "pwd": "a"},
                 params={"latest": 1},
             )
             assert response.status_code == 204
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 1}
 
     @patch.object(Database, "connect_db")
-    def test_create_msg_for_user_a(self, connect_db_mock):
+    async def test_create_msg_for_user_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
             #############################
-            response = client.post(
+            response = await client.post(
                 "/msgs/a",
                 json={"content": "Blub"},
                 params={"latest": 2},
@@ -129,24 +129,24 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 204
 
             # verify that latest was updated
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 2}
 
     @patch.object(Database, "connect_db")
-    def test_get_latest_user_msgs(self, connect_db_mock):
+    async def test_get_latest_user_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
-            response = client.post(
+            response = await client.post(
                 "/msgs/a",
                 json={"content": "Blub"},
                 params={"latest": 2},
             )
             #############################
-            response = client.get(
+            response = await client.get(
                 "/msgs/a",
                 params={"no": 20, "latest": 3},
             )
@@ -160,25 +160,25 @@ class Simulation_API_Testing(unittest.TestCase):
 
             # assert got_it_earlier
             # verify that latest was updated
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 3}
 
     @patch.object(Database, "connect_db")
-    def test_get_latest_msgs(self, connect_db_mock):
+    async def test_get_latest_msgs(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
-            response = client.post(
+            response = await client.post(
                 "/msgs/a",
                 json={"content": "Blub!"},
                 params={"latest": 2},
             )
 
             #############################
-            response = client.get(
+            response = await client.get(
                 "/msgs",
                 params={"no": 20, "latest": 4},
             )
@@ -191,29 +191,29 @@ class Simulation_API_Testing(unittest.TestCase):
 
             assert got_it_earlier
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 4}
 
     @patch.object(Database, "connect_db")
-    def test_get_msgs_from_website_and_sim_map(self, connect_db_mock):
+    async def test_get_msgs_from_website_and_sim_map(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
-            response = client.post(
+            response = await client.post(
                 "/msgs/a",
                 json={"content": "Alub!"},
                 params={"latest": 2},
             )
-            response = client.post(
+            response = await client.post(
                 "/msgs/a",
                 json={"content": "Blub!"},
                 params={"latest": 3},
             )
             #############################
-            response = client.get(
+            response = await client.get(
                 "/msgs",
                 params={"no": 1, "latest": 4},
             )
@@ -229,7 +229,7 @@ class Simulation_API_Testing(unittest.TestCase):
 
             assert got_it_earlier
 
-            response = client.get(
+            response = await client.get(
                 "/msgs",
                 params={"no": 2, "latest": 4},
             )
@@ -247,36 +247,36 @@ class Simulation_API_Testing(unittest.TestCase):
 
             assert got_it_earlier
 
-            rv = client.get('/public?no=1')
+            rv = await client.get('/public?no=1')
             assert 'Blub!' in rv.text and 'Alub!' not in rv.text
 
-            rv = client.get('/public?no=2')
+            rv = await client.get('/public?no=2')
             assert 'Blub!' in rv.text and 'Alub!' in rv.text
 
     @patch.object(Database, "connect_db")
-    def test_follow_user(self, connect_db_mock):
+    async def test_follow_user(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
-            self.set_up_users("b", "b@b.b", "b", 5)
-            self.set_up_users("c", "c@c.c", "c", 6)
+            await self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("b", "b@b.b", "b", 5)
+            await self.set_up_users("c", "c@c.c", "c", 6)
             #############################
-            response = client.post(
+            response = await client.post(
                 "/fllws/a",
                 json={"follow": "b"},
                 params={"latest": 7},
             )
             assert response.status_code == 204
 
-            response = client.post(
+            response = await client.post(
                 "/fllws/a",
                 json={"follow": "c"},
                 params={"latest": 8},
             )
             assert response.status_code == 204
 
-            response = client.get(
+            response = await client.get(
                 "/fllws/a",
                 params={"no": 20, "latest": 9},
             )
@@ -286,26 +286,26 @@ class Simulation_API_Testing(unittest.TestCase):
             assert "c" in json_data["follows"]
 
             # verify that latest was updated
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 9}
 
     @patch.object(Database, "connect_db")
-    def test_a_unfollows_b(self, connect_db_mock):
+    async def test_a_unfollows_b(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
-            self.set_up_users("b", "b@b.b", "b", 5)
+            await self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("b", "b@b.b", "b", 5)
 
-            response = client.post(
+            response = await client.post(
                 "/fllws/a",
                 json={"follow": "b"},
                 params={"latest": 7},
             )
             assert response.status_code == 204
             #############################
-            response = client.post(
+            response = await client.post(
                 "/fllws/a",
                 json={"unfollow": "b"},
                 params={"latest": 10},
@@ -313,13 +313,13 @@ class Simulation_API_Testing(unittest.TestCase):
             assert response.status_code == 204
 
             # then verify that b is no longer in follows list
-            response = client.get(
+            response = await client.get(
                 "/fllws/a",
                 params={"no": 20, "latest": 11},
             )
             assert response.status_code == 200
             assert "b" not in response.json()["follows"]
 
-            response = client.get("/latest")
+            response = await client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 11}
