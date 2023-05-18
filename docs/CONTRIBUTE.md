@@ -1,5 +1,10 @@
 # Which repository setup will we use?
-We will use a Bare respository and it will be a monorepo.
+We agreed to use a monorepo approach. 
+- All our application and database code and configuration will be placed in the "src" directory. Application specifics are in the "backend" directory and database specifics are in the "db" one.
+- All CI/CD pipelines and configuration will be placed in the ".github" directory. The pipelines are placed in the "workflows" directory and the ansible jobs are placed in the "ansible" directory
+- All our IaC configuration will be placed in the "VagrantMiniTwit" directory
+- All our external and internal documentation will be placed in the "docs" directory
+- The final report will be placed in the "report" directory, with the built pdf being placed in "report/build"
 
 # Which branching model will we use?
 There will be a "main" branch which will contain a collection of all working features.
