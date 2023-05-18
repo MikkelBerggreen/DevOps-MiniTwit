@@ -115,10 +115,10 @@ class Exception_Testing(unittest.TestCase):
             assert response.json() == {"latest": 5}
 
     @patch.object(Database, "connect_db")
-    def test_register_a(self, connect_db_mock):
+    async def test_register_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-            response = async client.post(
+            response = await client.post(
                 "/register",
                 json={"username": "a", "email": "a@a.a", "pwd": "a"},
                 params={"latest": 1},
