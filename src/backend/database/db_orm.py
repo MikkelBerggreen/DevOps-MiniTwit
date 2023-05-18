@@ -9,7 +9,6 @@ dotenv = dotenv_values(".env")
 
 if "POSTGRES_SERVER" in dotenv:
     url = "postgresql://"+dotenv["POSTGRES_USER"]+":"+dotenv["POSTGRES_PASSWORD"]+"@"+dotenv["POSTGRES_SERVER"]+":"+dotenv["POSTGRES_PORT"]+"/"+dotenv["POSTGRES_DB"]
-
 else:
     url = "postgresql://postgres:postgres@localhost:5432/minitwit"
 
