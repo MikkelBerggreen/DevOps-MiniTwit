@@ -1,0 +1,22 @@
+# A list of servers that should be used as backends
+upstream echoapp {
+    # You can use external IPs here, but it's better to use the "LAN"/VPC IP.
+    server 157.245.16.6:8000;
+}
+server {
+    # Your domain should be here
+    server_name  localhost opsdev.gg;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        # Pass requests to http servers in the echoapp upstream block
+        proxy_pass http://echoapp;
+
+        # Pass along information like what host the request was for, client IP address
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
