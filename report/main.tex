@@ -48,7 +48,7 @@ We have inherited a legacy system called Minitwit and have been tasked with refa
 
 \subsection{Design and architecture of the system}
 
-Minitwit uses a container-based architecture where each service runs in its own Docker container. The backend is built with FastAPI and Jinja. Grafana and Prometheus are utilized for monitoring, the EFK stack for logging, Redis\footnote{Redis is only used to store the number of total http calls since FastAPI is a multi-threaded server that doesn't allow for global state} and PostgreSQL serve as database.
+Minitwit uses a container-based architecture where each service runs in its own Docker container. The backend is built with FastAPI and Jinja. Grafana and Prometheus are utilized for monitoring, the EFK stack for logging, Redis and PostgreSQL serve as database.
 
 The deployment view below is to help illustrate how these components are deployed and interact with each other in a production environment, see figure \ref{fig:deployment_view}. 
 
@@ -95,7 +95,7 @@ The deployment view below is to help illustrate how these components are deploye
 \subsection{State of the system}
 
 The application is accessible on \url{opsdev.gg}. The code can be found in \href{https://github.com/MinitwitGroupI/MiniTwit}{this repository}. Everything is running without error and will be accessible until the date June 14th 2023.
-Our system has been able to process at least 12.778.829 \footnote{url{http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1&viewPanel=2}} events in the span of 8 weeks.
+Our system has been able to process at least 12.778.829 \footnote{\url{http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1&viewPanel=2}} events in the span of 8 weeks.
 
 \subsection{Licences}
 
@@ -136,31 +136,35 @@ Fetching secrets between Github Actions and Ansible were solved by creating a fi
 
 \subsubsection{Week 5 - ORM }
 
-Three ORMs have been considered and the arguments are mapped \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.auxry4rgtrx1}}. A benchmarks repository was created \footnote{\url{https://github.com/MinitwitGroupI/ORM_Benchmarks }} and after a Github Discussion \footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/discussions/57 }} a vote was held. The choice fell on the most popular choice for Python - SQLAlchemy - and it did not cause regret. 
+Three ORMs have been considered and the arguments are mapped \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.auxry4rgtrx1}}. A benchmark repository was created \footnote{\url{https://github.com/MinitwitGroupI/ORM_Benchmarks }} and after a Github Discussion \footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/discussions/57 }} a vote was held. The choice fell on the most popular choice for Python - SQLAlchemy - and it did not cause regret. 
 
 \subsubsection{Week 6 - Monitoring }
 
 Prometheus with Grafana is considered the most popular choice in the industry \footnote{https://stackshare.io/stackups/grafana-vs-nagios}. 
 
-We checked our partner groups website and created issues for known issues \footnote{\url{https://github.com/organizationGB/DevOps/issues/23}} \footnote{\url{https://github.com/organizationGB/DevOps/issues/25}}. 
 
+\noindent FastAPI is multi-threaded and thus doesn't support having a global state. Storing the total http calls would only pertain to the current thread. This was solved by storing the value in Redis. This was done in an asynchronous way that wouldn't impact performance. 
+
+We audited our partner groups website and created issues for known issues \footnote{\url{https://github.com/organizationGB/DevOps/issues/23}} \footnote{\url{https://github.com/organizationGB/DevOps/issues/25}}. 
 
 \subsubsection{Week 7 - Maintainability, external code analysing }
 
-The Flake8 linter that pylint uses does static code analysis in our CI pipeline to provide soft feedback that does not block builds but hint at potential problems. SonarQube and CodeClimate integrated perfectly with our repository but gave vastly different views on code quality than us. It required manually dismissing a lot of warnings about duplicated code which existed in our unit tests. It ended up being a burden rather than helpful.
+The Flake8 linter used by pylint does static code analysis in our CI pipeline to provide soft feedback that does not block builds but hint at potential problems. SonarQube and CodeClimate integrated perfectly with our repository but gave vastly different views on code quality than us. It required manually dismissing a lot of warnings about duplicated code which existed in our unit tests. It ended up being a burden rather than helpful.
 
 \subsubsection{Week 8 - EFK stack}
 
 Significant issues were encountered when setting up the EFK stack:
 
 \begin{itemize}
-    \item Poor support for creating custom user credentials for WHAT?.
+    \item Poor support for encoding custom user credentials in Kibana and Elastic Search.
     \item User credentials on Filebeat had to be manually hard coded.
     \item With regards to security it was difficult to enable for each service and could only be tested in production given our setup. 
-    \item Adjustment of versions were required from the provided guide. 
+    \item Adjustment of versions were required from the provided guide \footnote{https://github.com/itu-devops/itu-minitwit-logging}. 
 \end{itemize}
 
-Postmortem exercises was completed. A bug was introduced an it was discovered with the help of logging. link?
+Implementing the EFK stack required vertical scaling the server in terms of CPU, memory and disk size.
+
+The postmortem exercise was completed. A bug was introduced an it was discovered with the help of logging. TODO DESCRIBE IT link?
 
 \subsubsection{Week 9 - Security  assessment}
 
@@ -192,7 +196,7 @@ We strived to ensure that everyone worked on every aspect of the project, promot
 
 \subsection{Stages and tools utilized in CI/CD chains (Ivar)}
 
-Github Actions seamlessly integrated with our codebase. This integration enables us to easily automate the process of building, testing and deploying our application with every commit on every pull request.
+We use GitHub Actions for performing all CI/CD operations.
 
 \subsubsection{Continuous Integration (CI)}
 
@@ -203,7 +207,7 @@ For a pull request to be merged, it must successfully pass all unit and integrat
 \subsubsection{Continuous Deployment (CD)}
 
 Once a pull request has been merged with our main branch, our CD pipeline is automatically triggered. 
-The first step in this pipeline is pushing the new versions our custom Docker images to our image repository. 
+The first step in this pipeline is pushing the new versions of the Docker images to our image repository. 
 
 Using Ansible, we first deploy our entire application stack to a staging server. This environment allows us to verify the functionality and stability of our application before deploying it to production.
 
