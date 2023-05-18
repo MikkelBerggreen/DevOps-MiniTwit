@@ -56,7 +56,8 @@ def write_log_data(request, response):
 @app.middleware("http")
 async def log_request(request: Request, call_next):
     response = await call_next(request)
-    response.background = BackgroundTask(write_log_data, request, response)
+    if "SESSION_SECRET_KEY" in dotenv:
+        response.background = BackgroundTask(write_log_data, request, response)
     return response
 
 
