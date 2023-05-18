@@ -63,8 +63,8 @@ async def log_request(request: Request, call_next):
 
 @app.exception_handler(Custom_Exception)
 async def unicorn_exception_handler(request: Request, exc: Custom_Exception):
-
-    logger.error(request.method + ' ' + request.url.path + ' ' + str(exc.status_code), extra={'extra_info': {"path": request['path'], "status_code": str(exc.status_code), "error_msg": exc.msg}})
+    if "SESSION_SECRET_KEY" in dotenv:
+        logger.error(request.method + ' ' + request.url.path + ' ' + str(exc.status_code), extra={'extra_info': {"path": request['path'], "status_code": str(exc.status_code), "error_msg": exc.msg}})
     request.session["error"] = exc.msg
     return JSONResponse(
         status_code=exc.status_code,
