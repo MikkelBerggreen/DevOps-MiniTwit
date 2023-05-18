@@ -67,7 +67,8 @@ class Exception_Testing(unittest.TestCase):
                     attempt += 1
                 else:
                     break
-
+                    
+            assert response.json() == {"latest": 1337}
             assert response.status_code == 204
             maxretries = 3
             attempt = 0
