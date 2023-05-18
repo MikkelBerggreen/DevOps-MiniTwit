@@ -54,16 +54,26 @@ class Exception_Testing(unittest.TestCase):
     def test_latest(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             connect_db_mock.return_value = mocK_return
-
-            response = client.post(
-                "/register",
-                json={"username": "test", "email": "test@test", "pwd": "foo"},
-                params={"latest": 1337}
-            )
+            maxretries = 3
+            attempt = 0
+            while attempt < maxretries:
+                try:
+                    response = client.post(
+                    "/register",
+                    json={"username": "test", "email": "test@test", "pwd": "foo"},
+                    params={"latest": 1337}
+                    )
+                except http.client.IncompleteRead:
+                    attempt += 1
 
             assert response.status_code == 204
-
-            response = client.get("/latest")
+            maxretries = 3
+            attempt = 0
+            while attempt < maxretries:
+                try:
+                    response = client.get("/latest")
+                except http.client.IncompleteRead:
+                    attempt += 1
             assert response.status_code == 200
             assert response.json() == {"latest": 1337}
 
