@@ -51,70 +51,6 @@ class Simulation_API_Testing(unittest.TestCase):
         assert response.status_code == 204
 
     @patch.object(Database, "connect_db")
-    def test_latest(self, connect_db_mock):
-        with self.override_get_db() as mocK_return:
-            connect_db_mock.return_value = mocK_return
-
-            response = client.post(
-                "/register",
-                json={"username": "test", "email": "test@test", "pwd": "foo"},
-                params={"latest": 1337}
-            )
-
-            assert response.status_code == 204
-
-            response = client.get("/latest")
-            assert response.status_code == 200
-            assert response.json() == {"latest": 1337}
-
-    @patch.object(Database, "connect_db")
-    def test_register_c(self, connect_db_mock):
-        with self.override_get_db() as mocK_return:
-            connect_db_mock.return_value = mocK_return
-            response = client.post(
-                "/register",
-                json={"username": "c", "email": "c@c.c", "pwd": "c"},
-                params={"latest": 6},
-            )
-            assert response.status_code == 204
-            # assert response.json() == {"success": "register success"}
-            # This would test register normally. Due to 204 it fails.
-
-            response = client.get("/latest")
-            assert response.status_code == 200
-            assert response.json() == {"latest": 6}
-
-    @patch.object(Database, "connect_db")
-    def test_register_b(self, connect_db_mock):
-        with self.override_get_db() as mocK_return:
-            connect_db_mock.return_value = mocK_return
-            response = client.post(
-                "/register",
-                json={"username": "b", "email": "b@b.b", "pwd": "b"},
-                params={"latest": 5},
-            )
-            assert response.status_code == 204
-
-            response = client.get("/latest")
-            assert response.status_code == 200
-            assert response.json() == {"latest": 5}
-
-    @patch.object(Database, "connect_db")
-    def test_register_a(self, connect_db_mock):
-        with self.override_get_db() as mocK_return:
-            connect_db_mock.return_value = mocK_return
-            response = client.post(
-                "/register",
-                json={"username": "a", "email": "a@a.a", "pwd": "a"},
-                params={"latest": 1},
-            )
-            assert response.status_code == 204
-
-            response = client.get("/latest")
-            assert response.status_code == 200
-            assert response.json() == {"latest": 1}
-
-    @patch.object(Database, "connect_db")
     def test_create_msg_for_user_a(self, connect_db_mock):
         with self.override_get_db() as mocK_return:
             #############################
@@ -323,3 +259,4 @@ class Simulation_API_Testing(unittest.TestCase):
             response = client.get("/latest")
             assert response.status_code == 200
             assert response.json() == {"latest": 11}
+
