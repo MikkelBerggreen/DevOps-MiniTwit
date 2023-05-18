@@ -31,8 +31,10 @@ else:
     SECRET_KEY = "Test"
 
 app = FastAPI()
-logger = get_logger(__name__, ecs_logging.StdlibFormatter())
-status_reasons = {x.value: x.name for x in list(HTTPStatus)}
+
+if "SESSION_SECRET_KEY" in dotenv:
+    logger = get_logger(__name__, ecs_logging.StdlibFormatter())
+    status_reasons = {x.value: x.name for x in list(HTTPStatus)}
 
 
 def get_extra_info(request: Request, response: Response):
@@ -96,4 +98,5 @@ script_dir = os.path.dirname(__file__)
 st_abs_file_path = os.path.join(script_dir, "styles/")
 app.mount("//static", StaticFiles(directory=st_abs_file_path), name="styles")
 
-Instrumentator().instrument(app).expose(app)
+if "SESSION_SECRET_KEY" in dotenv:
+    Instrumentator().instrument(app).expose(app)
