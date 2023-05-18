@@ -24,5 +24,6 @@ jobs:
         run: |
           git config --global user.name 'OpsDev LaTex Report Automation Bot (ODLRAB)'
           git config --global user.email 'odlrab@github.com'
+          git add report/build/report.pdf
           git commit -am "ODLRAB - Update report.pdf"
           git push
