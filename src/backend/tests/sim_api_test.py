@@ -119,7 +119,7 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
             #############################
             response = await client.post(
                 "/msgs/a",
@@ -138,7 +138,7 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
             response = await client.post(
                 "/msgs/a",
@@ -169,7 +169,7 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
             response = await client.post(
                 "/msgs/a",
@@ -200,7 +200,7 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("a", "a@a.a", "a", 1)
 
             response = await client.post(
                 "/msgs/a",
@@ -258,9 +258,9 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
-            self.set_up_users("b", "b@b.b", "b", 5)
-            self.set_up_users("c", "c@c.c", "c", 6)
+            await self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("b", "b@b.b", "b", 5)
+            await self.set_up_users("c", "c@c.c", "c", 6)
             #############################
             response = await client.post(
                 "/fllws/a",
@@ -295,8 +295,8 @@ class Simulation_API_Testing(unittest.TestCase):
         with self.override_get_db() as mocK_return:
             #############################
             connect_db_mock.return_value = mocK_return
-            self.set_up_users("a", "a@a.a", "a", 1)
-            self.set_up_users("b", "b@b.b", "b", 5)
+            await self.set_up_users("a", "a@a.a", "a", 1)
+            await self.set_up_users("b", "b@b.b", "b", 5)
 
             response = await client.post(
                 "/fllws/a",
