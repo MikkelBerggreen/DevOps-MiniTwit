@@ -8,16 +8,12 @@
 \usepackage{biblatex} % Bibliography package
 \addbibresource{bibliography.bib} % Bibliography file
 
-% For counting words
-\usepackage{verbatim}
-\newcommand\wordcount{
-  \immediate\write18{texcount -1 -sum -merge -q main.tex > main.wcdetail }%
-  \verbatiminput{main.wcdetail}%
-}
+
 
 \title{DevOps - Final Report\\
   \large Group I
 }
+
 \author{
 Anders Latif (alat@itu.dk)\\
 Ivar Cmrečak (ivcm@itu.dk)\\
@@ -33,8 +29,10 @@ Nedas Surkus (nesu@itu.dk)\\
 \maketitle
 
 \vspace*{\fill}
-Word count: 
-\wordcount
+\noindent Course Name: DevOps, Software Evolution and Software Maintenance, MSc\\
+Course Code: KSDSESM1KU\\
+Github: \url{https://github.com/MinitwitGroupI/MiniTwit/}\\
+Domain: \url{https://opsdev.gg}
 
 
 \pagebreak
@@ -44,15 +42,23 @@ Word count:
 
 \section{Problem formulation}
 
-We have inherited a legacy system called Minitwit and have been tasked with refactoring it. Besides modernizing the stack it has been our aim to do so using DevOps methodologies. By reflecting on select few pillars of DevOps the final question becomes whether or not we achieved this goal. Is what we've done DevOps?
+We have inherited a legacy system called Minitwit and have been tasked with refactoring it. Besides modernizing the stack, it has been our aim to do so using DevOps methodologies. By reflecting on select few pillars of DevOps the final question becomes whether or not we achieved this goal; is what we've done DevOps?
 
 \section{System's Perspective} 
 
 \subsection{Design and architecture of the system}
 
-Minitwit uses a container-based architecture where each service runs in its own Docker container. The backend is built with FastAPI and Jinja. Grafana and Prometheus are utilized for monitoring, the EFK stack for logging, Redis and PostgreSQL serve as database.
+Minitwit uses a container-based architecture where each service runs in its own Docker container. The web application is built with FastAPI and Jinja. Grafana and Prometheus are utilized for monitoring, the EFK stack for logging, Redis and PostgreSQL serve as database.
 
-A deployment view was created to help illustrate how these components are deployed and interact with each other in a production environment, see appendix \ref{appendix:DeploymentView}. 
+A deployment view was created to help illustrate how these components are deployed and interact with each other in a production environment.
+
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{images/DeploymentView2.0.jpg}
+    \label{fig:ci_pipeline}
+    \centering
+    \caption{Deployment view Diagram}
+\end{figure}
+
 
 \subsection{Dependencies of the system}
 
@@ -73,7 +79,7 @@ Technologies and tools:
 \begin{itemize}
 
     \item Prometheus and Grafana for monitoring and visualising the state of the system.
-    \item Postman for testing of the API.
+    \item Postman for testing API endpoints.
     \item Elasticsearch, Filebeat and Kibana as a logging stack.
     \item Redis for storing global state.
     \item Nginx and Heartbeat for a high-availablity setup with a staging and deployment server.
@@ -85,18 +91,18 @@ Languages:
 \begin{itemize}
     \item Python for the web application.
     \item Jinja as a templating language.
-    \item Dockerfile.
+    \item Text for creating the Dockerfile.
     \item YAML for Docker, Ansible and Github Actions
 \end{itemize}
 
 \subsection{State of the system}
 
-The application is accessible on \url{opsdev.gg}. The code can be found in \href{https://github.com/MinitwitGroupI/MiniTwit}{this repository}. Everything is running without error and will be accessible until the date June 14th 2023.
+The application is accessible on \url{https://opsdev.gg}. See Appendix section  \ref{appendix:currentState} for current view of the application. The code can be found in \href{https://github.com/MinitwitGroupI/MiniTwit}{this repository}. Everything is running without error and will be accessible until the date June 14th 2023.
 Our system has been able to process at least 12.778.829 \footnote{\url{http://opsdev.gg:3000/d/DVJQxp-4k/minitwit-responses?orgId=1&viewPanel=2}} events in the span of 8 weeks.
 
 \subsection{Licences}
 
-Since profiteering is not our purpose the code is under the \href{https://github.com/MinitwitGroupI/MiniTwit/blob/main/LICENSE}{MIT License}.
+Since profiting is not our purpose the code is under the \href{https://github.com/MinitwitGroupI/MiniTwit/blob/main/LICENSE}{MIT License}.
 
 \subsection{Weekly tasks}\label{WeeklyTasksSection}
 
@@ -107,47 +113,48 @@ By importing the project to IntelliJ it auto-suggested to update the Python vers
 
 \subsubsection{Week 2 - Refactoring the app in another language }
 
-We listed possible frameworks, voted to exclude and then used a roulette to pick between two. The process is described here \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.r8lyr8ciz36h }}. 
+We did two rounds of voting. Initially we listed all possible frameworks we wished to work with and then voted on which frameworks should be eliminated until we had 2 finalists and then used a roulette to pick between the two. The process is described here \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.r8lyr8ciz36h }}. 
 
-The arguments for FastAPI, besides its familiarity to some of us, was how little change from the existing python code base was required and being able to reuse Jinja. This would let us focus on the DevOps tasks rather than web development. 
+Fast API was chosen due to general familiarity with the framework, allowing the team to reuse Jinja and low amount of change needed to port the application to the framework. We could even reuse the Jinja templates. This would let us focus on the DevOps tasks rather than web development. 
 
 We experienced some unexpected downsides to FastAPI:
 \begin{itemize}
-    \item The implementation of redirection for instance redirecting from a POST to another POST request would mean the loss of the original body and no way to pass it along. 
-    \item Redirecting between different routes that return different status codes was also an unexpected challenge. 
-    \item Since it is multi-threaded server it excludes the ability to have a global state and a session. We solved it with Starlette Session but still caused limitations in regards to combining it with middleware.
-    \item The tests required to be translated to "pytest" framework in order to be utilised.
+    \item The implementation of redirection for redirecting from a POST to another POST request would mean the loss of the original body and no way to pass it along. 
+    \item Redirecting between different routes would return different status codes which created an unexpected challenge.
+    \item Since it is a multi-threaded server, it excludes the ability to have a global state and a session. We solved it with Starlette Session but still caused limitations in regards to combining it with middleware.
+    \item The tests required to be translated to Starlette framework in order to be utilised.
 \end{itemize}
 
 \subsubsection{Week 3 - Virtualisation and deployment to the server}
 
 We created a single Dockerfile and set up Docker Compose. The old application was written for the Ubuntu 12.04 operating system, so for our deployment target we chose a DigitalOcean virtual machine using Ubuntu 22.04. DigitalOcean was chosen for it's ease of configuration and free student credits.
 
-A new Docker feature called Dev Environments gave us feature errors with mounting from files to containers and hot reloading.
+Initially, a new Docker feature called "Dev Environments" was used but it was  scraped as the environment prevented files mounting to containers and hot reloading.
+
 
 \subsubsection{Week 4 - Setting up CI/CD system }
 
 Github Actions gave us a simple configuration process without needing additional hosted infrastructure. Ansible was chosen for deploying our changes because of it's idempotency, declarative paradigm and simple configuration.
 See section \ref{cicd}. 
 
-Fetching secrets between Github Actions and Ansible were initially solved by creating a file on the server instead of storing all of them in Github Actions Secrets. This was only fixed 2 weeks later.
+Fetching secrets between Github Actions and Ansible were initially solved by creating a file on the server instead of storing all of them in Github Actions Secrets. This was only fixed in week 6.
 
 \subsubsection{Week 5 - ORM }
 
-Three ORMs have been considered and the arguments are mapped \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.auxry4rgtrx1}}. A benchmark repository was created \footnote{\url{https://github.com/MinitwitGroupI/ORM_Benchmarks }} and after a Github Discussion \footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/discussions/57 }} a vote was held. The choice fell on the most popular choice for Python - SQLAlchemy - and it did not cause regret. 
+Three ORMs have been considered and the arguments are mapped \footnote{\url{https://docs.google.com/document/d/1EOrFKD0XFW5gxv1NycgtTuj9rO6dggau99LybLYIRq0/edit\#heading=h.auxry4rgtrx1}}. A benchmark repository was created \footnote{\url{https://github.com/MinitwitGroupI/ORM_Benchmarks }} and after a Github Discussion \footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/discussions/57 }} a vote was held. The choice fell on the most popular choice for Python - SQLAlchemy - which did not cause any notable issues during implementation. 
 
 \subsubsection{Week 6 - Monitoring }
 
 Prometheus with Grafana is considered the most popular choice in the industry \footnote{https://stackshare.io/stackups/grafana-vs-nagios}. 
 
 
-FastAPI is multi-threaded and thus doesn't support having a global state. Storing the total http calls would only pertain to the current thread. This was solved by storing the value in Redis. This was done in an asynchronous way that wouldn't impact performance. 
+FastAPI is both multi-threaded and stateless which excludes the ability to have a global state. Storing the total http calls would only pertain to the current thread. This was solved by storing the value in Redis. This was done in an asynchronous way that wouldn't impact performance. 
 
-We audited our partner groups website and created issues for known issues \footnote{\url{https://github.com/organizationGB/DevOps/issues/23}} \footnote{\url{https://github.com/organizationGB/DevOps/issues/25}}. 
+We audited our partner groups website and created issues for issues that were discovered \footnote{\url{https://github.com/organizationGB/DevOps/issues/23}} \footnote{\url{https://github.com/organizationGB/DevOps/issues/25}}. 
 
 \subsubsection{Week 7 - Maintainability, external code analysing }
 
-The Flake8 linter used by pylint does static code analysis in our CI pipeline to provide soft feedback that does not block builds but hint at potential problems. SonarQube and CodeClimate integrated perfectly with our repository but gave vastly different views on code quality than us. It required manually dismissing a lot of warnings about duplicated code which existed in our unit tests. It ended up being a burden rather than helpful.
+The Flake8 linter used by pylint does static code analysis in our CI pipeline that only blocks builds if there is any problems that would cause a crash, otherwise it provides hints on ways to improve current coding style. SonarQube and CodeClimate integrated perfectly with our repository but gave vastly different views on code quality than anticipated. It required manually dismissing a lot of warnings about duplicated code which existed in our unit tests and provided several false positives that had to be dismissed. It ended up being a burden rather than helpful.
 
 \subsubsection{Week 8 - EFK stack}
 
@@ -157,13 +164,13 @@ The provided guide \footnote{https://github.com/itu-devops/itu-minitwit-logging}
     \item Adjustment of versions were required from the provided guide 
     \item Poor support for encoding custom user credentials in Kibana and Elastic Search.
     \item User credentials on Filebeat had to be manually hard coded.
-    \item With regards to security it was difficult to enable for each service 
+    \item There was little documentation on what security features have to enabled in Production
     \item Any change could only be tested in production given our setup.
 \end{itemize}
 
-This meant that implementing the EFK stack was the most difficult and time consuming task of them all. 
+This meant that implementing the EFK stack was the most difficult and time consuming assignment. 
 
-Implementing the EFK stack required vertically scaling the server in terms of CPU, memory and disk size. This caused our server to be down for 1 day. 
+Implementing the EFK stack required vertically scaling the server in terms of CPU, memory and disk size. This resulted in server downtime of 1 day. 
 
 The postmortem exercise was completed. A crash was introduced inside the "message" field and the logging was used to locate the crash point and patch it. \footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/Postmortems.md}}. 
 
@@ -174,7 +181,9 @@ Metasploit and OWASP ZAP scans revealed minor vulnerabilities relating to missin
 
 The idea of integrating OWASP ZAP to the CI/CD pipeline was considered but dismissed on grounds of being beyond the scope.
 
-A security assessment was performed on our partner group \ref{appendix:securityAssessment}.\footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/security\%20report/Group\%20I\%20\%20-\%20Security\%20Assessment\%20Findings\%20Report.pdf}}
+A Lynis scan was carried out on the server which resulted in setting up Fail2ban. The default settings were used for Fail2ban.
+
+A security assessment was performed on our partner group. See Appendix section  \ref{appendix:securityAssessment}.\footnote{\url{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/security\%20report/Group\%20I\%20\%20-\%20Security\%20Assessment\%20Findings\%20Report.pdf}}
 
 \subsubsection{Week 10 - Scaling and rolling out updates }
 
@@ -186,27 +195,28 @@ We already implemented deployments to a staging environment prior to production,
 
 \subsubsection{Week 12 - Encode your infrastructure setup }
 
-Changing our existing IaC from Vagrant to Terraform did not provide any perceived benefits. Vagrant works for both provisioning and configuration management. Besides the lack of benefits the downside of Terraform is having to deal with state. 
+Changing our existing IaC from Vagrant to Terraform did not provide any perceived benefits. Vagrant works for both provisioning and configuration management. Besides the lack of benefits, the downside of Terraform is having to deal with state. 
 
 \section{Process' perspective} \label{cicd}
 
 \subsection{Team Organisation and Developer interaction} 
 
-A Github organisation \href{https://github.com/MinitwitGroupI/}{MinitwitGroupI} was created where team interaction was centered around Github and Discord. Discord was used for informal discussion and to make sure everyone is on the same page. For tasks and discussions Github Issues were encouraged. This gave us a Project View with a visual Kanban \footnote{\url{https://github.com/orgs/MinitwitGroupI/projects/1}}. 
+A Github organisation \href{https://github.com/MinitwitGroupI/}{MinitwitGroupI} was created and the team interaction was centered around Github and Discord. Discord was used for informal discussion and to make sure everyone is on the same page. For tasks and discussions Github Issues were encouraged. This gave us a Project View with a visual Kanban \footnote{\url{https://github.com/orgs/MinitwitGroupI/projects/1}}. 
 
 \subsection{Stages and tools utilized in CI/CD chains}
 
-We use GitHub Actions for performing all CI/CD operations.
+We use GitHub Actions for performing all CI/CD operations to our staging and production servers.
 
 \subsubsection{Continuous Integration (CI)}
 
-Upon each commit, Github Actions triggers a job that builds our application using Docker. This process creates a Docker image, which is then used as the environment for linting and running unit tests on the Python code base. An integration test has been defined in sim\_api\_test.py which creates a test database and tries the simulator endpoints.
+Upon each commit, Github Actions triggers a job that builds our application using Docker. This process creates a Docker image, which is then used as the environment for linting and running unit tests on the Python code base. Integration tests are located in sim\_api\_test.py which creates a test database and tries the simulator endpoints.
+UI tests can be located in minitwit\_old\_test.py which test out the functionality of all routes.
 
 
 
 For a pull request to be merged, it must successfully pass all unit and integration tests.
 \begin{figure}[h]
-    \includegraphics[width=0.4\textwidth]{images/Lint-and-test_Pipeline.png}
+    \includegraphics[width=0.4\textwidth]{images/Test_pipeline.png}
     \label{fig:ci_pipeline}
     \centering
     \caption{Lint and test pipeline}
@@ -215,7 +225,7 @@ For a pull request to be merged, it must successfully pass all unit and integrat
 
 \subsubsection{Continuous Deployment (CD)}
 
-A pull request to merge with the main branch triggers the CD pipeline. The first step in this pipeline is pushing the new versions of the Docker images to Docker Hub. 
+An approved pull request to merge with the main branch triggers the CD pipeline. The first step in this pipeline is pushing the new versions of the Docker images to Docker Hub. 
 
 Using Ansible, we first deploy our entire application stack to a staging server. This environment allows us to verify the functionality and stability of our application before deploying it to production.
 
@@ -236,7 +246,7 @@ CONTRIBUTE.md explains the structure of the repository and our expectations for 
 
 \subsection{Branching strategy}
 
-We use the feature branches strategy for individual development. For releases \footnote{https://github.com/MinitwitGroupI/MiniTwit/releases} we achieved trunk based development by pushing into main and manually bundling releases. In order to push to main, we had setup branch protection that require pull requests to be reviewed by at least one other team members, but the goal was to attach anyone that would be involved with the task. Our branching philosophy is described here \footnote{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/CONTRIBUTE.md}.
+We use the feature branches strategy. For releases \footnote{https://github.com/MinitwitGroupI/MiniTwit/releases} we achieved trunk based development by pushing into main and manually bundling releases. In order to push to main, we had setup branch protection that require pull requests to be reviewed by at least one other team members, with the goal to attach anyone that would be involved with the task. Our branching philosophy is described here \footnote{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/CONTRIBUTE.md}.
 
 \subsection{Monitoring}
 
@@ -255,23 +265,23 @@ The metrics are inspired by the Google Site reliability engineering standard cal
 Appendix \ref{appendix:monitoringDashboard} shows an overview. 
 \newline
 
-Postman runs daily on the production frontend and sends emails if anything is down. As part of the Postman monitoring we test response time and this helped us realize that our front page was extremely slow. This was solved by adding indexes in the database to the field "created date". 
+Postman runs daily on the production frontend and sends emails if anything is down. As part of the Postman monitoring we test response time and this helped us notice that our front page load times were extremely slow. This was solved by adding indexes in the database to the field "pub\_date desc" and "author\_id". 
 
 \subsection{Logging}
 
 For logging we use the EFK stack. The Kibana dashboard can be found on \url{http://opsdev.gg:5601} with the username \emph{helgeandmircea} and password \emph{sesame0uvr3toi}. 
 
-We aggregate multiline logs into a single log in FileBeat and filter them inside Kibana using several regex filters. The dashboards were created using Kibana's dashboard visualization tool. Appendix \ref{appendix:loggingDashboard} shows an overview.
+We aggregate multi line logs into a single log in FileBeat and filter them inside Kibana using several regex filters. The dashboards were created using Kibana's dashboard visualization tool. Appendix \ref{appendix:loggingDashboard} shows an overview.
 
 
 \subsection{Security Assessment}
 
-From the view of DevSecOps security is an integral part of the development life cycle. We created a risk analysis review. Furthermore, here are the result of security assessment: 
+From the view of DevSecOps, security is an integral part of the development life cycle. We created a risk analysis review. Furthermore, here are the result of security assessment: 
 
 \begin{itemize}
-    \item Scanning our application with Metasploit and OWASP ZAP highlighted some missing headers to prevent clickjacking, but no significant vulnerability. 
-    \item The peer team attempted to exploit the website but did not produce any noteworthy results. 
-    \item Reviewing the peer team resulted in the other teams database and cookies being compromised. We go into depth in the appendix \ref{appendix:securityAssessment}.
+    \item Scanning our application with Metasploit and OWASP ZAP highlighted some missing headers to prevent clickjacking, but no significant vulnerabilities. 
+    \item The assigned peer team attempted to exploit the website but did not produce any noteworthy results. 
+    \item Conducting a review on the teams assigned peer team resulted in the other teams database and cookies being compromised. We go into depth in the appendix \ref{appendix:securityAssessment}.
 \end{itemize}
 
 
@@ -302,12 +312,12 @@ Going by the DevOps Handbook \cite{devopshandbook} we have chosen a couple defin
 
 \begin{enumerate}
     \item Make work visible: We used the kanban provided by Github Project for feature development. 
-    \item Limit Work in Progress: The course structure helped spread out the tasks. After each exercise session, team members 
+    \item Limit Work in Progress: The course structure helped spread out the tasks. After each exercise session, team members would create new issues that need to be implemented or fixed.
 \end{enumerate}
 
 \subsubsection{Feedback}
 
-See Problems as They Occur: 
+See Problems as they occur: 
 
 \begin{enumerate}
     \item We set up monitoring and logging.
@@ -329,19 +339,19 @@ Considering the small team and constant change in weekly tasks this was not a co
 
 \subsection{Ways we are not DevOps}
 
-We have not focused on anything relating to the Toyota Kata and seeing our development as a value stream that could contain waste. 
+We have not focused on anything relating to the Toyota Kata\footnote{ The DevOps Handbook. Page 6-8.} and seeing our development as a value stream that could contain waste. 
 
-While Github Issues were created for features, ad hoc tasks such as bug fixes were not, which breaks the principle of making work visible. 
+While Github Issues were created for features, ad hoc tasks such as hot fixes were not, which breaks the principle of making work visible. 
 
 \subsubsection{Knowledge transfer}
 
 "The Bus Factor" was repeated during the guest lecture which is the concept that no single developer should become key to development or infrastructure to the degree that progress can't occur without them. We did have insufficient knowledge transfer across the team but not to such a severe degree that it could be termed "The Bus Factor".
 
-What happened was that we each carved out our niche based on prior knowledge. PR reviews were intended for knowledge sharing but had its limitations. We tried to amend this by creating good documentation in our repository for each other, but some of the non-standard solutions meant that a larger effort was required for role shifting.  
+We each carved out our niche based on prior knowledge. PR reviews were intended for knowledge sharing but had its limitations. We tried to amend this by creating good documentation in our repository for each other, but some of the non-standard solutions meant that a larger effort was required for role shifting.  
 
-\subsubsection{Keep Pushing Quality Closer to the Source}
+\subsubsection{Pushing Quality Closer to the Source}
 
-SonarQube and CodeClimate were added and integrated with our repository, but ultimately ignored, because the warnings given were mostly irrelevant. Likewise, we had set up linting but it was ignored since the deployment still worked without it. We should've created a pre-commit hook that didn't allow pushing before all linting passes. 
+SonarQube and CodeClimate were added and integrated with our repository, but ultimately ignored, because the warnings given were mostly non-applicable to the application. Likewise, we had set up linting but it was ignored as it was implemented late in the development cycle. We should've created a pre-commit hook that didn't allow pushing before all linting passes. 
 
 \subsubsection{Reduce Batch Sizes}
 
@@ -368,7 +378,7 @@ In conclusion, we could've approached the larger tasks in smaller batches.
 
 DevOps has enjoyed many different views through different eras \cite{devopsviewsthrougheras}. The Phoenix Project \cite{thephoenixproject} focuses on DevOps as a culture. One important concept should be psychological safety.
 
-It took time for us to align expectations. During this period we had to agree on the technology stack which felt like a popularity contest for the best framework. In the following weeks however, everyone became really helpful and Discord calls occurred in random constellations. We picked up the term "psychological safety" from the guest lecture and repeated it as a mantra in our group.
+It took time for us to align expectations. During this period we had to agree on the technology stack which felt like a popularity contest for the best framework. In the following weeks however, everyone became really helpful and Discord calls occurred in random permutations. We picked up the term psychological safety from the guest lecture and repeated it as a mantra in our group.
 
 \section{Lessons Learned Perspective}
 
@@ -376,24 +386,24 @@ It took time for us to align expectations. During this period we had to agree on
 
 \subsubsection{Refactoring} 
 
-Refactoring was a breeze because we chose FastAPI which allowed us to reuse big parts of the original Flask application. While Flask would've sufficed we managed to add better security through password encryption. 
+We followed the Strangle Fig pattern and refactored the web application in increments. Picking FastAPI resulted in significantly less time spent on refactoring which allowed us to reuse big parts of the original Flask application. While Flask would've sufficed we managed to add better security through password encryption. 
 
 \subsubsection{Evolution}
 
-We were often blocked by upcoming tasks. Testing required implementing the ORM to mock a similar database setup as the one in production. We couldn't implement CI without tests and CD required CI to be done. 
+We were often blocked by parallel tasks. Testing required implementing the ORM to mock a similar database setup as the one in production. We couldn't implement CI without tests and CD required CI to be done. 
 
 In retrospect it's difficult to say if there is a better path to complete the project. It has become apparent to us which tasks were of the highest priority and that other tasks depended on. 
 
 \subsubsection{Maintenance}
 
-We have estimated the likely uptime based on Postman monitors and our monitoring dashboard and used the metrics in our SLA\footnote{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/SLA.md}. 
+We have estimated the likely up time based on Postman monitors and our monitoring dashboard and used the metrics in our SLA\footnote{https://github.com/MinitwitGroupI/MiniTwit/blob/main/docs/SLA.md}. 
 
 Thanks to our monitoring we picked up on some infrequent outages. We could not verify whether some were caused by the simulator pausing or a problem on our end. We experienced at least three types of known outages:
 
 \begin{enumerate}
     \item Outage during deployment while the Docker image was pulled and started. This was solved by our high-availability setup. 
-    \item An initial misconfiguration of heartbeat caused CPU overprovisioning and huge latency issues.
-    \item The daily 5 AM outage. Through research we discovered that PostgreSQL by default restarts and does garbage collection and other maintanance. 
+    \item An initial misconfiguration of heartbeat caused CPU over provisioning and huge latency issues.
+    \item The daily 5 AM outage. Through research we discovered that PostgreSQL by default restarts at a certain time during which it does garbage collection and other maintenance. 
 \end{enumerate}
 
 Overall we felt that a minimal amount of maintenance is needed and would confidently hand over the project to another team. 
@@ -405,9 +415,9 @@ We reflect on how much we adhere to DevOps principles in \ref{DevOpsPrinciplesSe
 
 In other university courses, there's not a big focus on team collaboration, so we entered the project without a baseline on how to work together.
 
-We had hoped that PRs would ensure a high code quality, but with no prior experience with the technologies we couldn't ensure a high standard was maintained. This let to the "lgtm" (looks good to me) syndrome.
+We had hoped that PRs would ensure a high code quality, but with no prior experience with the technologies and obligations from other courses, we couldn't ensure a high standard was maintained. This let to the "LGTM" (looks good to me) syndrome.
 
-Optimally we should have had a test environment as well as a production environment. Some changes were unpredictable when tested locally, and when pushed into production, sometimes caused the application to go down.
+Optimally we should have had a test environment as well as a production environment. Some changes would have unpredictable interactions only when deployed to production and as result would cause downtime.  Ensuring a test environment would have helped to mitigate this issue.
 
 Before implementing CD we had a pull-based approach of the weekly release that would frequently break. Pinpointing the issue would mean having to go through all the commits which caused a long MTTR (mean time to repair). 
 
@@ -418,11 +428,11 @@ It would've been nice to automate the infrastructure. Right now deploying from s
 
 \subsection{Hand over}
 
-We consider that no further maintenance is required. If a new group were to inherit our codebase, we have created a document to guide them\ref{appendix:handOverGuide}. 
+We consider that no further maintenance is required. If a new group were to inherit our code base, we have created a document to guide them. See Appendix section \ref{appendix:handOverGuide}. 
 
 \section{Conclusion}
 
-We have listed many technologies and tools that are typical of DevOps project. In isolation they do not make our work DevOps. Instead it is in the way they flow seamlessly to provide Continuous Delivery and Continous Feedback as part of The DevOps Way. We have also reviewed our team work through the lense of DevOps as a culture. We have reflected on possible improvement in how we work as a team as well as split up our commits in smaller batch sizes. Overall, we can conclude that our approach to the project has adhered to the principles of DevOps. 
+We have listed many technologies and tools that are typical of DevOps project. In isolation they do not make our work "DevOps". Instead it is in the way they flow seamlessly together to provide Continuous Delivery and Continuous Feedback as part of The DevOps Way. We have also reviewed our team work through the lens of DevOps as a culture. We have reflected on possible improvement in how we work as a team as well as split up our commits in smaller batch sizes. Overall, we can conclude that our approach to the project has adhered to the principles of DevOps. 
 
 
 \input{appendix}
